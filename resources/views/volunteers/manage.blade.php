@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row user mb-5">
             <div class="col-md-3 col-lg-3">
-                <a href="view-edit.html">
+                <a href="{{ route('volunteer.view-edit') }}">
                     <div class="card">
                         <div class="card-body text-center">
                             <div class="card-title">
@@ -16,6 +16,21 @@
                             </div>
                             <div class="card-text mt-3">
                                 <h5>View / Edit <br> Volunteer Details</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-lg-3">
+                <a href="{{ route('volunteer.list-all') }}">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="card-title">
+                                <img src="{{ asset('assets/images/volunteers-icon.png') }}" width="70" height="70" alt="user-image">
+                            </div>
+                            <div class="card-text mt-3">
+                                <h5>List All Volunteers</h5>
                             </div>
                         </div>
                     </div>
@@ -34,7 +49,8 @@
                     </div>
                 </a>
             </div>
-
+        </div>
+        <div class="row user mb-5">
             <div class="col-md-3 col-lg-3">
                 <a href="">
                     <div class="card text-center p-3">

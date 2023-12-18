@@ -19,7 +19,8 @@
             <div class="col-lg-3 p-3 card">
                 <div class="row">
                     <div class="col-4 d-flex justify-content-center">
-                        <img src="{{ asset('assets/images/admin-icon.png') }}" width="70" height="70" alt="user-image">
+                        <img src="{{ asset('assets/images/admin-icon.png') }}" width="70" height="70"
+                            alt="user-image">
                     </div>
                     <div class="col">
                         <div class="name mb-1">
@@ -37,7 +38,8 @@
             <div class="col-lg-3 p-3 card">
                 <div class="row">
                     <div class="col-4 d-flex justify-content-center">
-                        <img src="{{ asset('assets/images/user-icon.png') }}" width="70" height="70" alt="user-image">
+                        <img src="{{ asset('assets/images/user-icon.png') }}" width="70" height="70"
+                            alt="user-image">
                     </div>
                     <div class="col">
                         <div class="name mb-1">
@@ -71,7 +73,8 @@
             <div class="col-lg-3 p-3 card">
                 <div class="row">
                     <div class="col-4 d-flex justify-content-center">
-                        <img src="{{ asset('assets/images/user-icon.png') }}" width="70" height="70" alt="user-image">
+                        <img src="{{ asset('assets/images/user-icon.png') }}" width="70" height="70"
+                            alt="user-image">
                     </div>
                     <div class="col">
                         <div class="name mb-1">
@@ -101,7 +104,8 @@
             <div class="col-lg-3 p-3 card">
                 <div class="row">
                     <div class="col-4 d-flex justify-content-center">
-                        <img src="{{ asset('assets/images/user-icon.png') }}" width="70" height="70" alt="user-image">
+                        <img src="{{ asset('assets/images/user-icon.png') }}" width="70" height="70"
+                            alt="user-image">
                     </div>
                     <div class="col">
                         <div class="name mb-1">
@@ -144,7 +148,7 @@
                 <form>
                     <div class="modal-header">
                         <h4 class="modal-title">User Profile</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group mb-2">
@@ -190,7 +194,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Change Password</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -225,7 +229,7 @@
                 <form>
                     <div class="modal-header">
                         <h4 class="modal-title">User Profile</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group mb-2">

@@ -7,12 +7,13 @@
                 </div>
                 <div class="container addForm">
                     <div class="row d-flex justify-content-center bg-light">
-                        <div class="col-11 mt-5">
-                            <div class="col d-flex justify-content-center mb-5">
+                        <div class="col-11 mt-4">
+                            <div class="col d-flex justify-content-center mb-3">
                                 <div class="underline-heading text-center">
                                     <h3>Add New Drive</h3>
                                 </div>
                             </div>
+                            <div class="text-left"><span class="fw-bold">Drive ID:</span> 08</div>
                             <form action="" class="form mb-5">
                                 <div class="row mt-3">
                                     <div class="col-md-4 col-lg-4">

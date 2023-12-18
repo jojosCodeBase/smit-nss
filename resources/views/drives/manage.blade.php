@@ -143,9 +143,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <form action="">
                     <div class="modal-body">
@@ -217,7 +215,7 @@
                 <form>
                     <div class="modal-header">
                         <h4 class="modal-title">Delete Drive</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
                     </div>
                     <div class="modal-body">
                         <p>Are you sure you want to delete this drive records?</p>

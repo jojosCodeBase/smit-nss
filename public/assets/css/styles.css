@@ -93,8 +93,25 @@ body{
 .btn-primary:focus-within,
 .btn-success:focus-within,
 .btn-danger:focus-within,
-.btn-info:focus-within{
+.btn-info:focus-within,
+.btn-close:focus-within,
+.btn-default:focus-within{
     box-shadow: none;
+}
+
+.btn-delete{
+    color:#bb2836;
+}
+.btn-edit{
+    color: #ffc107;
+}
+.btn-edit:hover{
+    color:#198754;
+}
+
+.btn-delete:hover{
+    color: #e61126;
+
 }
 
 /*
@@ -184,9 +201,11 @@ table.table tr td {
     vertical-align: middle;
 }
 
+/*
 table.table tr th:first-child {
     width: 60px;
 }
+*/
 
 table.table tr th:last-child {
     width: 100px;
@@ -445,3 +464,30 @@ table.table .avatar {
 .modal-footer .btn-default:hover {
     text-decoration: underline;
 }
+
+/*
+====================================
+    Section separator
+====================================
+*/
+.personal-info,
+.other-info {
+    border-right: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+
+
+.search-row .form-control {
+    border: none;
+}
+
+.search-row .form-control:focus-within,
+.search-row .btn-primary:focus-within {
+    box-shadow: none;
+}
+
+.search-row .input-group-text {
+    background-color: white;
+    border: none;
+}
+

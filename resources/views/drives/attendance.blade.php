@@ -105,8 +105,8 @@
                                 <h6>Volunteers Present</h6>
                             </div>
                             <div class="col d-flex justify-content-end">
-                                <button class="btn btn-success mx-2" data-toggle="modal" data-target="#addAttendanceModal"><i
-                                        class="bi-plus-circle"></i> Add
+                                <button class="btn btn-success mx-2" data-toggle="modal"
+                                    data-target="#addAttendanceModal"><i class="bi-plus-circle"></i> Add
                                     Attendance</button>
                                 <button class="btn btn-danger"><i class="bi-dash-circle"></i> Delete</button>
                             </div>
@@ -153,7 +153,7 @@
                 <form>
                     <div class="modal-header">
                         <h4 class="modal-title">Add Attendance</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">

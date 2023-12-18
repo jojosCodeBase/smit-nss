@@ -1,5 +1,8 @@
 @extends('layouts/content')
 @section('content')
+    <div class="breadcrumb-bar mb-3 px-4">
+        <span class="breadcrumb-item">Home</span>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-3">
