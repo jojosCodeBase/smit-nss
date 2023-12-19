@@ -29,6 +29,11 @@ class VolunteerController extends Controller
     {
         return view('volunteers.list');
     }
+    public function viewUpdate($regno)
+    {
+        $volunteer = Volunteer::where('id', $regno)->get();
+        return redirect()->route('volunteer.view-edit')->with(['volunteer' => $volunteer, 'success' => 'Volunteer details updated successfully !']);
+    }
 
     public function insert(Request $r)
     {
@@ -57,23 +62,18 @@ class VolunteerController extends Controller
 
     public function viewDetails(Request $r)
     {
-        // dd($r->search_string);
         $volunteer = Volunteer::where('id', $r->search_string)
             ->orWhere('name', 'like', '%' . $r->search_string . '%')
             ->get();
 
-        // var_dump($volunteer);
-
         if ($volunteer->isEmpty()) {
-            return redirect()->route('volunteer.view-edit')->with('fail', 'No results found for '. $r->search_string);
+            return back()->with('fail', 'No results found for ' . $r->search_string);
         } else
-            return view('volunteers.details', ['volunteer' => $volunteer])->with('success', 'success');
+            return back()->with('volunteer', $volunteer);
     }
 
     public function updateDetails(Request $r)
     {
-        // $registrationNumber = $r->input('regno');
-        // dd($registrationNumber);
         $updateVolunteer = Volunteer::where('id', $r->regno)->update([
             'name' => $r->name,
             'phone' => $r->phone,
@@ -83,13 +83,32 @@ class VolunteerController extends Controller
             'batch' => $r->batch,
         ]);
 
-        if ($updateVolunteer)
-            return back()->with('success', 'Volunteer details updated successfully !');
-        else
+        if ($updateVolunteer) {
+            return redirect()->route('volunteer.view-update', ['id' => $r->regno]);
+        } else
             return back()->with('fail', 'Some error occured in updating volunteer details !');
-        // dd('not updated');
-        //     dd('updated');
-
     }
 
+    public function fetchDetails(){
+        $obj = Volunteer::where('id', '202116033')->get();
+        echo "<pre>";
+        var_dump($obj);
+        echo "</pre>";
+        $volunteers = $obj->attributesToArray();
+        echo "<pre>";
+        var_dump($volunteers);
+        echo "</pre>";
+
+        // $volunteers = Volunteer::all();
+        // foreach($volunteers as $v){
+        //     echo $v . '<br>';
+        // }
+
+        // dd();
+        // if ($volunteers) {
+        //     return back()->with('volunteer', $volunteers);
+        // } else{
+        //     return back()->with('fail', 'No results found');
+        // }
+    }
 }

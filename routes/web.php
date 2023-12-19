@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Drives\DriveController;
 use App\Http\Controllers\USers\UserController;
+use App\Http\Controllers\Volunteers\ChildVolunteerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Volunteers\VolunteerController;
@@ -31,18 +32,27 @@ Route::middleware(['auth'])->group(function () {
         return view('home');
     })->name('home');
 
-    Route::get('/volunteer/manage', [VolunteerController::class, 'manage'])->name('volunteer.manage');
     Route::get('/volunteer/add', [VolunteerController::class, 'add'])->name('volunteer.add');
     Route::post('/volunteer/add-new', [VolunteerController::class, 'insert'])->name('volunteer.add-new');
     Route::get('/volunteer/search', [VolunteerController::class, 'search'])->name('volunteer.search');
 
-    Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'view_edit'])->name('volunteer.view-edit');
-    Route::post('/volunteer/manage/view-edit', [VolunteerController::class, 'viewDetails'])->name('volunteer.view-details');
-    // Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'viewDetails'])->name('volunteer.view-update');
-    Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
-    // Route::get('/volunteer/manage/view-edit/update', [VolunteerController::class, 'viewDetails'])->name('volunteer.update');
+    // volunteer manage start
+        Route::get('/volunteer/manage', [VolunteerController::class, 'manage'])->name('volunteer.manage');
+        Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'view_edit'])->name('volunteer.view-edit');
+        Route::post('/volunteer/manage/view-edit', [VolunteerController::class, 'viewDetails'])->name('volunteer.view-details');
 
-    Route::get('/volunteer/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
+        Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
+        Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
+
+        Route::get('/volunteer/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
+
+        Route::post('/volunteer/list-all', [VolunteerController::class, 'fetchDetails'])->name('volunteer.list-all');
+
+    // volunteer manage end
+
+
+
+
 
     Route::get('/drive/manage', [DriveController::class, 'manage'])->name('drive.manage');
     Route::get('/drive/add', [DriveController::class, 'add'])->name('drive.add');
