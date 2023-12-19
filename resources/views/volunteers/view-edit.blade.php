@@ -6,10 +6,30 @@
         <span class="breadcrumb-item">Manage</span>
         <span class="breadcrumb-item active">View/Edit Volunteer Details</span>
     </div>
+    @if (session('fail'))
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <b>{{ session('fail') }}</b>
+                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span>{{ session('success') }}</span>
+                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="container">
         <div class="row search-row" id="search" style="display: block;">
             <div class="col">
-                <h2 class="text-center">Search Volunteer</h2>
+                <h2 class="text-center">Search Volunteer View-edit</h2>
                 <div class="row">
                     <div class="col d-flex justify-content-center">
                         <form action="{{ route('volunteer.view-details') }}" method="POST" class="input-group w-50">
@@ -24,16 +44,6 @@
                     </div>
                 </div>
             </div>
-            @if(Session::has('fail'))
-                <div class="row d-flex justify-content-center mt-5">
-                    <div class="col-4">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <span>No results found, Try Again !</span>
-                            <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 @endsection

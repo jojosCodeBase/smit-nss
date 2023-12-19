@@ -38,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'view_edit'])->name('volunteer.view-edit');
     Route::post('/volunteer/manage/view-edit', [VolunteerController::class, 'viewDetails'])->name('volunteer.view-details');
+    // Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'viewDetails'])->name('volunteer.view-update');
+    Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
+    // Route::get('/volunteer/manage/view-edit/update', [VolunteerController::class, 'viewDetails'])->name('volunteer.update');
 
     Route::get('/volunteer/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
 
