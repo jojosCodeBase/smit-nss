@@ -47,7 +47,7 @@
         </div>
         @if (session('volunteer'))
             <div class="row details-row mt-5 p-0 d-flex justify-content-center">
-                <div class="col bg- p-4 mx-4 border mb-4 bg-light">
+                <div class="col p-4 mx-4 border mb-4 bg-light">
                     <div class="row">
                         <h4 class="text-center mb-0">Available Records</h4>
                         <table class="table table-light">

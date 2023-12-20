@@ -466,9 +466,6 @@ table.table .avatar {
     border-right: 2px solid rgba(0, 0, 0, 0.5);
 }
 
-
-
-
 .search-row .form-control {
     border: none;
 }
@@ -502,11 +499,38 @@ table.table .avatar {
 
 .title-table{
     font-weight: 500;
+    background-color: #cac8c8;
 }
 
 .details-row h6{
     font-weight: bold;
     opacity: 80%;
     margin-bottom: 10px;
+}
+
+/*
+====================================
+    DataTable.net Action buttons
+====================================
+*/
+
+ .dt-button {
+    background-color: #2980b9;
+    color: #fff;
+    border: 1px solid #2980b9;
+    font-size: 20px;
+    margin-right: 5px;
+    width: 60px;
+}
+
+.dt-button:hover {
+    text-decoration: underline;
+    color: #fff;
+    border: 1px solid black;
+}
+
+footer{
+    background-color: #413f3f;
+    color: white;
 }
 

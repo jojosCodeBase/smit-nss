@@ -8,7 +8,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+
+    {{-- start css for data-tables with export buttons --}}
+        {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css"> --}}
+    {{-- end css for data-tables with export buttons --}}
+
+    {{-- start css for data-tables with bootstrap 5 --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    {{-- start css for data-tables with bootstrap5 --}}
+
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 </head>
 
 <body>
@@ -67,7 +80,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item p-0 text-start px-3 w-100">
-                                    <a href="{{ route('drive.manage') }}" class="nav-link align-middle px-0">
+                                    <a href="{{ route('drive.list') }}" class="nav-link align-middle px-0">
                                         <i class="fs-6 bi-pencil-square"></i> <span
                                             class="ms-1 d-none d-sm-inline">Manage</span>
                                     </a>
@@ -102,7 +115,7 @@
                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('assets/images/admin-photo.jpg') }}" alt="admin-image" width="30"
                                 height="30" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">{{Auth::user()->name}}</span>
+                            <span class="d-none d-sm-inline mx-1">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                             <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -111,7 +124,12 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Sign out</button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -122,13 +140,15 @@
             </div>
         </div>
     </div>
-    <footer class="bg-body-tertiary text-center text-lg-start bg-dark">
-        <div class="text-center p-3 text-light" style="background-color: rgba(0, 0, 0, 0.05);">
+    {{-- <footer class="bg-body-tertiary text-center text-lg-start bg-dark"> --}}
+    <footer class="">
+        {{-- <div class="text-center p-3 text-light" style="background-color: rgba(0, 0, 0, 0.05);"> --}}
+        <div class="text-center p-3 text-light">
             Designed and developed by
             <a class="text-light" href="" style="text-decoration: none;">Kunsang Moktan</a>
         </div>
     </footer>
-    <script src="{{ asset('assets/js/script.js') }}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
@@ -140,6 +160,58 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+
+    {{-- start js for data-tables with bootstrap 5 --}}
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table-list').DataTable({
+                dom: 'Bfrtip',
+                ordering: false,
+                buttons: [
+                    'excel',
+                    'pdf',
+                    'print'
+                ]
+            });
+        });
+    </script>
+    {{-- end js for data-tables with bootstrap 5 --}}
+
+
+
+    {{-- start js for data-tables with export buttons --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+        <script>
+        // new DataTable('#example');
+        $(document).ready(function() {
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'pdf', 'print'
+                ]
+            });
+        });
+    </script> --}}
+    {{-- end js for data-tables with export buttons --}}
+
 </body>
 
 </html>

@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', function () {
+    Route::get('/dashboard', function () {
         return view('home');
     })->name('home');
 
@@ -44,9 +44,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
         Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
 
-        Route::get('/volunteer/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
+        Route::get('/volunteer/manage/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
 
-        Route::post('/volunteer/list-all', [VolunteerController::class, 'fetchDetails'])->name('volunteer.list-all');
+        Route::post('/volunteer/manage/list-all', [VolunteerController::class, 'fetchDetails'])->name('volunteer.list-all');
 
     // volunteer manage end
 
@@ -54,17 +54,24 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    Route::get('/drive/manage', [DriveController::class, 'manage'])->name('drive.manage');
-    Route::get('/drive/add', [DriveController::class, 'add'])->name('drive.add');
+    Route::get('/drive/manage/list', [DriveController::class, 'listAll'])->name('drive.list');
+    Route::post('/drive/manage/list', [DriveController::class, 'search'])->name('drive.search');
+
+    Route::get('/drive/add', [DriveController::class, 'addView'])->name('drive.add');
+    Route::post('/drive/add', [DriveController::class, 'addDrive'])->name('drive.add');
     Route::get('/drive/attendance', [DriveController::class, 'attendance'])->name('drive.attendance');
 
     Route::get('/users/manage', [UserController::class, 'index'])->name('users.manage');
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::get('/test', function () {
+    return view('volunteers.test');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -90,14 +90,26 @@ class VolunteerController extends Controller
     }
 
     public function fetchDetails(){
-        $obj = Volunteer::where('id', '202116033')->get();
-        echo "<pre>";
-        var_dump($obj);
-        echo "</pre>";
-        $volunteers = $obj->attributesToArray();
-        echo "<pre>";
-        var_dump($volunteers);
-        echo "</pre>";
+        // $obj = Volunteer::where('id', '202116033')->get();
+        // echo "<pre>";
+        // var_dump($obj);
+        // echo "</pre>";
+        // $obj->
+        // $volunteers = $obj->toArray();
+        // echo "<pre>";
+        // var_dump($volunteers);
+        // echo "</pre>";
+
+        $obj = Volunteer::all();
+        // $obj = Volunteer::where('id', '202116039')->get();
+
+        $volunteers = $obj->toArray();
+
+        // echo "<pre>";
+        //     var_dump($volunteers);
+        // echo "</pre>";
+
+        // echo $volunteers[4]["id"];
 
         // $volunteers = Volunteer::all();
         // foreach($volunteers as $v){
@@ -105,10 +117,13 @@ class VolunteerController extends Controller
         // }
 
         // dd();
-        // if ($volunteers) {
-        //     return back()->with('volunteer', $volunteers);
-        // } else{
-        //     return back()->with('fail', 'No results found');
-        // }
+        if ($volunteers) {
+            // echo "inside if";
+            // dd();
+            return back()->with('volunteers', $volunteers);
+        } else{
+            // echo "inside else";
+            return back()->with('fail', 'No results found');
+        }
     }
 }

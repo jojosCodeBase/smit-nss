@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('drives', function (Blueprint $table) {
-            $table->integer('id');
+            $table->integer('id')->primary();
             $table->string('title');
             $table->date('date');
-            $table->string('conducted_by');
+            $table->string('from');
+            $table->string('to');
+            $table->string('conductedBy');
             $table->string('type');
             $table->string('area');
             $table->integer('present');

@@ -1,3 +1,4 @@
+<title>List of volunteers</title>
 @extends('layouts/content')
 @section('content')
     <div class="breadcrumb-bar mb-3 px-4">
@@ -37,14 +38,14 @@
             </form>
         </div>
 
-        @if(session('volunteers'))
+        @if (session('volunteers'))
             <div class="row details-row mt-5 p-0 d-flex justify-content-center">
                 <div class="col bg- p-4 mx-4 border mb-4 bg-light">
                     <div class="row">
                         <h4 class="text-center mb-0">All Volunteers</h4>
-                        <table class="table table-light table-striped">
+                        <table class="table table-light table-striped" id="table-list">
                             <thead>
-                                {{-- <th>Sl.no</th> --}}
+                                <th>Sl.no</th>
                                 <th>Reg.no</th>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -54,16 +55,19 @@
                                 <th>Department</th>
                             </thead>
                             <tbody>
-                                @foreach((session('volunteers')) as $v)
+                                @foreach (session('volunteers') as $v)
+                                    @php
+                                        $slno = $loop->iteration;
+                                    @endphp
                                     <tr>
-                                        {{-- <td>{{ $slno }}</td> --}}
-                                        <td>{{ $v->id }}</td>
-                                        <td>{{ $v->name }}</td>
-                                        <td>{{ $v->email }}</td>
-                                        <td>{{ $v->phone }}</td>
-                                        <td>{{ $v->batch }}</td>
-                                        <td>{{ $v->course }}</td>
-                                        <td>{{ $v->department }}</td>
+                                        <td>{{ $slno }}</td>
+                                        <td>{{ $v['id'] }}</td>
+                                        <td>{{ $v['name'] }}</td>
+                                        <td>{{ $v['email'] }}</td>
+                                        <td>{{ $v['phone'] }}</td>
+                                        <td>{{ $v['batch'] }}</td>
+                                        <td>{{ $v['course'] }}</td>
+                                        <td>{{ $v['department'] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -72,7 +76,7 @@
                 </div>
             </div>
         @endif
-        @if(session('fail'))
+        @if (session('fail'))
             <div class="row d-flex justify-content-center">
                 <div class="col">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
