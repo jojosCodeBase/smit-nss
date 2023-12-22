@@ -32,6 +32,10 @@ Route::middleware(['auth'])->group(function () {
         return view('home');
     })->name('home');
 
+    Route::get('/dashboard-ori', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::get('/volunteer/add', [VolunteerController::class, 'add'])->name('volunteer.add');
     Route::post('/volunteer/add-new', [VolunteerController::class, 'insert'])->name('volunteer.add-new');
     Route::get('/volunteer/search', [VolunteerController::class, 'search'])->name('volunteer.search');
@@ -53,9 +57,20 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    // admin profile edit
+    Route::get('/admin/profile', function(){
+        return view('profile-edit');
+    })->name('admin-profile');
 
+
+    // drive section
     Route::get('/drive/manage/list', [DriveController::class, 'listAll'])->name('drive.list');
-    Route::post('/drive/manage/list', [DriveController::class, 'search'])->name('drive.search');
+    Route::post('/drive/manage/list/search', [DriveController::class, 'searchDrive'])->name('drive.search');
+
+    Route::post('/drive/manage/list/update', [DriveController::class, 'update'])->name('drive.updateDetails');
+    Route::post('/drive/manage/list/delete', [DriveController::class, 'delete'])->name('drive.deleteDetails');
+
+    // Route::get('/drive/manage/list/search', [DriveController::class, 'searchDriveResult'])->name('drive.search.results');
 
     Route::get('/drive/add', [DriveController::class, 'addView'])->name('drive.add');
     Route::post('/drive/add', [DriveController::class, 'addDrive'])->name('drive.add');

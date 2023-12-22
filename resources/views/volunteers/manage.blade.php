@@ -1,79 +1,72 @@
 @extends('layouts/content')
 @section('content')
-    <div class="breadcrumb-bar mb-3 px-4">
-        <span class="breadcrumb-item">Home</span>
-        <span class="breadcrumb-item">Volunteers</span>
-        <span class="breadcrumb-item active">Manage</span>
-    </div>
-    <div class="container">
-        <div class="row user mb-5">
-            <div class="col-md-3 col-lg-3">
-                <a href="{{ route('volunteer.view-edit') }}">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="card-title">
-                                <img src="{{ asset('assets/images/user.png') }}" width="70" height="70" alt="user-image">
-                            </div>
-                            <div class="card-text mt-3">
-                                <h5>View / Edit <br> Volunteer Details</h5>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-3 col-lg-3">
-                <a href="{{ route('volunteer.list-all') }}">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="card-title">
-                                <img src="{{ asset('assets/images/volunteers-icon.png') }}" width="70" height="70" alt="user-image">
-                            </div>
-                            <div class="card-text mt-3">
-                                <h5>List All Volunteers</h5>
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-xl-12 col-xxl-5 d-flex">
+                <div class="w-100">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="card-image">
+                                            <img src="{{ asset('assets/img/icons/user-icon.png') }}" width="70" height="70"
+                                                alt="user-image">
+                                        </div>
+                                        <div class="card-text mt-3">
+                                            <h5>View / Edit Volunteer Details</h5>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="card-image">
+                                            <img src="{{ asset('assets/img/icons/delete-icon.jpg') }}" width="70" height="70"
+                                                alt="user-image">
+                                        </div>
+                                        <div class="card-text mt-3">
+                                            <h5>Delete Volunteer</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="card-image">
+                                            <img src="{{ asset('assets/img/icons/edit-icon.png') }}" width="70" height="70"
+                                                alt="user-image">
+                                        </div>
+                                        <div class="card-text mt-3">
+                                            <h5>Edit Batch Details</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row text-center">
+                                        <div class="card-image">
+                                            <img src="{{ asset('assets/img/icons/delete-icon.jpg') }}" width="70" height="70"
+                                                alt="user-image">
+                                        </div>
+                                        <div class="card-text mt-3">
+                                            <h5>Delete Batch</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </a>
-            </div>
-
-            <div class="col-md-3 col-lg-3">
-                <a href="">
-                    <div class="card text-center p-3">
-                        <div class="card-title mt-2">
-                            <img src="{{ asset('assets/images/delete-icon.jpg') }}" width="70" height="70" alt="user-image">
-                        </div>
-                        <div class="card-text mt-2">
-                            <h5>Delete Volunteer</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="row user mb-5">
-            <div class="col-md-3 col-lg-3">
-                <a href="">
-                    <div class="card text-center p-3">
-                        <div class="card-title mt-2">
-                            <img src="{{ asset('assets/images/edit-icon.png') }}" width="70" height="70" alt="user-image">
-                        </div>
-                        <div class="card-text mt-2">
-                            <h5>Edit Batch Details</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-3 col-lg-3">
-                <a href="">
-                    <div class="card text-center p-3">
-                        <div class="card-title mt-2">
-                            <img src="{{ asset('assets/images/delete-icon.jpg') }}" width="70" height="70" alt="user-image">
-                        </div>
-                        <div class="card-text mt-2">
-                            <h5>Delete Batch</h5>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </div>
         </div>
     </div>

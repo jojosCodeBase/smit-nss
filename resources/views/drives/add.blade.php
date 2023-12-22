@@ -1,14 +1,9 @@
 @extends('layouts/content')
 @section('content')
-    <div class="breadcrumb-bar mb-3 px-4">
-        <span class="breadcrumb-item">Home</span>
-        <span class="breadcrumb-item">NSS Drives</span>
-        <span class="breadcrumb-item active">Add</span>
-    </div>
     @if (session('success'))
         <div class="row d-flex justify-content-center">
             <div class="col">
-                <div class="alert alert-sucess alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <b>{{ session('success') }}</b>
                     <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -16,71 +11,67 @@
         </div>
     @endif
     @if (session('error'))
-            <div class="row d-flex justify-content-center">
-                <div class="col">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <b>{{ session('error') }}</b>
-                        <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                    </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <b>{{ session('error') }}</b>
+                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
-        @endif
-    <div class="container addForm">
-        <div class="row d-flex justify-content-center bg-light">
-            <div class="col-11 mt-4">
-                <div class="col d-flex justify-content-center mb-3">
-                    <div class="underline-heading text-center">
-                        <h3>Add New Drive</h3>
-                    </div>
-                </div>
-                <div class="text-left"><b>Drive ID: </b><span>{{ $id }}</span></div>
-                <form action="{{ route('drive.add') }}" class="form mb-5" method="POST">
+        </div>
+    @endif
+    <div class="container-fluid p-0">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">Add New Drive</div>
+                <span class="fw-bold">Drive id: {{ $id }}</span>
+                <form action="{{ route('drive.add') }}" method="POST">
                     @csrf
-                    <input type="number" name="id" value="{{ $id }}" hidden>
-                    <div class="row mt-3">
-                        <div class="col-md-4 col-lg-4">
-                            <input type="text" name="title" id="drive-title" class="form-control"
-                                placeholder="Drive title" required>
+                    <input type="hidden" name="id" value={{ $id }}>
+                    <div class="row mt-3 p-0 px-0">
+                        <div class="col-md-4 col-lg-4 mb-lg-0 mg-md-0 mb-2">
+                            <input type="text" name="title" class="form-control" placeholder="Drive title">
                         </div>
-                        <div class="col-md-4 col-lg-4">
-                            <input type="date" name="date" class="form-control" required>
+                        <div class="col-md-3 col-lg-4 mb-md-0 mb-2">
+                            <input type="date" name="date" id="date" class="form-control">
                         </div>
-                        <div class="col-md-2 col-lg-2">
-                            <input type="text" name="time-from" class="form-control" placeholder="Start time">
-                        </div>
-                        <div class="col-md-2 col-lg-2">
-                            <input type="text" name="time-to" class="form-control" placeholder="End time">
-                        </div>
-                        <div class="col-md-3 col-lg-4">
-                            <input type="text" name="conductedBy" class="form-control" placeholder="Conducted by" required>
+                        <div class="col-md-3 col-lg-4 mb-md-0 mb-2">
+                            <input type="text" name="conductedBy" class="form-control" placeholder="Conducted by">
                         </div>
                     </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4 col-lg-4">
-                            <select name="driveType" id="" class="form-select" required>
-                                <option value="" selected>Select drive type from list</option>
+                    <div class="row mt-lg-3">
+                        <div class="col-md-3 col-lg-4 mb-md-0 mb-2">
+                            <select name="driveType" id="" class="form-select">
+                                <option value="not selected" selected>Select drive type from list</option>
                                 <option value="regular">Regular NSS Activities</option>
                                 <option value="cleanliness">Cleanliness Drive</option>
                             </select>
                         </div>
-                        <div class="col-md-4 col-lg-4">
-                            <input type="text" name="area" class="form-control" placeholder="Area" required>
+                        <div class="col-md-3 col-lg-4 mb-md-0 mb-2">
+                            <input type="text" name="area" class="form-control" placeholder="Area">
                         </div>
-                        <div class="col-md-3 col-lg-2">
+                        <div class="col-md-3 col-lg-4 mb-md-0 mb-2">
                             <input type="number" name="present" class="form-control" placeholder="Present">
                         </div>
-                        <div class="col-md-3 col-lg-2">
-                            <input type="number" name="absent" class="form-control" placeholder="Absent">
+                    </div>
+                    <div class="row mt-lg-3">
+                        <div class="col-md-4 col-lg-4 mb-2">
+                            <input type="text" name="from" class="form-control" placeholder="From">
+                        </div>
+                        <div class="col-md-4 col-lg-4 mb-2">
+                            <input type="text" name="to" class="form-control" placeholder="To">
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <label class="form-label">Description</label>
-                            <textarea name="description" id="" cols="30" rows="6" class="form-control description"></textarea>
+                    <div class="row mt-lg-3">
+                        <div class="col mb-2">
+                            <textarea name="description" id="" cols="30" rows="6" class="form-control description"
+                                placeholder="Add description about the drive"></textarea>
                         </div>
                     </div>
-                    <div class="col text-center mt-3">
-                        <input type="submit" class="btn btn-primary w-25" value="Add">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-3 text-center mt-3">
+                            <input type="submit" class="btn btn-primary w-100" value="Add">
+                        </div>
                     </div>
                 </form>
             </div>

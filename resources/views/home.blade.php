@@ -1,88 +1,85 @@
 @extends('layouts/content')
 @section('content')
-    <div class="breadcrumb-bar mb-3 px-4">
-        <span class="breadcrumb-item">Home</span>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-3">
-                <div class="card text-center bg-primary">
-                    <div class="card-body text-light text-start">
-                        <ul class="p-0 m-0" style="list-style: none;">
-                            <li class="card-text">Total volunteers: <b>120</b></li>
-                            <li class="card-text">Total male: <b>100</b></li>
-                            <li class="card-text">Total female: <b>20</b></li>
-                        </ul>
-                    </div>
-                    <div class="card-footer text-light">
-                        View all ->
-                    </div>
-                </div>
-            </div>
+<div class="container-fluid p-0 mt-0">
+    <div class="row">
+        <div class="col-xl-12 col-xxl-5 d-flex">
+            <div class="w-100">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Volunteers</h5>
+                                    </div>
 
-            <div class="col-3">
-                <div class="card text-center bg-primary">
-                    <div class="card-body text-light text-start">
-                        <ul class="p-0 m-0" style="list-style: none;">
-                            <li class="card-text">Total drives: <b>20</b></li>
-                            <li class="card-text">On-campus : <b>8</b></li>
-                            <li class="card-text">Off-campus: <b>12</b></li>
-                        </ul>
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="align-middle" data-feather="users"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">120</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted">2022-24: <span class="text-success"> 30</span> / 2022-25: <span class="text-success"> 42</span></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer text-light">
-                        View all ->
-                    </div>
-                </div>
-            </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col mt-0">
+                                        <h5 class="card-title">Drives</h5>
+                                    </div>
 
-            <div class="col-3">
-                <div class="card text-center bg-primary">
-                    <div class="card-body text-light text-start">
-                        <ul class="p-0 m-0" style="list-style: none;">
-                            <li class="card-text">Total volunteers: <b>120</b></li>
-                            <li class="card-text">Total male: <b>100</b></li>
-                            <li class="card-text">Total female: <b>20</b></li>
-                        </ul>
-                    </div>
-                    <div class="card-footer text-light">
-                        View all ->
+                                    <div class="col-auto">
+                                        <div class="stat text-primary">
+                                            <i class="align-middle" data-feather="activity"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h1 class="mt-1 mb-3">14</h1>
+                                <div class="mb-0">
+                                    <span class="text-muted">Since 2023</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="table-row">
-            <div class="row mt-5">
-                <div class="heading">
-                    <h4 class="p-0">Recent Activities</h4>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+            <div class="card flex-fill">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Recent Activities</h5>
                 </div>
-                <table class="table table-striped table-bordered">
+                <table class="table table-hover my-0">
                     <thead>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Area</th>
-                        <th>Present</th>
-                        <th>Absent</th>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th class="d-none d-xl-table-cell">Area</th>
+                            <th class="d-none d-xl-table-cell">Present</th>
+                            <th class="d-none d-md-table-cell">Cordinator</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>22-10-23</td>
-                            <td>Cleanliness drive conducted at
-                                Rangpo IBM to help flood relief.</td>
-                            <td>IBM, Rangpo, Sikkim</td>
-                            <td>15</td>
-                            <td>5</td>
-                        </tr>
-                        <tr>
-                            <td>12-09-23</td>
-                            <td>Cleanliness drive conducted at
-                                Upper Majitar near SBI Bank.</td>
-                            <td>Majitar, Sikkim</td>
-                            <td>20</td>
-                            <td>3</td>
+                            <td></td>
+                            <td class="d-none d-xl-table-cell">IBM, Rangpo, Sikkim</td>
+                            <td >Cleanliness drive conducted at Rangpo IBM to help flood effected victims.</td>
+                            <td class="d-none d-xl-table-cell">15</td>
+                            <td class="d-none d-md-table-cell">Jhuma Sunuwar</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
 @endsection

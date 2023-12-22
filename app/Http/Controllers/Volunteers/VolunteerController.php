@@ -62,14 +62,18 @@ class VolunteerController extends Controller
 
     public function viewDetails(Request $r)
     {
-        $volunteer = Volunteer::where('id', $r->search_string)
+        // this returns an object
+        $query = Volunteer::where('id', $r->search_string)
             ->orWhere('name', 'like', '%' . $r->search_string . '%')
             ->get();
 
-        if ($volunteer->isEmpty()) {
-            return back()->with('fail', 'No results found for ' . $r->search_string);
-        } else
+        //converting the returned object to array
+        $volunteer = $query->toArray();
+
+        if ($volunteer) {
             return back()->with('volunteer', $volunteer);
+        } else
+            return back()->with('error', 'No results found for ' . $r->search_string);
     }
 
     public function updateDetails(Request $r)

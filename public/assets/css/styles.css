@@ -1,536 +1,87 @@
-/*
-====================================
-        Body styles
-====================================
-*/
-body::-webkit-scrollbar {
-    display: none;
-}
-
-body{
-    background-color: #f1f1f1;
-}
-/*
-====================================
-        Active page section
-====================================
-*/
-.active-page {
-    background-color: #007bff;
-    border-radius: 5px;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-}
-
-.active-page a {
-    color: #fff;
-}
-
-.active-page a:hover {
-    color: #fff;
-    text-decoration: none;
-}
-
-/*
-====================================
-        Bread crum section
-====================================
-*/
 .breadcrumb-bar {
-    background-color: #f8f9fa;
     padding: 10px;
-    border-bottom: 1px solid #dee2e6;
 }
 
 .breadcrumb-item {
     display: inline-block;
-    color: #007bff;
+    color: #000;
+    /* font-size: 1rem; */
 }
 
 .breadcrumb-item.active {
-    color: #000;
-}
-/*
-====================================
-        User card design
-====================================
-*/
-.user .card {
-    border: none;
-    box-shadow: 0 0 3px rgba(7, 7, 7, 0.5);
-    height: 180px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.user .card:hover {
-    box-shadow: 0 0 10px rgba(7, 7, 7, 0.3);
-}
-
-.user a {
-    text-decoration: none;
-}
-/*
-====================================
-        Dashboard design
-====================================
-*/
-.heading {
-    border-top-left-radius: 5px;
-    text-align: center;
-}
-.table-row {
-    margin-top: 15%;
-}
-
-/*
-====================================
-        Button click designs
-====================================
-*/
-
-.btn-primary:focus-within,
-.btn-success:focus-within,
-.btn-danger:focus-within,
-.btn-info:focus-within,
-.btn-close:focus-within,
-.btn-default:focus-within{
-    box-shadow: none;
-}
-
-.btn-delete{
-    color:#bb2836;
-}
-.btn-edit{
-    color: #ffc107;
-}
-.btn-edit:hover{
-    color:#198754;
-}
-
-.btn-delete:hover{
-    color: #e61126;
-
-}
-
-/*
-====================================
-        Table design for search
-====================================
-*/
-
-.underline-heading {
-    border-bottom: 5px solid orange;
-    padding-bottom: 5px;
-    max-width: 50%;
-}
-
-.form-control:focus-within,
-.form-select:focus-within {
-    border-color: none;
-    box-shadow: none;
-}
-
-.form-label {
-    font-weight: 500;
-    font-size: large;
-}
-table {
-    font-family: 'Varela Round', sans-serif;
-    font-size: 15px;
-}
-.table-responsive {
-    margin: 30px 0;
-}
-
-.table-wrapper {
-    background: #fff;
-    padding: 20px 25px;
-    border-radius: 3px;
-    min-width: 1000px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-}
-
-.table-title {
-    padding-bottom: 15px;
-    background: #435d7d;
-    color: #fff;
-    padding: 16px 30px;
-    min-width: 100%;
-    margin: -20px -25px 10px;
-    border-radius: 3px 3px 0 0;
-}
-
-.table-title h2 {
-    margin: 5px 0 0;
-    font-size: 24px;
-}
-
-.table-title .btn-group {
-    float: right;
-}
-
-.table-title .btn {
-    color: #fff;
-    float: right;
-    font-size: 13px;
-    border: none;
-    min-width: 50px;
-    border-radius: 2px;
-    border: none;
-    outline: none !important;
-    margin-left: 10px;
-}
-
-.table-title .btn i {
-    float: left;
-    font-size: 21px;
-    margin-right: 5px;
-}
-
-.table-title .btn span {
-    float: left;
-    margin-top: 2px;
-}
-
-table.table tr th,
-table.table tr td {
-    border-color: #e9e9e9;
-    padding: 12px 15px;
-    vertical-align: middle;
-}
-
-/*
-table.table tr th:first-child {
-    width: 60px;
-}
-*/
-
-table.table tr th:last-child {
-    width: 100px;
-}
-
-table.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #fcfcfc;
-}
-
-table.table-striped.table-hover tbody tr:hover {
-    background: #f5f5f5;
-}
-
-table.table th i {
-    font-size: 13px;
-    margin: 0 5px;
-    cursor: pointer;
-}
-
-/* table.table td:last-child i {
-    opacity: 0.9;
-    font-size: 22px;
-    margin: 0 5px;
-} */
-.collapse-a{
-    color:#007bff;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.collapse-a:hover{
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-/* table.table td a {
-    font-weight: bold;
-    color: #566787;
-    display: inline-block;
-    text-decoration: none;
-    outline: none !important;
-} */
-
-table.table td a:hover {
-    color: #2196F3;
-}
-
-table.table td a.edit {
-    color: #FFC107;
-}
-
-table.table td a.delete {
-    color: #F44336;
-}
-
-table.table td i {
-    font-size: 19px;
-}
-
-table.table .avatar {
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-
-.pagination {
-    float: right;
-    margin: 0 0 5px;
-}
-
-.pagination li a {
-    border: none;
-    font-size: 13px;
-    min-width: 30px;
-    min-height: 30px;
-    color: #999;
-    margin: 0 2px;
-    line-height: 30px;
-    border-radius: 2px !important;
-    text-align: center;
-    padding: 0 6px;
-}
-
-.pagination li a:hover {
-    color: #666;
-}
-
-.pagination li.active a,
-.pagination li.active a.page-link {
-    background: #03A9F4;
-}
-
-.pagination li.active a:hover {
-    background: #0397d6;
-}
-
-.pagination li.disabled i {
-    color: #ccc;
-}
-
-.pagination li i {
-    font-size: 16px;
-    padding-top: 6px
-}
-
-.hint-text {
-    float: left;
-    margin-top: 10px;
-    font-size: 13px;
-}
-
-/* Custom checkbox */
-.custom-checkbox {
-    position: relative;
-}
-
-.custom-checkbox input[type="checkbox"] {
-    opacity: 0;
-    position: absolute;
-    margin: 5px 0 0 3px;
-    z-index: 9;
-}
-
-.custom-checkbox label:before {
-    width: 18px;
-    height: 18px;
-}
-
-.custom-checkbox label:before {
-    content: '';
-    margin-right: 10px;
-    display: inline-block;
-    vertical-align: text-top;
-    background: white;
-    border: 1px solid #bbb;
-    border-radius: 2px;
-    box-sizing: border-box;
-    z-index: 2;
-}
-
-.custom-checkbox input[type="checkbox"]:checked+label:after {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 3px;
-    width: 6px;
-    height: 11px;
-    border: solid #000;
-    border-width: 0 3px 3px 0;
-    transform: inherit;
-    z-index: 3;
-    transform: rotateZ(45deg);
-}
-
-.custom-checkbox input[type="checkbox"]:checked+label:before {
-    border-color: #03A9F4;
-    background: #03A9F4;
-}
-
-.custom-checkbox input[type="checkbox"]:checked+label:after {
-    border-color: #fff;
-}
-
-.custom-checkbox input[type="checkbox"]:disabled+label:before {
-    color: #b8b8b8;
-    cursor: auto;
-    box-shadow: none;
-    background: #ddd;
-}
-
-
-/*
-====================================
-        Form design for add volunteer
-====================================
-*/
-.addForm {
-    width: 80%;
-    padding: 4px;
-}
-
-.addForm .row {
-    border-radius: 10px;
-}
-
-
-/*
-====================================
-    Users section design
-====================================
-*/
-
-.add-user-btn {
-    border: 2px solid #007bff;
-    border-radius: 50px;
     color: #007bff;
-    padding-right: 15px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.add-user-btn:hover {
-    background-color: #007bff;
-    color: #fff;
+.sidebar-header {
+    font-size: 14px;
 }
 
-
-.bi-person-plus {
-    padding-left: 10px;
-    font-weight: bold;
-}
-
-.user-role .card {
+.btn-close{
+    background-color: transparent;
     border: none;
-    box-shadow: 0 0 3px rgba(7, 7, 7, 0.5);
-    height: 120px;
-    padding: 10px;
-    cursor: pointer;
-    margin: 15px;
 }
 
-.user-role .card:hover {
+.card-info .role {
+    font-weight: bold;
+}
+.card:hover{
     box-shadow: 0 0 10px rgba(7, 7, 7, 0.3);
 }
-
-.status-active {
-    background-color: rgb(60, 177, 60);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50px;
-    width: 90px;
+.user-role .card{
+    height: 140px;
 }
 
-.status-inactive {
-    background-color: rgb(216, 38, 38);
-    color: white;
-    display: flex;
-    justify-content: center;
-    border-radius: 50px;
-    width: 120px;
+/* X-Small devices (portrait phones, less than 576px) */
+/* No media query for `xs` since this is the default in Bootstrap */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+    .collapseItemDesktop,
+    .toggleBtnDesktop{
+        display: none;
+    }
+
+    /* .collapseItemMobile, */
+    .toggleBtnMobile{
+        display: flex;
+    }
 }
 
-.modal-footer .btn-default:hover {
-    text-decoration: underline;
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px){
+    .collapseItemDesktop,
+    .toggleBtnDesktop{
+        display: none;
+    }
+    /* .collapseItemMobile,
+    .toggleBtnMobile{
+        display: flex;
+    } */
 }
 
-/*
-====================================
-    Section separator
-====================================
-*/
-.personal-info,
-.other-info {
-    border-right: 2px solid rgba(0, 0, 0, 0.5);
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .collapseItemDesktop,
+    .toggleBtnDesktop{
+        display: flex;
+    }
+    .collapseItemMobile,
+    .toggleBtnMobile{
+        display: none;
+    }
 }
 
-.search-row .form-control {
-    border: none;
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .collapseItemDesktop,
+    .toggleBtnDesktop{
+        display: flex;
+    }
+    .collapseItemMobile,
+    .toggleBtnMobile{
+        display: none;
+    }
 }
 
-.search-row .form-control:focus-within,
-.search-row .btn-primary:focus-within {
-    box-shadow: none;
-}
-
-.search-row .input-group-text {
-    background-color: white;
-    border: none;
-}
-
-/*
-====================================
-        Collapse form data
-====================================
-*/
-.details-row{
-    font-size: 15px;
-}
-.details-row .title {
-    font-weight: bold;
-}
-
-.details-row .details {
-    opacity: 80%;
-    font-style: italic;
-}
-
-.title-table{
-    font-weight: 500;
-    background-color: #cac8c8;
-}
-
-.details-row h6{
-    font-weight: bold;
-    opacity: 80%;
-    margin-bottom: 10px;
-}
-
-/*
-====================================
-    DataTable.net Action buttons
-====================================
-*/
-
- .dt-button {
-    background-color: #2980b9;
-    color: #fff;
-    border: 1px solid #2980b9;
-    font-size: 20px;
-    margin-right: 5px;
-    width: 60px;
-}
-
-.dt-button:hover {
-    text-decoration: underline;
-    color: #fff;
-    border: 1px solid black;
-}
-
-footer{
-    background-color: #413f3f;
-    color: white;
-}
-
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (max-width: 1400px) {}
