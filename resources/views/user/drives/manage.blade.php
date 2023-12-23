@@ -1,4 +1,4 @@
-@extends('layouts/content')
+@extends('layouts/user-content')
 @section('content')
     @if (session('success'))
         <div class="row d-flex justify-content-center">
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-xl-12 col-xxl-5 d-flex">
                 <div class="w-100">
-                    <form action="{{ route('drive.search') }}" method="POST">
+                    <form action="{{ route('user.drive.search') }}" method="POST">
                         @csrf
                         <div class="row d-flex justify-content-center">
                             <div class="col-12 col-lg-6 col-md-6 col-xl-6">
@@ -60,7 +60,7 @@
                             <thead>
                                 <tr>
                                     <th>Sl.no</th>
-                                    <th>ID</th>
+                                    {{-- <th>ID</th> --}}
                                     <th>Title</th>
                                     <th>Conducted by</th>
                                     <th>Area</th>
@@ -75,22 +75,22 @@
                                     @endphp
                                     <tr>
                                         <td class="text-center">{{ $slno }}</td>
-                                        <td>{{ $d['id'] }}</td>
+                                        {{-- <td>{{ $d['id'] }}</td> --}}
                                         <td>{{ $d['title'] }}</td>
                                         <td>{{ $d['conductedBy'] }}</td>
                                         <td>{{ $d['area'] }}</td>
                                         <td>{{ $d['date'] }}</td>
                                         <td>
-                                            <a data-toggle="collapse" data-target="#collapseItemDesktop{{ $slno }}"
-                                                class="toggleBtnDesktop collapse-a">View</a>
-                                            <a data-toggle="collapse" data-target="#collapseItemMobile{{ $slno }}"
-                                                class="toggleBtnMobile collapse-a">View</a>
+                                            <a data-toggle="collapse" data-target="#collapseItemDesktop{{ $d['id'] }}"
+                                                class="toggleBtnDesktop collapse-a" id="collapseToggleBtnDesktop{{ $d['id'] }}" onclick="changeToggleDesktop({{ $d['id'] }})">View</a>
+                                            <a data-toggle="collapse" data-target="#collapseItemMobile{{ $d['id'] }}"
+                                                class="toggleBtnMobile collapse-a" id="collapseToggleBtnMobile{{ $d['id'] }}" onclick="changeToggleMobile()">View</a>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="trCollapse{{ $d['id'] }}" style="display: none">
                                         <td colspan="7">
                                             <div class="collapse p-2 collapseItemDesktop"
-                                                id="collapseItemDesktop{{ $slno }}">
+                                                id="collapseItemDesktop{{ $d['id'] }}">
                                                 <div class="col justify-content-start bg-light p-3">
                                                     <div class="row title">
                                                         <div class="col-2">
@@ -165,7 +165,7 @@
                                                 </div>
                                             </div>
                                             <div class="collapse p-2 collapseItemMobile"
-                                                id="collapseItemMobile{{ $slno }}">
+                                                id="collapseItemMobile{{ $d['id'] }}">
                                                 <div class="col justify-content-start bg-light p-3">
                                                     <h4 class="text-center">Drive Info</h4>
                                                     <div class="row mb-2">

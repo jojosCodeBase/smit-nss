@@ -5,34 +5,64 @@ namespace App\Http\Controllers\Volunteers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Volunteers\Volunteer;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Database\QueryException;
 
 class VolunteerController extends Controller
 {
     public function manage()
     {
-        return view('volunteers.manage');
+        return view('admin.volunteers.manage');
+        // return view('volunteers.manage');
+        // // 'user' is not authenticated to manage volunteers
+        // if($this->role == 2)
+        // else
     }
     public function add()
     {
-        return view('volunteers.add');
+        // 'user' is authenticated to add volunteers
+        if(Auth::user()->role == 2)
+            return view('user.volunteers.add');
+        else
+            return view('admin.volunteers.add');
     }
     public function search()
     {
-        return view('volunteers.search');
+        // 'user' is authenticated to search volunteers
+        if(Auth::user()->role == 2)
+            return view('user.volunteers.search');
+        else
+            return view('admin.volunteers.search');
+
     }
     public function view_edit()
     {
+        // 'user' is not authenticated to edit volunteers
+        // if($this->role == 0)
+        //     return view('superadmin.volunteers.view-edit');
+        // else
+        //     return view('admin.volunteers.view-edit');
         return view('volunteers.view-edit');
+
     }
     public function list()
     {
+        // // 'user' is not authenticated to edit volunteers
+        // if($this->role == 0)
+        //     return view('superadmin.volunteers.list');
+        // else
+        //     return view('admin.volunteers.list');
         return view('volunteers.list');
+
     }
     public function viewUpdate($regno)
     {
-        $volunteer = Volunteer::where('id', $regno)->get();
-        return redirect()->route('volunteer.view-edit')->with(['volunteer' => $volunteer, 'success' => 'Volunteer details updated successfully !']);
+        // 'user' is not authenticated to update volunteers
+        // if($this->role == 0){
+            $volunteer = Volunteer::where('id', $regno)->get();
+            return redirect()->route('volunteer.view-edit')->with(['volunteer' => $volunteer, 'success' => 'Volunteer details updated successfully !']);
+        // }
     }
 
     public function insert(Request $r)
@@ -94,40 +124,29 @@ class VolunteerController extends Controller
     }
 
     public function fetchDetails(){
-        // $obj = Volunteer::where('id', '202116033')->get();
-        // echo "<pre>";
-        // var_dump($obj);
-        // echo "</pre>";
-        // $obj->
-        // $volunteers = $obj->toArray();
-        // echo "<pre>";
-        // var_dump($volunteers);
-        // echo "</pre>";
-
         $obj = Volunteer::all();
-        // $obj = Volunteer::where('id', '202116039')->get();
 
         $volunteers = $obj->toArray();
 
-        // echo "<pre>";
-        //     var_dump($volunteers);
-        // echo "</pre>";
-
-        // echo $volunteers[4]["id"];
-
-        // $volunteers = Volunteer::all();
-        // foreach($volunteers as $v){
-        //     echo $v . '<br>';
-        // }
-
-        // dd();
         if ($volunteers) {
-            // echo "inside if";
-            // dd();
             return back()->with('volunteers', $volunteers);
         } else{
-            // echo "inside else";
             return back()->with('fail', 'No results found');
         }
+    }
+
+    public function getName(Request $r)
+    {
+        // dd("hello");
+        $user = Volunteer::where('id', $r->regno)->first();
+        $user = $user->toArray();
+        return response()->json(['name' => 'hello']);
+    }
+
+    public function ajax(Request $upload){
+        $user = Volunteer::where('id', $upload->title)->first();
+        // $desc = $upload->description;
+
+        return response()->json(['message' => [$user->name, $upload->description] ]);
     }
 }

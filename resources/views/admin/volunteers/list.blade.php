@@ -1,5 +1,5 @@
 <title>List of volunteers</title>
-@extends('layouts/content')
+@extends('layouts/admin-content')
 @section('content')
     <div class="breadcrumb-bar mb-3 px-4">
         <span class="breadcrumb-item">Home</span>

@@ -24,11 +24,15 @@
 .card-info .role {
     font-weight: bold;
 }
-.card:hover{
+.user-role .card:hover{
     box-shadow: 0 0 10px rgba(7, 7, 7, 0.3);
 }
 .user-role .card{
     height: 140px;
+}
+
+.title{
+    font-weight: bold;
 }
 
 /* X-Small devices (portrait phones, less than 576px) */

@@ -1,4 +1,4 @@
-@extends('layouts/content')
+@extends('layouts/user-content')
 @section('content')
     @if (session('success'))
         <div class="row d-flex justify-content-center">
@@ -25,7 +25,7 @@
             <div class="card-body">
                 <div class="card-title">Add New Drive</div>
                 <span class="fw-bold">Drive id: {{ $id }}</span>
-                <form action="{{ route('drive.add') }}" method="POST">
+                <form action="{{ route('user.drive.add') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" value={{ $id }}>
                     <div class="row mt-3 p-0 px-0">

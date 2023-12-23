@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-@extends('layouts/content')
+@extends('layouts/user-content')
 @section('content')
     @if (session('error'))
         <div class="row d-flex justify-content-center">
@@ -17,7 +17,7 @@
                 <div class="w-100">
                     <div class="row d-flex justify-content-center">
                         <div class="col-12 col-lg-6 col-md-6 col-xl-6">
-                            <form action="{{ route('volunteer.view-details') }}" method="POST">
+                            <form action="{{ route('user.volunteer.view-details') }}" method="POST">
                                 @csrf
                                 <div class="card p-1">
                                     <div class="card-body">
