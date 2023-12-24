@@ -164,6 +164,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function changeToggleMobile(id) {
             var trCollapseId = "trCollapse" + id;
@@ -192,6 +193,29 @@
                 trCollapse.style.display = "none";
             }
         }
+
+        $(document).ready(function(){
+            $('#getName').on('submit', function(event){
+                event.preventDefault();
+                jQuery.ajax({
+                    url: "{{ url('drive/attendance/add/getName') }}",
+                    data: jQuery('#getName').serialize(),
+                    type: 'post',
+
+                    success:function(result){
+                        $('#name').css('display','block');
+                        jQuery('#name').html(result.name);
+                        jQuery('#getName')[0].reset();
+                    }
+
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        alert('Error: ' + error); // Display a simple alert message
+                    }
+
+                })
+            });
+        });
     </script>
 </body>
 

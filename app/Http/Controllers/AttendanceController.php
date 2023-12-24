@@ -4,43 +4,52 @@ namespace App\Http\Controllers;
 
 use App\Models\Drives\Drive;
 use Illuminate\Http\Request;
+use App\Models\Volunteers\Volunteer;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance\Attendance;
+use Illuminate\Database\QueryException;
 
 class AttendanceController extends Controller
 {
     public function add(Request $r){
-        $attend = Attendance::where('regno', $r->regno)->create([
-            'regno' => $r->regno,
-            'driveId' => $r->driveId,
-        ]);
+        try {
+            $attend = Attendance::create([
+                'regno' => $r->regno,
+                'driveId' => $r->id,
+            ]);
 
-        $drive = Drive::where('id', $r->driveId)->update([
-            'attendanceBy' => Auth::user()->id(),
-        ]);
+            $drive = Drive::where('id', $r->id)->update([
+                'attendanceBy' => Auth::user()->id,
+            ]);
 
-        $drive = $drive->toArray();
+            if ($attend && $drive) {
+                return back()->with('success', 'Attendance added successfully!');
+            } else {
+                return back()->with('error', 'Some error occurred in adding attendance!');
+            }
+        } catch (QueryException $e) {
+            $errorCode = $e->errorInfo[1];
 
-        $attend = Attendance::where('regno', $r->regno)
-            ->andWhere('driveId', $r->driveId)
-            ->get();
-
-        $attend = $attend->toArray();
-
-        if($attend && $drive){
-            return back()->with(['success' => 'Attendance added successfully !', 'attend' => $attend]);
-        }else{
-            return back()->with('error', 'Some error occured in adding attendance');
+            if ($errorCode == 1062) { // Duplicate entry error code
+                return back()->with('error', 'Duplicate entry. Attendance already added.');
+            } else {
+                return back()->with('error', 'Some error occurred in adding attendance!');
+            }
         }
     }
-    public function delete(Request $r){
+    // public function delete(Request $r){
 
-    }
+    // }
     public function update(Request $r){
 
     }
 
-    // public function showDrive(Request $r){
-
-    // }
+    public function delete(Request $r){
+        $delete = Attendance::where('regno', $r->regno)->delete();
+        if($delete){
+            return back()->with('success', 'Attendance deleted successfully !');
+        }else{
+            return back()->with('error', 'Some error occured in deleting attendance !');
+        }
+    }
 }

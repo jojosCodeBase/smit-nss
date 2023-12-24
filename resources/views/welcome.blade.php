@@ -41,7 +41,6 @@
                         jQuery('#message').html(result.message);
                         jQuery('#addpost')[0].reset();
                     }
-
                 })
             });
         });

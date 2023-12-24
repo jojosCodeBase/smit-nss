@@ -135,18 +135,22 @@ class VolunteerController extends Controller
         }
     }
 
-    public function getName(Request $r)
+    public function getName($regno)
     {
         // dd("hello");
-        $user = Volunteer::where('id', $r->regno)->first();
-        $user = $user->toArray();
-        return response()->json(['name' => 'hello']);
+        $user = Volunteer::where('id', $regno)->first();
+        // $user = $user->toArray();
+        if($user)
+            return response()->json(['name' => $user->name ]);
+        else
+            return response()->json(['name' => 'No results found']);
     }
-
     public function ajax(Request $upload){
         $user = Volunteer::where('id', $upload->title)->first();
         // $desc = $upload->description;
-
-        return response()->json(['message' => [$user->name, $upload->description] ]);
+        if($user)
+            return response()->json(['message' => $user->name ]);
+        else
+            return response()->json(['message' => 'No results found']);
     }
 }

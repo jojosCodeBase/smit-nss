@@ -71,10 +71,10 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     Route::delete('/drive/manage/list/delete', [DriveController::class, 'delete'])->name('drive.deleteDetails');
 
-    Route::get('/drive/add', [DriveController::class, 'addView'])->name('drive.add');
-    Route::post('/drive/add', [DriveController::class, 'addDrive'])->name('drive.add');
-    Route::get('/drive/attendance', [DriveController::class, 'attendance'])->name('drive.attendance');
-    Route::get('/drive/attendance', [DriveController::class, 'showAttendance'])->name('user.drive.show.attendance');
+    Route::get('drive/add', [DriveController::class, 'addView'])->name('drive.add');
+    Route::post('drive/add', [DriveController::class, 'addDrive'])->name('drive.add');
+    Route::get('drive/attendance', [DriveController::class, 'showAttendance'])->name('drive.attendance');
+    // Route::get('drive/attendance', [DriveController::class, 'showAttendance'])->name('user.drive.show.attendance');
 
 
     // drive section end
@@ -101,7 +101,11 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
     Route::get('drive/attendance/add', [DriveController::class, 'addAttendance'])->name('user.drive.add.attendance');
     Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('user.drive.add.attendance');
 
-    Route::post('drive/attendance/add/getName', [VolunteerController::class, 'getName'])->name('getName');
+    // Route::post('drive/attendance/add/getName', [VolunteerController::class, 'getName'])->name('getName');
+    Route::get('drive/attendance/add/{regno}', [VolunteerController::class, 'getName']);
+
+    Route::post('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('user.attendance.delete');
+
 });
 
 // Route::middleware(['isUser'])->group(function () {

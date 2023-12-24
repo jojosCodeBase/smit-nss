@@ -37,7 +37,6 @@
                             <thead>
                                 <tr>
                                     <th>Sl.no</th>
-                                    {{-- <th>ID</th> --}}
                                     <th>Title</th>
                                     <th>Updated by</th>
                                     <th>Area</th>
@@ -53,7 +52,6 @@
                                     @endphp
                                     <tr>
                                         <td class="text-center">{{ $slno }}</td>
-                                        {{-- <td>{{ $d['id'] }}</td> --}}
                                         <td>{{ $d['title'] }}</td>
                                         <td>{{ $d['attendanceBy'] }}</td>
                                         <td>{{ $d['area'] }}</td>
@@ -194,50 +192,19 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>202116033</td>
-                                                                    <td>Kunsang Moktan</td>
-                                                                    <td>BCA</td>
-                                                                    <td>2022-24</td>
-                                                                    <td>
-                                                                        <button class="btn btn-danger" data-toggle="modal"
-                                                                            data-target="#deleteModal1"><i
-                                                                                class="bi-trash"></i></button>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>202116033</td>
-                                                                    <td>Kunsang Moktan</td>
-                                                                    <td>BCA</td>
-                                                                    <td>2022-24</td>
-                                                                    <td>
-                                                                        <button class="btn btn-danger" data-toggle="modal"
-                                                                            data-target="#deleteModal1"><i
-                                                                                class="bi-trash"></i></button>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>202116033</td>
-                                                                    <td>Kunsang Moktan</td>
-                                                                    <td>BCA</td>
-                                                                    <td>2022-24</td>
-                                                                    <td>
-                                                                        <button class="btn btn-danger" data-toggle="modal"
-                                                                            data-target="#deleteModal1"><i
-                                                                                class="bi-trash"></i></button>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>202116033</td>
-                                                                    <td>Kunsang Moktan</td>
-                                                                    <td>BCA</td>
-                                                                    <td>2022-24</td>
-                                                                    <td>
-                                                                        <button class="btn btn-danger" data-toggle="modal"
-                                                                            data-target="#deleteModal1"><i
-                                                                                class="bi-trash"></i></button>
-                                                                    </td>
-                                                                </tr>
+                                                                @foreach($volunteers as $v)
+                                                                    <tr>
+                                                                        <td>{{ $v['id'] }}</td>
+                                                                        <td>{{ $v['name'] }}</td>
+                                                                        <td>{{ $v['course'] }}</td>
+                                                                        <td>{{ $v['batch'] }}</td>
+                                                                        <td>
+                                                                            <button class="btn btn-danger" data-toggle="modal"
+                                                                                data-target="#deleteModal1"><i
+                                                                                    class="bi-trash"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -245,80 +212,6 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Attendance Add Modal start -->
-                                    <div id="addAttendanceModal" class="modal fade">
-                                        <div class="modal-dialog delete-modal-diaglog">
-                                            <div class="modal-content">
-                                                <form>
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Add Attendance</h4>
-                                                        <button type="button" class="btn-close" data-dismiss="modal"
-                                                            aria-hidden="true"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group mb-3">
-                                                            <label for="" class="form-label">Drive Id</label>
-                                                            <input type="number" class="form-control" name="id"
-                                                                value="006" disabled>
-                                                        </div>
-                                                        <div class="form-group mb-3">
-                                                            <label for="" class="form-label">Drive Title</label>
-                                                            <input type="text" class="form-control" name="title"
-                                                                value="IBM, Rangpo, Flood Relief" disabled>
-                                                        </div>
-                                                        <div class="form-group mb-3">
-                                                            <label for="" class="form-label">Drive Date</label>
-                                                            <input type="text" class="form-control" name="date"
-                                                                value="25-10-2023" disabled>
-                                                        </div>
-                                                        <div class="form-group mb-3">
-                                                            <label for="" class="form-label">Registration
-                                                                no</label>
-                                                            <input type="text" class="form-control" name="regno">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="" class="form-label">Name</label>
-                                                            <input type="text" class="form-control" name="regno">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <input type="button" class="btn btn-default"
-                                                            data-dismiss="modal" value="Cancel">
-                                                        <input type="button" class="btn btn-success" value="Add"
-                                                            onclick="sweetAlert()">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Attendance Add Modal end -->
-
-                                    <!-- Delete Modal start -->
-                                    <div id="deleteModal1" class="modal fade">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <form>
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Delete Attendance</h4>
-                                                        <button type="button" class="btn-close" data-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Are you sure you want to delete attendance for this volunteer?
-                                                        </p>
-                                                        <p class="text-danger f-5"><small>This action cannot be
-                                                                undone.</small></p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <input type="button" class="btn btn-default"
-                                                            data-dismiss="modal" value="Cancel">
-                                                        <input type="submit" class="btn btn-danger" value="Delete">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Delete Modal end -->
                                 @endforeach
                             </tbody>
                         </table>
@@ -327,4 +220,78 @@
             </div>
         </div>
     </div>
+    <!-- Attendance Add Modal start -->
+    <div id="addAttendanceModal" class="modal fade">
+        <div class="modal-dialog delete-modal-diaglog">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Attendance</h4>
+                        <button type="button" class="btn-close" data-dismiss="modal"
+                            aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="" class="form-label">Drive Id</label>
+                            <input type="number" class="form-control" name="id"
+                                value="006" disabled>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="" class="form-label">Drive Title</label>
+                            <input type="text" class="form-control" name="title"
+                                value="IBM, Rangpo, Flood Relief" disabled>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="" class="form-label">Drive Date</label>
+                            <input type="text" class="form-control" name="date"
+                                value="25-10-2023" disabled>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="" class="form-label">Registration
+                                no</label>
+                            <input type="text" class="form-control" name="regno">
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="regno">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default"
+                            data-dismiss="modal" value="Cancel">
+                        <input type="button" class="btn btn-success" value="Add"
+                            onclick="sweetAlert()">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Attendance Add Modal end -->
+
+    <!-- Delete Modal start -->
+    <div id="deleteModal1" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Attendance</h4>
+                        <button type="button" class="btn-close" data-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete attendance for this volunteer?
+                        </p>
+                        <p class="text-danger f-5"><small>This action cannot be
+                                undone.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default"
+                            data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Modal end -->
 @endsection
