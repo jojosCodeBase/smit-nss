@@ -31,6 +31,16 @@
     height: 140px;
 }
 
+.shadow .card:hover{
+    box-shadow: 0 0 10px rgba(7, 7, 7, 0.3);
+    cursor: pointer;
+}
+
+.shadow .card-text h5{
+    font-weight: 800;
+    color:#007bff;
+}
+
 .title{
     font-weight: bold;
 }

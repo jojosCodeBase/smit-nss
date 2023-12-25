@@ -60,7 +60,6 @@
                             <thead>
                                 <tr>
                                     <th>Sl.no</th>
-                                    {{-- <th>ID</th> --}}
                                     <th>Title</th>
                                     <th>Conducted by</th>
                                     <th>Area</th>

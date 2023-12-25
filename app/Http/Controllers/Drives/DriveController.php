@@ -136,4 +136,19 @@ class DriveController extends Controller
             return back()->with('error', 'Some error occured in deleting drive !');
         }
     }
+
+    // function getAttendees($driveId){
+    //     $attendees = Attendance::where('driveId', $driveId)->get();
+    //     dd($attendees);
+    //     // return response()->json($attendees);
+    // }
+    function getAttendees($driveId){
+        $attend = Attendance::where('driveId', $driveId)->get(); // fetches all record which matched given driveId
+
+        $volunteerIds = array_column($attend->toArray(), 'regno');
+
+        $volunteers = Volunteer::whereIn('id', $volunteerIds)->get(); //  fetches records from table which matches the given regno's
+        // dd($volunteers);
+        return response()->json($volunteers);
+    }
 }

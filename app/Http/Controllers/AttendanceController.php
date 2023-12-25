@@ -12,14 +12,20 @@ use Illuminate\Database\QueryException;
 class AttendanceController extends Controller
 {
     public function add(Request $r){
+        // dd($r->id);
         try {
             $attend = Attendance::create([
                 'regno' => $r->regno,
                 'driveId' => $r->id,
             ]);
 
+            $drive = Drive::where('id', $r->id)->get();
+            $presentCount = $drive[0]['present']+1;
+
             $drive = Drive::where('id', $r->id)->update([
                 'attendanceBy' => Auth::user()->id,
+                'updatedBy' => Auth::user()->id,
+                'present' => $presentCount,
             ]);
 
             if ($attend && $drive) {
@@ -33,7 +39,7 @@ class AttendanceController extends Controller
             if ($errorCode == 1062) { // Duplicate entry error code
                 return back()->with('error', 'Duplicate entry. Attendance already added.');
             } else {
-                return back()->with('error', 'Some error occurred in adding attendance!');
+                return back()->with('error', 'Some error occurred in adding attendance with error!');
             }
         }
     }

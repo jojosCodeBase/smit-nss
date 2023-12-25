@@ -83,7 +83,6 @@
                                     <tbody>
                                         @if (!empty($attend))
                                             @foreach ($attend as $at)
-                                                {{-- {{ dd($at) }} --}}
                                                 <tr>
                                                     <td>{{ $at['id'] }}</td>
                                                     <td>{{ $at['name'] }}</td>
@@ -125,25 +124,25 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="form-group mb-3">
-                                                <label for="" class="form-label">Drive
+                                                <label class="form-label">Drive
                                                     Id</label>
                                                 <input type="number" class="form-control" name="id"
                                                     value="{{ $d['id'] }}" id="addAttDriveId" readonly>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="" class="form-label">Drive
+                                                <label class="form-label">Drive
                                                     Title</label>
                                                 <input type="text" class="form-control" name="title"
                                                     value="{{ $d['title'] }}" readonly>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="" class="form-label">Drive
+                                                <label class="form-label">Drive
                                                     Date</label>
                                                 <input type="text" class="form-control" name="date"
                                                     value="{{ $d['date'] }}" readonly>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="" class="form-label">Registration no</label>
+                                                <label class="form-label">Registration no</label>
                                                 <div class="row">
                                                     <div class="col-7">
                                                         <input type="text" class="form-control" name="regno"
@@ -156,7 +155,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="" class="form-label">Name</label>
+                                                <label class="form-label">Name</label>
                                                 <input type="text" class="form-control" id="name" readonly>
                                             </div>
                                         </div>

@@ -1,6 +1,26 @@
 @extends('layouts/admin-content')
 @section('content')
     <div class="container-fluid p-0">
+        @if (session('success'))
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <b>{{ session('success') }}</b>
+                        <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <b>{{ session('error') }}</b>
+                        <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        @endif
         <h2 class="text-center fw-bold">NSS Drives Attendance</h2>
         <div class="row">
             <div class="col-xl-12 col-xxl-5 d-flex">
@@ -58,7 +78,7 @@
                                         <td>{{ $d['date'] }}</td>
                                         <td>{{ $d['present'] }}</td>
                                         <td>
-                                            <a data-toggle="collapse" data-target="#collapseItemDesktop1"
+                                            <a data-toggle="collapse" data-target="#collapseItemDesktop{{ $d['id'] }}"
                                                 class="toggleBtnDesktop collapse-a" id="collapseToggleBtnDesktop"
                                                 onclick="changeToggleDesktop()">View</a>
                                             <a data-toggle="collapse" data-target="#collapseItemMobile1"
@@ -68,7 +88,8 @@
                                     </tr>
                                     <tr>
                                         <td colspan="8">
-                                            <div class="collapse p-2 collapseItemDesktop" id="collapseItemDesktop1">
+                                            <div class="collapse p-2 collapseItemDesktop"
+                                                id="collapseItemDesktop{{ $d['id'] }}">
                                                 <div class="col justify-content-start bg-light p-3">
                                                     <div class="row title">
                                                         <div class="col-2">
@@ -101,7 +122,8 @@
                                                     <div class="row mt-3">
                                                         <div class="col d-flex justify-content-center">
                                                             <button class="btn btn-success" data-toggle="collapse"
-                                                                data-target="#allAttendees">Show
+                                                                data-target="#allAttendees{{ $d['id'] }}"
+                                                                onclick="getAttendees({{ $d['id'] }})">Show
                                                                 All Attendees</button>
                                                         </div>
                                                     </div>
@@ -170,13 +192,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="collapse p-2 allAttendees" id="allAttendees">
+                                            <div class="collapse p-2 allAttendees" id="allAttendees{{ $d['id'] }}">
                                                 <div class="col justify-content-start bg-light p-3">
                                                     <h4 class="text-center">Attendees</h4>
                                                     <div class="row">
                                                         <div class="col d-flex justify-content-end">
                                                             <button class="btn btn-success" data-toggle="modal"
-                                                                data-target="#addAttendanceModal"><i
+                                                                data-target="#addAttendanceModal"
+                                                                onclick="addAttendance({{ $d['id'] }}, {{ json_encode($d['date']) }}, {{ json_encode($d['title']) }})"><i
                                                                     class="bi-plus-circle"></i> Add</button>
                                                         </div>
                                                     </div>
@@ -191,20 +214,11 @@
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
-                                                                @foreach($volunteers as $v)
-                                                                    <tr>
-                                                                        <td>{{ $v['id'] }}</td>
-                                                                        <td>{{ $v['name'] }}</td>
-                                                                        <td>{{ $v['course'] }}</td>
-                                                                        <td>{{ $v['batch'] }}</td>
-                                                                        <td>
-                                                                            <button class="btn btn-danger" data-toggle="modal"
-                                                                                data-target="#deleteModal1"><i
-                                                                                    class="bi-trash"></i></button>
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
+                                                            <tbody id="attendees-table-body{{ $d['id']}}">
+                                                                <tr style="display: none;" id="noRecordFound">
+                                                                    <td colspan="5" class="text-center">No results
+                                                                        found</td>
+                                                                </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -220,47 +234,49 @@
             </div>
         </div>
     </div>
+
     <!-- Attendance Add Modal start -->
     <div id="addAttendanceModal" class="modal fade">
         <div class="modal-dialog delete-modal-diaglog">
             <div class="modal-content">
-                <form>
+                <form action="{{ route('drive.attendance.add') }}" method="POST">
+                    @csrf
                     <div class="modal-header">
                         <h4 class="modal-title">Add Attendance</h4>
-                        <button type="button" class="btn-close" data-dismiss="modal"
-                            aria-hidden="true"></button>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group mb-3">
-                            <label for="" class="form-label">Drive Id</label>
-                            <input type="number" class="form-control" name="id"
-                                value="006" disabled>
+                            <label class="form-label">Drive Id</label>
+                            <input type="number" class="form-control" name="id" id="driveId" readonly>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="" class="form-label">Drive Title</label>
-                            <input type="text" class="form-control" name="title"
-                                value="IBM, Rangpo, Flood Relief" disabled>
+                            <label class="form-label">Drive Title</label>
+                            <input type="text" class="form-control" name="title" id="driveTitle" readonly>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="" class="form-label">Drive Date</label>
-                            <input type="text" class="form-control" name="date"
-                                value="25-10-2023" disabled>
+                            <label class="form-label">Drive Date</label>
+                            <input type="text" class="form-control" name="date" id="driveDate" readonly>
                         </div>
                         <div class="form-group mb-3">
-                            <label for="" class="form-label">Registration
-                                no</label>
-                            <input type="text" class="form-control" name="regno">
+                            <label class="form-label">Registration no</label>
+                            <div class="row">
+                                <div class="col-7">
+                                    <input type="text" class="form-control" name="regno" id="fetchRegno">
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-primary" onclick="getName()">Verify</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="regno">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" readonly>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="button" class="btn btn-default"
-                            data-dismiss="modal" value="Cancel">
-                        <input type="button" class="btn btn-success" value="Add"
-                            onclick="sweetAlert()">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-success" value="Add">
                     </div>
                 </form>
             </div>
@@ -275,8 +291,7 @@
                 <form>
                     <div class="modal-header">
                         <h4 class="modal-title">Delete Attendance</h4>
-                        <button type="button" class="btn-close" data-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p>Are you sure you want to delete attendance for this volunteer?
@@ -285,8 +300,7 @@
                                 undone.</small></p>
                     </div>
                     <div class="modal-footer">
-                        <input type="button" class="btn btn-default"
-                            data-dismiss="modal" value="Cancel">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                         <input type="submit" class="btn btn-danger" value="Delete">
                     </div>
                 </form>
@@ -294,4 +308,71 @@
         </div>
     </div>
     <!-- Delete Modal end -->
+
+    <script>
+        function getAttendees(driveId) {
+            event.preventDefault();
+            jQuery.ajax({
+                url: '/admin/drive/attendance/' + driveId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+
+                    var tableBody = document.getElementById('attendees-table-body' + driveId);
+                    tableBody.innerHTML = '';
+
+                    if (response && response.length > 0) {
+                        response.forEach(function(attendee) {
+                            var row = '<tr>' +
+                                '<td>' + attendee.id + '</td>' +
+                                '<td>' + attendee.name + '</td>' +
+                                '<td>' + attendee.course + '</td>' +
+                                '<td>' + attendee.batch + '</td>' +
+                                '<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal1"><i class="bi-trash"></i></button></td>' +
+                                '</tr>';
+                            tableBody.innerHTML += row;
+                        });
+                    } else {
+                        document.getElementById('noRecordFound').style.display = 'table-row';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX request failed: ', status, error);
+                }
+            });
+        }
+
+        function addAttendance(driveId, driveDate, driveTitle) {
+            document.getElementById('driveId').value = driveId;
+            document.getElementById('driveTitle').value = driveTitle;
+
+            // formatting drive date from yyyy-mm-dd to dd-mm-yyyy
+            var parts = driveDate.split('-');
+            var formattedDateArray = [parts[2], parts[1], parts[0]];
+
+            var formattedDate = formattedDateArray.join('-');
+
+            document.getElementById('driveDate').value = formattedDate;
+        }
+
+        function getName() {
+            var regno = document.getElementById('fetchRegno').value;
+            event.preventDefault();
+            jQuery.ajax({
+                url: '/admin/drive/attendance/add/' + regno, // if your url is using prefix enter url with prefix
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    if (response && response.name) {
+                        document.getElementById('name').value = response.name;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX request failed: ', status, error);
+                }
+            });
+        }
+    </script>
 @endsection
