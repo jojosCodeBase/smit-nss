@@ -26,6 +26,8 @@
         <input type="submit">
     </form>
 
+    <a href="/login" class="btn btn-success">Login</a>
+
     <div id="message"></div>
     <script type="text/javascript">
         $(document).ready(function(){

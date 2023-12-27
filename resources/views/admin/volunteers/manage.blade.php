@@ -38,49 +38,55 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-md-3 shadow">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row text-center">
-                                        <div class="card-image">
-                                            <img src="{{ asset('assets/img/icons/add-icon.png') }}" width="70"
-                                                height="70" alt="user-image">
-                                        </div>
-                                        <div class="card-text mt-3">
-                                            <h5>Create New Batch</h5>
+                            <a href="{{ route('batch.create') }}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row text-center">
+                                            <div class="card-image">
+                                                <img src="{{ asset('assets/img/icons/add-icon.png') }}" width="70"
+                                                    height="70" alt="user-image">
+                                            </div>
+                                            <div class="card-text mt-3">
+                                                <h5>Create New Batch</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-3 shadow">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row text-center">
-                                        <div class="card-image">
-                                            <img src="{{ asset('assets/img/icons/edit-icon.png') }}" width="70"
-                                                height="70" alt="user-image">
-                                        </div>
-                                        <div class="card-text mt-3">
-                                            <h5>Edit Batch Details</h5>
+                            <a href="{{ route('batch.view-edit') }}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row text-center">
+                                            <div class="card-image">
+                                                <img src="{{ asset('assets/img/icons/edit-icon.png') }}" width="70"
+                                                    height="70" alt="user-image">
+                                            </div>
+                                            <div class="card-text mt-3">
+                                                <h5>View/Edit Batch Details</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-3 shadow">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row text-center">
-                                        <div class="card-image">
-                                            <img src="{{ asset('assets/img/icons/delete-icon.jpg') }}" width="70"
-                                                height="70" alt="user-image">
-                                        </div>
-                                        <div class="card-text mt-3">
-                                            <h5>Delete Batch</h5>
+                            <a href="">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row text-center">
+                                            <div class="card-image">
+                                                <img src="{{ asset('assets/img/icons/delete-icon.jpg') }}" width="70"
+                                                    height="70" alt="user-image">
+                                            </div>
+                                            <div class="card-text mt-3">
+                                                <h5>Delete Batch</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>

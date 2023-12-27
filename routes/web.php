@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\USers\UserController;
+use App\Http\Controllers\Batch\BatchController;
 use App\Http\Controllers\Users\AdminController;
 use App\Http\Controllers\Drives\DriveController;
 use App\Http\Controllers\Volunteers\VolunteerController;
@@ -80,7 +81,17 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     // drive section end
 
-    Route::get('/users/manage', [UserController::class, 'listUsers'])->name('users.manage');
+    Route::get('users/manage', [UserController::class, 'listUsers'])->name('users.manage');
+
+    Route::get('batch/create', [BatchController::class, 'createView'])->name('batch.create');
+    Route::post('batch/create', [BatchController::class, 'create'])->name('batch.create');
+    Route::get('batch/view-edit', [BatchController::class, 'viewEdit'])->name('batch.view-edit');
+
+    Route::get('batch/view-edit/modify/', [BatchController::class, 'updateStatus'])->name('batch.view-edit.updateStatus');
+    Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
+
+
+
 
     Route::get('drive/attendance/{driveId}', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
     // Route::post('drive/attendance', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
