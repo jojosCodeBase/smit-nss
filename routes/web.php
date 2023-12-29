@@ -53,7 +53,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     // volunteer manage start
     Route::get('/volunteer/manage', [VolunteerController::class, 'manage'])->name('volunteer.manage');
     Route::post('/volunteer/manage/view-edit', [VolunteerController::class, 'viewDetails'])->name('volunteer.view-details');
-    Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'view_edit'])->name('volunteer.view-edit');
+    Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'viewEdit'])->name('volunteer.view-edit');
 
     Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
     Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
@@ -123,25 +123,6 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
 
 });
 
-// Route::middleware(['isUser'])->group(function () {
-//     Route::get('/user/dashboard', function () {
-//         return view('user-home');
-//     })->name('user.home');
-
-//     Route::get('/volunteer/search', [VolunteerController::class, 'search'])->name('volunteer.search');
-
-//     Route::get('/drive/add', [DriveController::class, 'addView'])->name('drive.add');
-//     Route::post('/drive/add', [DriveController::class, 'addDrive'])->name('drive.add');
-//     Route::get('/drive/attendance', [DriveController::class, 'attendance'])->name('drive.attendance');
-
-//     Route::get('/user/dashboard/manage', [UserController::class, 'index'])->name('users.manage');
-
-//     Route::get('/admin/profile', function () {
-//                 return view('profile-edit');
-//             })->name('admin-profile');
-
-// });
-
 Route::get('/test', function () {
     return "Hello from test";
 });
@@ -153,5 +134,3 @@ Route::post('ajaxupload', [VolunteerController::class, 'ajax'])->name('test');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
-
-

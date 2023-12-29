@@ -76,9 +76,12 @@
                                     <i class="input-group-text bi-telephone-fill"></i>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <select name="course" id="" class="form-select" required>
-                                        <option value="" selected>Select course from list</option>
-                                        <option value="">MCA</option>
+                                    <select name="course" id="course" class="form-select" required>
+                                        <option value="-1" selected>Select course from list</option>
+                                        @foreach ($courses as $c)
+                                            <option value="{{ $c['cid'] }}">{{ $c['cname'] }}</option>
+                                        @endforeach
+                                        {{-- <option value="">MCA</option>
                                         <option value="">BCA</option>
                                         <option value="">MBA</option>
                                         <option value="">BBA</option>
@@ -94,7 +97,7 @@
                                         <option value="">BTech AI&DS</option>
                                         <option value="">BTech IT</option>
                                         <option value="">BTech EEE</option>
-                                        <option value="">BTech ECE</option>
+                                        <option value="">BTech ECE</option> --}}
                                     </select>
                                 </div>
                                 <div class="input-group mb-4">

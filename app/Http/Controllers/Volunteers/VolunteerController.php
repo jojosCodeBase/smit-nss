@@ -36,14 +36,17 @@ class VolunteerController extends Controller
             return view('admin.volunteers.search');
 
     }
-    public function view_edit()
+    public function viewEdit()
     {
         // 'user' is not authenticated to edit volunteers
         // if($this->role == 0)
         //     return view('superadmin.volunteers.view-edit');
         // else
         //     return view('admin.volunteers.view-edit');
-        return view('volunteers.view-edit');
+
+        $volunteers = Volunteer::paginate(2);
+
+        return view('admin.volunteers.view-edit', compact('volunteers'));
 
     }
     public function list()

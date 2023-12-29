@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Batch;
 use App\Models\Batch\Batch;
 use Illuminate\Http\Request;
+use App\Models\Courses\Courses;
 use App\Http\Controllers\Controller;
 
 class BatchController extends Controller
@@ -31,7 +32,9 @@ class BatchController extends Controller
     public function registrationForm($batchName){
         $batch = Batch::where('name', $batchName)->get();
         $status = $batch[0]['status'];
-        return view('admin.batch.registration-form', compact('batchName', 'status'));
+
+        $courses = Courses::all();
+        return view('admin.batch.registration-form', compact('batchName', 'status', 'courses'));
     }
 
     public function updateStatus(Request $r){

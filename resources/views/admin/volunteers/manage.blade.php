@@ -6,19 +6,21 @@
                 <div class="w-100">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 shadow">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row text-center">
-                                        <div class="card-image">
-                                            <img src="{{ asset('assets/img/icons/user-icon.png') }}" width="70"
-                                                height="70" alt="user-image">
-                                        </div>
-                                        <div class="card-text mt-3">
-                                            <h5>View / Edit Volunteer Details</h5>
+                            <a href="{{ route('volunteer.view-edit') }}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row text-center">
+                                            <div class="card-image">
+                                                <img src="{{ asset('assets/img/icons/user-icon.png') }}" width="70"
+                                                    height="70" alt="user-image">
+                                            </div>
+                                            <div class="card-text mt-3">
+                                                <h5>View / Edit Volunteer Details</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-3 shadow">
                             <div class="card">
