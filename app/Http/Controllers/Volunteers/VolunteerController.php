@@ -93,18 +93,17 @@ class VolunteerController extends Controller
         }
     }
 
-    public function viewDetails(Request $r)
+    public function searchDetails(Request $r)
     {
         // this returns an object
         $query = Volunteer::where('id', $r->search_string)
-            ->orWhere('name', 'like', '%' . $r->search_string . '%')
-            ->get();
+        ->orWhere('name', 'like', '%' . $r->search_string . '%');
 
         //converting the returned object to array
-        $volunteer = $query->toArray();
+        $volunteers = $query->paginate(5);
 
-        if ($volunteer) {
-            return back()->with('volunteer', $volunteer);
+        if ($volunteers->count() > 0) {
+            return view('admin.volunteers.view-edit', compact('volunteers'));
         } else
             return back()->with('error', 'No results found for ' . $r->search_string);
     }
@@ -115,13 +114,12 @@ class VolunteerController extends Controller
             'name' => $r->name,
             'phone' => $r->phone,
             'email' => $r->email,
-            'department' => $r->department,
             'course' => $r->course,
             'batch' => $r->batch,
         ]);
 
         if ($updateVolunteer) {
-            return redirect()->route('volunteer.view-update', ['id' => $r->regno]);
+            return back()->with('success', 'Volunteers details updated successfully !');
         } else
             return back()->with('fail', 'Some error occured in updating volunteer details !');
     }

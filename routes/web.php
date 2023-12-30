@@ -52,10 +52,12 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     // volunteer manage start
     Route::get('/volunteer/manage', [VolunteerController::class, 'manage'])->name('volunteer.manage');
-    Route::post('/volunteer/manage/view-edit', [VolunteerController::class, 'viewDetails'])->name('volunteer.view-details');
     Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'viewEdit'])->name('volunteer.view-edit');
 
-    Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
+    Route::post('/volunteer/manage/search-details', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
+    Route::get('/volunteer/manage/search-details', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
+
+    // Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
     Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
 
     Route::get('/volunteer/manage/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');

@@ -112,8 +112,6 @@
                                     class="text-dark">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <span class="dropdown-item text-center">{{ Auth::user()->name }}</span>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('admin.profile.edit') }}"><i
                                         class="align-middle me-1" data-feather="user"></i> Profile</a>
                                 <a class="dropdown-item" href="#"><i class="align-middle me-1"

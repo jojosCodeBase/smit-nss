@@ -26,7 +26,7 @@
                 <div class="w-100">
                     <div class="row d-flex justify-content-center">
                         <div class="col-12 col-lg-6 col-md-6 col-xl-6">
-                            <form action="{{ route('volunteer.view-details') }}" method="POST">
+                            <form action="{{ route('volunteer.search-details') }}" method="POST">
                                 @csrf
                                 <div class="card p-1">
                                     <div class="card-body">
@@ -86,157 +86,118 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $volunteers->links() }}
-                    <div>
-                        Showing {{ $volunteers->firstItem() }} to {{ $volunteers->lastItem() }} of
-                        {{ $volunteers->total() }} entries
+                    <div class="row">
+                        <div class="col px-4 mb-3">
+                            Showing {{ $volunteers->firstItem() }} to {{ $volunteers->lastItem() }} of
+                            {{ $volunteers->total() }} entries
+                        </div>
+                        <div class="col d-flex justify-content-end">
+                            <span class="mx-2">{{ $volunteers->links() }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- @if (session('volunteer'))
-            <div class="row">
-                <div class="col-12 col-lg-12 col-xxl-9 d-flex">
-                    <div class="card flex-fill">
-                        <div class="card-header">
-                            <h5 class="mb-0 h4 text-center fw-bold">Available Records</h5>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-responsive">
-                                <thead>
-                                    <tr>
-                                        <th>Reg.no</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Course</th>
-                                        <th>Batch</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (session('volunteer') as $v)
-                                        <tr>
-                                            <td>{{ $v['id'] }}</td>
-                                            <td>{{ $v['name'] }}</td>
-                                            <td>{{ $v['email'] }}</td>
-                                            <td>{{ $v['phone'] }}</td>
-                                            <td>{{ $v['course'] }}</td>
-                                            <td>{{ $v['batch'] }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif --}}
 
-        <div class="collapse-1 p-2" id="viewDetails">
-            <div class="row">
-                <div class="col justify-content-start p-3">
-                    <div class="row title">
-                        <div class="col-3">
-                            <span>Registration number</span>
+        <div class="collapse p-2" id="viewDetails">
+            <form action="{{ route('volunteer.update') }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col justify-content-start p-3">
+                        <div class="row title">
+                            <div class="col-3">
+                                <span>Registration number</span>
+                            </div>
+                            <div class="col-4">
+                                <span>Name</span>
+                            </div>
+                            <div class="col">
+                                <span>Email</span>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <span>Name</span>
+                        <div class="row info">
+                            <div class="col-3">
+                                <input class="form-control" type="number" name="regno" id="regno" readonly>
+                            </div>
+                            <div class="col-4">
+                                <input class="form-control" type="text" name="name" id="name" readonly>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="email" name="email" id="email" readonly>
+                            </div>
                         </div>
-                        <div class="col">
-                            <span>Email</span>
+                        <div class="row title">
+                            <div class="col-3">
+                                <span>Phone</span>
+                            </div>
+                            <div class="col-3">
+                                <span>Course</span>
+                            </div>
+                            <div class="col-3">
+                                <span>NSS Batch</span>
+                            </div>
+                            <div class="col-3">
+                                <span>Drives Attended</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row info">
-                        <div class="col-3">
-                            <input class="form-control" type="number" name="regno" id="regno" readonly>
-                        </div>
-                        <div class="col-4">
-                            <input class="form-control" type="text" name="name" id="name" readonly>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" type="email" name="email" id="email" readonly>
-                        </div>
-                    </div>
-                    <div class="row title">
-                        <div class="col-3">
-                            <span>Phone</span>
-                        </div>
-                        <div class="col-3">
-                            <span>Course</span>
-                        </div>
-                        <div class="col-3">
-                            <span>NSS Batch</span>
-                        </div>
-                        <div class="col-3">
-                            <span>Drives Attended</span>
-                        </div>
-                    </div>
-                    <div class="row info">
-                        <div class="col-3">
-                            <input class="form-control" type="number" name="phone" id="phone" readonly>
-                        </div>
-                        <div class="col-3">
-                            <input class="form-control" type="text" name="course" id="course" readonly>
-                        </div>
-                        <div class="col-3">
-                            <input class="form-control" type="text" name="batch" id="batch" readonly>
-                        </div>
-                        <div class="col-3">
-                            <input class="form-control" type="number" name="attended" id="attended" readonly>
+                        <div class="row info">
+                            <div class="col-3">
+                                <input class="form-control" type="number" name="phone" id="phone" readonly>
+                            </div>
+                            <div class="col-3">
+                                <input class="form-control" type="text" name="course" id="course" readonly>
+                            </div>
+                            <div class="col-3">
+                                <input class="form-control" type="text" name="batch" id="batch" readonly>
+                            </div>
+                            <div class="col-3">
+                                <input class="form-control" type="number" name="attended" id="attended" readonly>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col">
-                    <button type="button" class="btn btn-success" data-toggle="modal"
-                        data-target="#editDriveInfoDesktop"><i class="bi-pencil-fill" id="editBtn"></i>
-                        Edit</button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i
-                            class="bi-trash-fill"></i>
-                        Delete</button>
+                <div class="row mt-3">
+                    <div class="col">
+                        <button type="button" class="btn btn-success" onclick="editDetails()"><i class="bi-pencil-fill"
+                                id="editBtn"></i>
+                            Edit</button>
+                        <button type="submit" id="updateBtn" class="btn btn-primary"
+                            style="display: none;">Update</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i
+                                class="bi-trash-fill"></i>
+                            Delete</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <script>
         var regno = document.getElementById('regno');
-            var name = document.getElementById('name');
-            var email = document.getElementById('email');
-            var phone = document.getElementById('phone');
-            var course = document.getElementById('course');
-            var batch = document.getElementById('batch');
-            var attended = document.getElementById('attended');
+        var volName = document.getElementById('name');
+        var email = document.getElementById('email');
+        var phone = document.getElementById('phone');
+        var course = document.getElementById('course');
+        var batch = document.getElementById('batch');
+        var attended = document.getElementById('attended');
+
         function showDetails(id, nameVal, emailVal, phoneVal, courseVal, batchVal, attendedVal) {
             regno.value = id;
-            name.value = nameVal;
+            volName.value = nameVal;
             email.value = emailVal;
             phone.value = phoneVal;
             course.value = courseVal;
             batch.value = batchVal;
             attended.value = attendedVal;
-
-            var x = regno.value;
-            alert(x);
         }
 
-        document.getElementById('editBtn').addEventListener('click', function() {
-            // var regno = document.getElementById('regno');
-            // var name = document.getElementById('name');
-            // var email = document.getElementById('email');
-            // var phone = document.getElementById('phone');
-            // var course = document.getElementById('course');
-            // var batch = document.getElementById('batch');
-            // var attended = document.getElementById('attended');
-            alert();
-
-            regno.readOnly = false;
-            name.readOnly = false;
+        function editDetails() {
+            volName.readOnly = false;
             email.readOnly = false;
             phone.readOnly = false;
             course.readOnly = false;
             batch.readOnly = false;
-            attended.readOnly = false;
-        });
+
+            document.getElementById('updateBtn').style.display = "table-row";
+        }
     </script>
 @endsection

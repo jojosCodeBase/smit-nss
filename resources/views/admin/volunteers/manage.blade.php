@@ -22,21 +22,6 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-3 col-md-3 shadow">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row text-center">
-                                        <div class="card-image">
-                                            <img src="{{ asset('assets/img/icons/delete-icon.jpg') }}" width="70"
-                                                height="70" alt="user-image">
-                                        </div>
-                                        <div class="card-text mt-3">
-                                            <h5>Delete Volunteer</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-3 col-md-3 shadow">
@@ -67,23 +52,6 @@
                                             </div>
                                             <div class="card-text mt-3">
                                                 <h5>View/Edit Batch Details</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-3 shadow">
-                            <a href="">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row text-center">
-                                            <div class="card-image">
-                                                <img src="{{ asset('assets/img/icons/delete-icon.jpg') }}" width="70"
-                                                    height="70" alt="user-image">
-                                            </div>
-                                            <div class="card-text mt-3">
-                                                <h5>Delete Batch</h5>
                                             </div>
                                         </div>
                                     </div>
