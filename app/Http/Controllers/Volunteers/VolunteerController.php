@@ -103,7 +103,10 @@ class VolunteerController extends Controller
         $volunteers = $query->paginate(5);
 
         if ($volunteers->count() > 0) {
-            return view('admin.volunteers.view-edit', compact('volunteers'));
+            if(Auth::user()->role == 1)
+                return view('admin.volunteers.view-edit', compact('volunteers'));
+            else
+                return back()->with('volunteers', $volunteers);
         } else
             return back()->with('error', 'No results found for ' . $r->search_string);
     }

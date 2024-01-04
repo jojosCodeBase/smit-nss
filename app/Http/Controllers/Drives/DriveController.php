@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Drives;
-
 use Carbon\Carbon;
 use App\Models\Drives\Drive;
 use Illuminate\Http\Request;
@@ -28,7 +26,6 @@ class DriveController extends Controller
             return view('user.drives.add', compact('id'));
         else
             return view('admin.drives.add', compact('id'));
-
     }
 
     function searchDrive(Request $r)
@@ -65,9 +62,12 @@ class DriveController extends Controller
     function addAttendance()
     {
         $drive = Drive::whereDate('created_at', Carbon::today())->get();
+        // dd($drive);
 
-        if(!$drive){
-            return back()->with('error', 'No drives found for today');
+        if($drive->empty()){
+            // return back()->with('error', 'No drives found for today');
+            // dd($drive);
+            return view('user.drives.attendance');
         }else{
             $attend = Attendance::where('driveId', $drive[0]['id'])->get();
 
@@ -77,7 +77,7 @@ class DriveController extends Controller
             $attend = $volunteers->toArray();
 
             if($drive)
-                return view('user.drives.attendance', compact('drive', 'attend'));
+                return view('user.drives.attendance', compact('drive', 'attend'))->with('driveAvailable');
             else
                 return back()->with('error', 'No drives found');
         }
@@ -137,11 +137,7 @@ class DriveController extends Controller
         }
     }
 
-    // function getAttendees($driveId){
-    //     $attendees = Attendance::where('driveId', $driveId)->get();
-    //     dd($attendees);
-    //     // return response()->json($attendees);
-    // }
+
     function getAttendees($driveId){
         $attend = Attendance::where('driveId', $driveId)->get(); // fetches all record which matched given driveId
 

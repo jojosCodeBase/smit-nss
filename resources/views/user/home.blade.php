@@ -20,7 +20,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">120</h1>
+                                <h1 class="mt-1 mb-3">{{ $totalVolunteers }}</h1>
                                 <div class="mb-0">
                                     <span class="text-muted">2022-24: <span class="text-success"> 30</span> / 2022-25: <span class="text-success"> 42</span></span>
                                 </div>
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">14</h1>
+                                <h1 class="mt-1 mb-3">{{ $totalDrives }}</h1>
                                 <div class="mb-0">
                                     <span class="text-muted">Since 2023</span>
                                 </div>

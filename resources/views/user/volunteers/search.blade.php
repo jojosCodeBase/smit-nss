@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        @if (session('volunteer'))
+        @if (session('volunteers'))
             <div class="row">
                 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
                     <div class="card flex-fill">
@@ -59,7 +59,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (session('volunteer') as $v)
+                                    @foreach (session('volunteers') as $v)
                                         <tr>
                                             <td>{{ $v['id'] }}</td>
                                             <td>{{ $v['name'] }}</td>
@@ -71,6 +71,15 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="row">
+                            <div class="col px-4 mb-3">
+                                Showing {{ session('volunteers')->firstItem() }} to {{ session('volunteers')->lastItem() }} of
+                                {{ session('volunteers')->total() }} entries
+                            </div>
+                            <div class="col d-flex justify-content-end">
+                                <span class="mx-2">{{ session('volunteers')->links() }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\USers\UserController;
@@ -37,12 +38,12 @@ Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
 Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
 ->name('password.email');
 
+Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
+
 // routes for admin panel
 
 Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
-    Route::get('dashboard', function () {
-        return view('admin.home');
-    })->name('admin.home');
+    Route::get('dashboard', [HomeController::class, 'index'])->name('admin.home');
 
     Route::get('profile', [UserController::class, 'index'])->name('admin.profile.edit');
 
@@ -90,10 +91,6 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     Route::get('batch/view-edit', [BatchController::class, 'viewEdit'])->name('batch.view-edit');
 
     Route::get('batch/view-edit/modify/', [BatchController::class, 'updateStatus'])->name('batch.view-edit.updateStatus');
-    Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
-
-
-
 
     Route::get('drive/attendance/{driveId}', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
     // Route::post('drive/attendance', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
@@ -104,13 +101,11 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
 // for user panel
 Route::middleware(['isUser'])->prefix('user/')->group(function () {
-    Route::get('dashboard', function () {
-        return view('user.home');
-    })->name('user.home');
+    Route::get('dashboard', [HomeController::class, 'index'])->name('user.home');
 
     Route::get('profile', [UserController::class, 'index'])->name('user.profile.edit');
     Route::get('volunteers/search', [VolunteerController::class, 'search'])->name('user.volunteer.search');
-    Route::post('volunteers/search', [VolunteerController::class, 'viewDetails'])->name('user.volunteer.view-details');
+    Route::post('volunteers/search', [VolunteerController::class, 'searchDetails'])->name('user.volunteer.view-details');
 
 
     Route::get('drive/add', [DriveController::class, 'addView'])->name('user.drive.add');
