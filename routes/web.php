@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\USers\UserController;
+use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Batch\BatchController;
 use App\Http\Controllers\Users\AdminController;
 use App\Http\Controllers\Drives\DriveController;

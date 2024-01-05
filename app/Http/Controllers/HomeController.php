@@ -12,9 +12,10 @@ class HomeController extends Controller
     public function index(){
         $totalVolunteers = Volunteer::count();
         $totalDrives = Drive::count();
+        $drives = Drive::orderBy('created_at', 'desc')->limit(5)->get();
         if(Auth::user()->role == 1)
-            return view('admin.home', compact('totalDrives', 'totalVolunteers'));
+            return view('admin.home', compact('totalDrives', 'totalVolunteers', 'drives'));
         else
-            return view('user.home', compact('totalDrives', 'totalVolunteers'));
+            return view('user.home', compact('totalDrives', 'totalVolunteers', 'drives'));
     }
 }
