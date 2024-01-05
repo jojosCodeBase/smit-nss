@@ -43,6 +43,23 @@
                     </div>
                 </div>
             @endforeach
+            <div class="col-lg-3 col-md-3">
+                <a href="">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="card-image">
+                                    <img src="https://cdn3.iconfinder.com/data/icons/line/36/add-512.png" width="70"
+                                        height="70" alt="user-image">
+                                </div>
+                                <div class="card-text mt-3">
+                                    <h5>Add Moderator</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 @endsection

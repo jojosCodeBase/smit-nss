@@ -30,13 +30,11 @@
 .user-role .card{
     height: 140px;
 }
-
-.shadow .card:hover{
-    box-shadow: 0 0 10px rgba(7, 7, 7, 0.3);
-    cursor: pointer;
+.user-role a:hover{
+    text-decoration: none;
 }
 
-.shadow .card-text h5{
+.card-text h5{
     font-weight: 800;
     color:#007bff;
 }
