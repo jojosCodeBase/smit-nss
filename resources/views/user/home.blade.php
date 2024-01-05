@@ -63,20 +63,22 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Description</th>
+                            <th>Title</th>
                             <th class="d-none d-xl-table-cell">Area</th>
                             <th class="d-none d-xl-table-cell">Present</th>
                             <th class="d-none d-md-table-cell">Cordinator</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($drives as $d)
                         <tr>
-                            <td></td>
-                            <td class="d-none d-xl-table-cell">IBM, Rangpo, Sikkim</td>
-                            <td >Cleanliness drive conducted at Rangpo IBM to help flood effected victims.</td>
-                            <td class="d-none d-xl-table-cell">15</td>
-                            <td class="d-none d-md-table-cell">Jhuma Sunuwar</td>
+                            <td>{{$d['date']}}</td>
+                            <td>{{ $d['title'] }}</td>
+                            <td class="d-none d-xl-table-cell">{{ $d['area'] }}</td>
+                            <td class="d-none d-xl-table-cell">{{ $d['attendedBy'] }}</td>
+                            <td class="d-none d-md-table-cell">{{ $d['conductedBy'] }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

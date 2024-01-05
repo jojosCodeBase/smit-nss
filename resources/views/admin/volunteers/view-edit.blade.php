@@ -31,13 +31,13 @@
                                 <div class="card p-1">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-lg-10 col-9 mx-lg-0 ps-xl-0 ps-xl-0 ps-0 pe-2">
+                                            <div class="col-lg-10 col-md-10 col-12 mx-lg-0 ps-xl-0 ps-xl-0 ps-lg-0 ps-md-0 pe-lg-2 pe-md-2">
                                                 <input type="search" placeholder="Search by name or regno"
                                                     class="form-control" name="search_string">
                                             </div>
                                             <div
-                                                class="col-lg- col-2 d-flex justify-content-center mt-lg-0 pe-xl-0 ps-xl-0 pe-0 ps-3">
-                                                <input type="submit" class="btn btn-primary" value="Search">
+                                                class="col-lg-2 col-md-2 col-12 d-flex justify-content-center mt-lg-0 mt-2 pe-xl-0 ps-xl-0 pe-lg-0 pe-md-0 ps-lg-3 ps-md-3">
+                                                <input type="submit" class="btn btn-primary w-100" value="Search">
                                             </div>
                                         </div>
                                     </div>

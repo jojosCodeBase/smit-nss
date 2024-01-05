@@ -32,12 +32,13 @@
                                 <div class="card p-1">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-lg-10 col-9 mx-lg-0 ps-xl-0 ps-xl-0 ps-0 pe-2">
+                                            <div
+                                                class="col-lg-10 col-md-10 col-12 mx-lg-0 ps-xl-0 ps-xl-0 ps-lg-0 ps-md-0 pe-lg-2 pe-md-2">
                                                 <input type="search" placeholder="Search by drive title"
                                                     class="form-control" name="search_string">
                                             </div>
                                             <div
-                                                class="col-lg- col-2 d-flex justify-content-center mt-lg-0 pe-xl-0 ps-xl-0 pe-0 ps-3">
+                                                class="col-lg-2 col-md-2 col-12 d-flex justify-content-center mt-lg-0 mt-2 pe-xl-0 ps-xl-0 pe-lg-0 pe-md-0 ps-lg-3 ps-md-3">
                                                 <input type="submit" class="btn btn-primary" value="Search">
                                             </div>
                                         </div>
@@ -82,9 +83,13 @@
                                         <td>{{ $d['date'] }}</td>
                                         <td>
                                             <a data-toggle="collapse" data-target="#collapseItemDesktop{{ $d['id'] }}"
-                                                class="toggleBtnDesktop collapse-a" id="collapseToggleBtnDesktop{{ $d['id'] }}" onclick="changeToggleDesktop({{ $d['id'] }})">View</a>
+                                                class="toggleBtnDesktop collapse-a"
+                                                id="collapseToggleBtnDesktop{{ $d['id'] }}"
+                                                onclick="changeToggleDesktop({{ $d['id'] }})">View</a>
                                             <a data-toggle="collapse" data-target="#collapseItemMobile{{ $d['id'] }}"
-                                                class="toggleBtnMobile collapse-a" id="collapseToggleBtnMobile{{ $d['id'] }}" onclick="changeToggleMobile()">View</a>
+                                                class="toggleBtnMobile collapse-a"
+                                                id="collapseToggleBtnMobile{{ $d['id'] }}"
+                                                onclick="changeToggleMobile()">View</a>
                                         </td>
                                     </tr>
                                     <tr id="trCollapse{{ $d['id'] }}" style="display: none">
@@ -261,14 +266,12 @@
                                                                 <div class="col">
                                                                     <label class="form-label">From</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="from"
-                                                                        value="{{ $d['from'] }}">
+                                                                        name="from" value="{{ $d['from'] }}">
                                                                 </div>
                                                                 <div class="col">
                                                                     <label class="form-label">To</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="to"
-                                                                        value="{{ $d['to'] }}">
+                                                                        name="to" value="{{ $d['to'] }}">
                                                                 </div>
                                                             </div>
                                                             <div class="row mb-3">
@@ -285,7 +288,8 @@
                                                                 <div class="col">
                                                                     <label class="form-label">Conducted by</label>
                                                                     <input type="text" class="form-control"
-                                                                        name="conductedBy" value="{{ $d['conductedBy'] }}">
+                                                                        name="conductedBy"
+                                                                        value="{{ $d['conductedBy'] }}">
                                                                 </div>
                                                             </div>
                                                             <div class="row mb-3">
