@@ -32,7 +32,7 @@
                         Pages
                     </li>
 
-                    <li class="sidebar-item active">
+                    <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('admin.home') }}">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Dashboard</span>
@@ -154,6 +154,8 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
     </script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
@@ -163,35 +165,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        function changeToggleMobile(id) {
-            var trCollapseId = "trCollapse" + id;
-            var toggleId = "collapseToggleBtnMobile" + id;
-            var trCollapse = document.getElementById(trCollapseId);
-            var toggle = document.getElementById(toggleId);
-            if (toggle.innerHTML === "View") {
-                trCollapse.style.display = "table-row";
-                toggle.innerHTML = "Close";
-            } else {
-                toggle.innerHTML = "View";
-                trCollapse.style.display = "none";
-            }
-        }
-
-        function changeToggleDesktop(id) {
-            var trCollapseId = "trCollapse" + id;
-            var toggleId = "collapseToggleBtnDesktop" + id;
-            var trCollapse = document.getElementById(trCollapseId);
-            var toggle = document.getElementById(toggleId);
-            if (toggle.innerHTML === "View") {
-                trCollapse.style.display = "table-row";
-                toggle.innerHTML = "Close";
-            } else {
-                toggle.innerHTML = "View";
-                trCollapse.style.display = "none";
-            }
-        }
-    </script>
 </body>
 
 </html>

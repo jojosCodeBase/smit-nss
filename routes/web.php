@@ -25,9 +25,10 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // require __DIR__ . '/auth.php';
 
-Route::get('/welcome', function(){
+Route::get('/homepage', function(){
     return view('welcome');
 })->name('welcome');
+
 Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

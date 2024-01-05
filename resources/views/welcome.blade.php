@@ -9,24 +9,15 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
-<body>
-    <div class="container text-center">
-        <p>Welcome to official page of National Service Scheme of Sikkim Manipal Institute of Technology.</p>
+<body class="bg-dark">
+    <div class="container text-center text-light mt-5">
+        <p class="h5">Welcome to official page of National Service Scheme of Sikkim Manipal Institute of Technology.</p>
         <h4>NOT ME BUT YOU</h4>
     </div>
 
-    <form action="{{ route('test') }}" method="POST" id="addpost">
-        @csrf
-        <label for="">Text</label>
-        <input type="text" name="title">
-
-        <label for="">Description</label>
-        <input type="text" name="description">
-
-        <input type="submit">
-    </form>
-
-    <a href="/login" class="btn btn-success">Login</a>
+    <div class="text-center">
+        <a href="/login" class="btn btn-success">LOGIN</a>
+    </div>
 
     <div id="message"></div>
     <script type="text/javascript">

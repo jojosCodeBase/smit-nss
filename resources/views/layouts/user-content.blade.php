@@ -32,18 +32,14 @@
                         Pages
                     </li>
 
-                    <li class="sidebar-item active">
+                    <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('user.home') }}">
                             <i class="align-middle" data-feather="sliders"></i> <span
                                 class="align-middle">Dashboard</span>
                         </a>
                     </li>
+
                     <li class="sidebar-header">Volunteers</li>
-                    {{-- <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('volunteer.manage') }}">
-                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage</span>
-                        </a>
-                    </li> --}}
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('user.volunteer.search') }}">
@@ -51,18 +47,7 @@
                         </a>
                     </li>
 
-                    {{-- <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('volunteer.add') }}">
-                            <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Add</span>
-                        </a>
-                    </li> --}}
-
                     <li class="sidebar-header">Drive</li>
-                    {{-- <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('drive.list') }}">
-                            <i class="align-middle" data-feather="file"></i> <span class="align-middle">Manage</span>
-                        </a>
-                    </li> --}}
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('user.drive.add.attendance') }}">
@@ -77,12 +62,6 @@
                         </a>
                     </li>
 
-                    {{-- <li class="sidebar-header">Users</li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('users.manage') }}">
-                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage</span>
-                        </a>
-                    </li> --}}
                 </ul>
             </div>
         </nav>
@@ -156,6 +135,7 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
     </script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
@@ -166,51 +146,23 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        function getName(){
+        function getName() {
             var regno = document.getElementById('fetchRegno').value;
             event.preventDefault();
             jQuery.ajax({
-                url: '/user/drive/attendance/add/' + regno,     // if your url is using prefix enter url with prefix
+                url: '/user/drive/attendance/add/' + regno, // if your url is using prefix enter url with prefix
                 type: 'GET',
                 dataType: 'json',
-                success: function(response){
+                success: function(response) {
                     console.log(response);
-                    if(response && response.name){
+                    if (response && response.name) {
                         document.getElementById('name').value = response.name;
                     }
                 },
-                error: function(xhr, status, error){
+                error: function(xhr, status, error) {
                     console.error('AJAX request failed: ', status, error);
                 }
             });
-        }
-
-        function changeToggleMobile(id) {
-            var trCollapseId = "trCollapse" + id;
-            var toggleId = "collapseToggleBtnMobile" + id;
-            var trCollapse = document.getElementById(trCollapseId);
-            var toggle = document.getElementById(toggleId);
-            if (toggle.innerHTML === "View") {
-                trCollapse.style.display = "table-row";
-                toggle.innerHTML = "Close";
-            } else {
-                toggle.innerHTML = "View";
-                trCollapse.style.display = "none";
-            }
-        }
-
-        function changeToggleDesktop(id) {
-            var trCollapseId = "trCollapse" + id;
-            var toggleId = "collapseToggleBtnDesktop" + id;
-            var trCollapse = document.getElementById(trCollapseId);
-            var toggle = document.getElementById(toggleId);
-            if (toggle.innerHTML === "View") {
-                trCollapse.style.display = "table-row";
-                toggle.innerHTML = "Close";
-            } else {
-                toggle.innerHTML = "View";
-                trCollapse.style.display = "none";
-            }
         }
     </script>
 </body>
