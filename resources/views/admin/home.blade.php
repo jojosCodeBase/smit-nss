@@ -6,7 +6,7 @@
         <div class="col-xl-12 col-xxl-5 d-flex">
             <div class="w-100">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-lg-6 col-xl-4 col-md-6 col-xxl-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-lg-6 col-xl-4 col-md-6 col-xxl-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -54,7 +54,7 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+        <div class="col-12 col-lg-12 col-xxl-11 d-flex">
             <div class="card flex-fill">
                 <div class="card-header">
                     <h5 class="card-title mb-0">Recent Activities</h5>

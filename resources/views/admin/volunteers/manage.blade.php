@@ -5,7 +5,7 @@
             <div class="col-xl-12 col-xxl-5 d-flex">
                 <div class="w-100">
                     <div class="row">
-                        <div class="col-lg-3 col-md-3">
+                        <div class="col-lg-4 col-md-3 col-xl-3 col-xxl-7">
                             <a href="{{ route('volunteer.view-edit') }}">
                                 <div class="card">
                                     <div class="card-body">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-md-3">
+                        <div class="col-lg-4 col-md-3 col-xl-3 col-xxl-6">
                             <a href="{{ route('batch.create') }}">
                                 <div class="card">
                                     <div class="card-body">
@@ -41,7 +41,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-3 col-md-3">
+                        <div class="col-lg-4 col-md-3 col-xl-3 col-xxl-6">
                             <a href="{{ route('batch.view-edit') }}">
                                 <div class="card">
                                     <div class="card-body">

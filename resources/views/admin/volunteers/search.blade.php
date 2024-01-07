@@ -13,33 +13,32 @@
     @endif
     <div class="container-fluid p-0">
         <div class="row">
-            <div class="col-xl-12 col-xxl-5 d-flex">
-                <div class="w-100">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-12 col-lg-6 col-md-6 col-xl-6">
-                            <form action="{{ route('volunteer.search-details') }}" method="POST">
-                                @csrf
-                                <div class="card p-1">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-10 col-12 mx-lg-0 ps-xl-0 ps-xl-0 ps-lg-0 ps-md-0 pe-lg-2 pe-md-2">
-                                                <input type="search" placeholder="Search by name or regno"
-                                                    class="form-control" name="search_string">
-                                            </div>
-                                            <div
-                                                class="col-lg-2 col-md-2 col-12 d-flex justify-content-center mt-lg-0 mt-2 pe-xl-0 ps-xl-0 pe-lg-0 pe-md-0 ps-lg-3 ps-md-3">
-                                                <input type="submit" class="btn btn-primary w-100" value="Search">
-                                            </div>
+            <div class="col-xl-8 offset-xl-2 col-md-10 offset-md-2">
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 col-xl-12">
+                        <form action="{{ route('volunteer.search-details') }}" method="POST">
+                            @csrf
+                            <div class="card p-1">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div
+                                            class="col-lg-10 col-md-10 col-12 mx-lg-0 ps-xl-0 ps-xl-0 ps-lg-0 ps-md-0 pe-lg-2 pe-md-2">
+                                            <input type="search" placeholder="Search by name or regno" class="form-control"
+                                                name="search_string">
+                                        </div>
+                                        <div
+                                            class="col-lg-2 col-md-2 col-12 d-flex justify-content-center mt-lg-0 mt-lg-0 mt-2 mt-md-0 pe-xl-0 ps-xl-0 pe-lg-0 pe-md-0 ps-lg-3 ps-md-3">
+                                            <input type="submit" class="btn btn-primary w-100" value="Search">
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        @if (session('volunteer'))
+        {{-- @if (session('volunteer'))
             <div class="row">
                 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
                     <div class="card flex-fill">
@@ -75,6 +74,6 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif --}}
     </div>
 @endsection
