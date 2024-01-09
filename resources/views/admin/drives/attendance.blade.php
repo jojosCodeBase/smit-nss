@@ -290,17 +290,20 @@
     <div id="deleteModal1" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h4 class="modal-title">Delete Attendance</h4>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Attendance</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete attendance for this volunteer?
+                    </p>
+                    <p class="text-danger f-5"><small>This action cannot be
+                        undone.</small></p>
                     </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete attendance for this volunteer?
-                        </p>
-                        <p class="text-danger f-5"><small>This action cannot be
-                                undone.</small></p>
-                    </div>
+                <form action="{{route('drive.attendance.delete')}}" method="POST">
+                    @csrf
+                    <input type="number" id="attendanceDeleteRegno" name="regno" hidden>
+                    <input type="number" id="attendanceDeleteDriveId" name="driveId" hidden>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                         <input type="submit" class="btn btn-danger" value="Delete">
@@ -331,7 +334,7 @@
                                 '<td>' + attendee.name + '</td>' +
                                 '<td>' + attendee.course + '</td>' +
                                 '<td>' + attendee.batch + '</td>' +
-                                '<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal1"><i class="bi-trash"></i></button></td>' +
+                                '<td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal1" onclick="initRegno(' + attendee.id + ',' + driveId + ')"><i class="bi-trash"></i></button></td>' +
                                 '</tr>';
                             tableBody.innerHTML += row;
                         });
@@ -375,6 +378,12 @@
                     console.error('AJAX request failed: ', status, error);
                 }
             });
+        }
+
+        function initRegno(id, driveId){
+            // alert(driveId);
+            document.getElementById('attendanceDeleteRegno').value = id;
+            document.getElementById('attendanceDeleteDriveId').value = driveId;
         }
     </script>
 @endsection

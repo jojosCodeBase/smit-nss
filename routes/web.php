@@ -82,6 +82,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     // Route::get('drive/attendance', [DriveController::class, 'showAttendance'])->name('user.drive.show.attendance');
     Route::get('drive/attendance/add/{regno}', [VolunteerController::class, 'getName']);
     Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('drive.attendance.add');
+    Route::post('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('drive.attendance.delete');
 
     // drive section end
 

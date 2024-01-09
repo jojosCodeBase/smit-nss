@@ -7,7 +7,6 @@
     <title>NSS SMIT</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body class="bg-dark">
     <div class="container text-center text-light mt-5">
@@ -18,25 +17,5 @@
     <div class="text-center">
         <a href="/login" class="btn btn-success">LOGIN</a>
     </div>
-
-    <div id="message"></div>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#addpost').on('submit', function(event){
-                event.preventDefault();
-                jQuery.ajax({
-                    url: "{{ url('ajaxupload') }}",
-                    data: jQuery('#addpost').serialize(),
-                    type: 'post',
-
-                    success:function(result){
-                        $('#message').css('display','block');
-                        jQuery('#message').html(result.message);
-                        jQuery('#addpost')[0].reset();
-                    }
-                })
-            });
-        });
-    </script>
 </body>
 </html>

@@ -12,7 +12,6 @@ use Illuminate\Database\QueryException;
 class AttendanceController extends Controller
 {
     public function add(Request $r){
-        // dd($r->id);
         try {
             $attend = Attendance::create([
                 'regno' => $r->regno,
@@ -43,19 +42,33 @@ class AttendanceController extends Controller
             }
         }
     }
-    // public function delete(Request $r){
-
-    // }
-    public function update(Request $r){
-
-    }
-
     public function delete(Request $r){
-        $delete = Attendance::where('regno', $r->regno)->delete();
-        if($delete){
-            return back()->with('success', 'Attendance deleted successfully !');
+        $attendance = Attendance::where('regno', $r->regno)->delete();
+        $drive = Drive::where('id', $r->driveId)->get();
+        $presentCount = $drive[0]['present']-1;
+
+        $drive = Drive::where('id', $r->driveId)->update([
+            'updatedBy' => Auth::user()->id,
+            'present' => $presentCount,
+        ]);
+
+        if($attendance && $drive){
+            // dd('delete successful');
+            return back();
         }else{
-            return back()->with('error', 'Some error occured in deleting attendance !');
+            return back()->with('error', 'Some error occured in deleting attendance');
         }
     }
+    // public function update(Request $r){
+
+    // }
+
+    // public function delete(Request $r){
+    //     $delete = Attendance::where('regno', $r->regno)->delete();
+    //     if($delete){
+    //         return back()->with('success', 'Attendance deleted successfully !');
+    //     }else{
+    //         return back()->with('error', 'Some error occured in deleting attendance !');
+    //     }
+    // }
 }
