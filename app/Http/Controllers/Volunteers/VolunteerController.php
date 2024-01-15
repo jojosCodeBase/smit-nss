@@ -44,7 +44,7 @@ class VolunteerController extends Controller
         // else
         //     return view('admin.volunteers.view-edit');
 
-        $volunteers = Volunteer::paginate(2);
+        $volunteers = Volunteer::paginate(10);
 
         return view('admin.volunteers.view-edit', compact('volunteers'));
 

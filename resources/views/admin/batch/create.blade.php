@@ -27,16 +27,16 @@
                 <form action="{{ route('batch.create') }}" method="POST">
                     @csrf
                     <div class="row mt-3 p-0 px-0">
-                        <div class="col-md-4 col-lg-4">
+                        <div class="col-md-5 col-lg-4">
                             <input type="text" name="name" class="form-control mb-1" placeholder="Batch Name"
                                 id="batchName">
                             <span id="message"></span>
                         </div>
-                        <div class="col-md-3 col-lg-4">
+                        <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                             <input type="text" name="studentCoordinator" class="form-control" placeholder="Student Co-ordinator">
                         </div>
-                        <div class="col-lg-3 text-center">
-                            <input type="submit" class="btn btn-primary w-75" value="Create">
+                        <div class="col-md-2 col-lg-2 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
+                            <input type="submit" class="btn btn-primary w-100" value="Create">
                         </div>
                     </div>
                 </form>
