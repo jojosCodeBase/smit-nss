@@ -16,6 +16,7 @@ class Drive extends Model
         'from',
         'to',
         'conductedBy',
+        'updatedBy',
         'type',
         'area',
         'present',

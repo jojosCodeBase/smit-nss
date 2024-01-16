@@ -1,7 +1,6 @@
 @extends('layouts/admin-content')
 @section('content')
 <div class="container-fluid p-0 mt-0">
-    <h1>ADMIN PANEL</h1>
     <div class="row">
         <div class="col-xl-12 col-xxl-5 d-flex">
             <div class="w-100">
@@ -22,7 +21,7 @@
                                 </div>
                                 <h1 class="mt-1 mb-3">{{ $totalVolunteers }}</h1>
                                 <div class="mb-0">
-                                    <span class="text-muted">2022-24: <span class="text-success"> 30</span> / 2022-25: <span class="text-success"> 42</span></span>
+                                    <span class="text-muted">{{ $batchInfo['batch1']->name }}: <span class="text-success"> {{ $batchInfo['batch1']->volunteers }}</span> / {{ $batchInfo['batch2']->name }}: <span class="text-success"> {{ $batchInfo['batch2']->volunteers }}</span></span>
                                 </div>
                             </div>
                         </div>

@@ -45,11 +45,11 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
+                    {{-- <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('volunteer.search') }}">
                             <i class="align-middle" data-feather="search"></i> <span class="align-middle">Search</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('volunteer.add') }}">
@@ -77,12 +77,20 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-header">Batch</li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('users.manage') }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Create</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-header">Users</li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('users.manage') }}">
                             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage</span>
                         </a>
                     </li>
+
                 </ul>
             </div>
         </nav>
