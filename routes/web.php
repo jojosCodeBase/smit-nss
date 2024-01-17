@@ -23,11 +23,15 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
-// require __DIR__ . '/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/homepage', function(){
     return view('welcome');
 })->name('welcome');
+
+Route::get('/dashboard', function(){
+    return view('hello world');
+})->name('dashboard');
 
 Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
@@ -66,9 +70,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     Route::post('/volunteer/manage/list-all', [VolunteerController::class, 'fetchDetails'])->name('volunteer.list-all');
 
-    Route::get('/volunteer/manage/export', function(){
-        return view('admin.volunteers.export');
-    })->name('volunteer.export');
+    Route::get('/volunteer/manage/export', [VolunteerController::class, 'exportView'])->name('volunteer.export');
 
     Route::post('volunteer/manage/export', [VolunteerController::class, 'fetch'])->name('volunteer.fetchData');
 
@@ -136,8 +138,8 @@ Route::get('/test', function () {
 
 Route::post('ajaxupload', [VolunteerController::class, 'ajax'])->name('test');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});

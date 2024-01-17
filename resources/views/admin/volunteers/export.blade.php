@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,10 +13,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="{{ asset('assets/css/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
 </head>
@@ -139,20 +140,25 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="card-title">Export Volunteer Details</div>
-                        <div class="alert alert-danger">pdf button is not working</div>
-                        <form action="{{ route('volunteer.fetchData') }}" method="POST">
+                        <form action="{{ route('volunteer.fetchData') }}" method="POST" id="form">
                             @csrf
                             <div class="row mt-3 p-0 px-0">
-                                {{-- <div class="col-md-5 col-lg-4">
-                                    <input type="text" name="name" class="form-control mb-1" placeholder="Batch Name"
-                                        id="batchName">
-                                    <span id="message"></span>
-                                </div> --}}
                                 <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
-                                    <select name="batch">
+                                    <select name="batch" class="form-select" id="batch" required>
                                         <option value="-1" selected>Select batch from list</option>
-                                        <option value="2022-24">2022-24</option>
-                                        <option value="2023-25">2023-25</option>
+                                        <option value="*">All</option>
+                                        @for ($index = 0; $index < $batches->count(); $index++)
+                                            <option value="{{ $batches[$index] }}">{{ $batches[$index] }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
+                                    <select name="course" class="form-select" id="course" required>
+                                        <option value="-1" selected>Select course from list</option>
+                                        <option value="*">All</option>
+                                        @foreach ($courses as $c)
+                                            <option value="{{ $c['cid'] }}">{{ $c['cname'] }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-2 col-lg-2 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
@@ -182,12 +188,12 @@
                                         <tbody>
                                             @foreach (session('volunteers') as $v)
                                                 <tr>
-                                                    <td>{{ $v['id']}}</td>
-                                                    <td>{{ $v['name']}}</td>
-                                                    <td>{{ $v['email']}}</td>
-                                                    <td>{{ $v['phone']}}</td>
-                                                    <td id="batch-name-export">{{ $v['batch']}}</td>
-                                                    <td>{{ $v['course']}}</td>
+                                                    <td>{{ $v['id'] }}</td>
+                                                    <td>{{ $v['name'] }}</td>
+                                                    <td>{{ $v['email'] }}</td>
+                                                    <td>{{ $v['phone'] }}</td>
+                                                    <td id="batch-name-export">{{ $v['batch'] }}</td>
+                                                    <td>{{ $v['course'] }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -201,7 +207,8 @@
                         <div class="col">
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <b>{{ session('error') }}</b>
-                                <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close " data-dismiss="alert"
+                                    aria-label="Close"></button>
                             </div>
                         </div>
                     </div>
@@ -222,15 +229,41 @@
             </footer>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
     <script src="{{ asset('assets/js/jquery-3.6.0.js') }}"></script>
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/js/vfs_fonts.min.js') }}"></script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/vfs_fonts.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
-</body>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        // window.onbeforeunload = function() {
+        //     localStorage.setItem("course", $('#course').val());
+        //     localStorage.setItem("batch", $('#batch').val());
+        // }
 
+        // $(document).ready(() => {
+        //     if(localStorage.getItem("batch") != -1){
+        //         if(localStorage.getItem("course") != -1){
+        //             $('#batch').val(localStorage.getItem("batch"));
+        //             $('#course').val(localStorage.getItem("course"));
+        //         }
+        //         else
+        //             alert('Select course from list');
+        //     }else{
+        //         alert('Select batch from list');
+        //     }
+            // if($('#batch').val() != -1){
+            //     if($('#course').val() != -1){
+            //         alert('hi');
+            //         $('#batch').val(localStorage.getItem("batch"));
+            //         $('#course').val(localStorage.getItem("course"));
+            //     }
+            //     else
+            //         alert('Select course from list');
+            // }else{
+            //     alert('Select batch from list');
+            // }
+        // });
+    </script>
+</body>
 </html>

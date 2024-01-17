@@ -81,23 +81,6 @@
                                         @foreach ($courses as $c)
                                             <option value="{{ $c['cid'] }}">{{ $c['cname'] }}</option>
                                         @endforeach
-                                        {{-- <option value="">MCA</option>
-                                        <option value="">BCA</option>
-                                        <option value="">MBA</option>
-                                        <option value="">BBA</option>
-                                        <option value="">MSc Chemistry</option>
-                                        <option value="">BSc Chemistry</option>
-                                        <option value="">MSc Mathematics</option>
-                                        <option value="">BSc Mathematics</option>
-                                        <option value="">MSc Physics</option>
-                                        <option value="">BSc Physics</option>
-                                        <option value="">BTech CSE</option>
-                                        <option value="">BTech CE</option>
-                                        <option value="">BTech ME</option>
-                                        <option value="">BTech AI&DS</option>
-                                        <option value="">BTech IT</option>
-                                        <option value="">BTech EEE</option>
-                                        <option value="">BTech ECE</option> --}}
                                     </select>
                                 </div>
                                 <div class="input-group mb-4">

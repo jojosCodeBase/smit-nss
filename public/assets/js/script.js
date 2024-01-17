@@ -89,7 +89,7 @@ $('#myTable').DataTable({
         {
             extend: 'pdf',
             text: ' Pdf',
-            title: 'NSS Batch ' + document.getElementById('batch-name-export').innerHTML + ' Volunteers List'
+            title: 'test data'
         },
         {
             extend: 'print',

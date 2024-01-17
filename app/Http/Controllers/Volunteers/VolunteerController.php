@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Volunteers;
 
+use App\Models\Batch\Batch;
 use Illuminate\Http\Request;
+use App\Models\Courses\Courses;
 use App\Http\Controllers\Controller;
 use App\Models\Volunteers\Volunteer;
 use Illuminate\Support\Facades\Auth;
@@ -14,15 +16,11 @@ class VolunteerController extends Controller
     public function manage()
     {
         return view('admin.volunteers.manage');
-        // return view('volunteers.manage');
-        // // 'user' is not authenticated to manage volunteers
-        // if($this->role == 2)
-        // else
     }
     public function add()
     {
         // 'user' is authenticated to add volunteers
-        if(Auth::user()->role == 2)
+        if (Auth::user()->role == 2)
             return view('user.volunteers.add');
         else
             return view('admin.volunteers.add');
@@ -30,7 +28,7 @@ class VolunteerController extends Controller
     public function search()
     {
         // 'user' is authenticated to search volunteers
-        if(Auth::user()->role == 2)
+        if (Auth::user()->role == 2)
             return view('user.volunteers.search');
         else
             return view('admin.volunteers.search');
@@ -39,12 +37,10 @@ class VolunteerController extends Controller
     public function viewEdit()
     {
         // 'user' is not authenticated to edit volunteers
-        // if($this->role == 0)
-        //     return view('superadmin.volunteers.view-edit');
-        // else
-        //     return view('admin.volunteers.view-edit');
-
         $volunteers = Volunteer::paginate(10);
+        foreach ($volunteers as $v) {
+            $v['course'] = $this->courseId_To_courseName($v['course']);
+        }
 
         return view('admin.volunteers.view-edit', compact('volunteers'));
 
@@ -52,20 +48,17 @@ class VolunteerController extends Controller
     public function list()
     {
         // // 'user' is not authenticated to edit volunteers
-        // if($this->role == 0)
-        //     return view('superadmin.volunteers.list');
-        // else
-        //     return view('admin.volunteers.list');
         return view('volunteers.list');
 
     }
     public function viewUpdate($regno)
     {
         // 'user' is not authenticated to update volunteers
-        // if($this->role == 0){
-            $volunteer = Volunteer::where('id', $regno)->get();
-            return redirect()->route('volunteer.view-edit')->with(['volunteer' => $volunteer, 'success' => 'Volunteer details updated successfully !']);
-        // }
+        $volunteer = Volunteer::where('id', $regno)->get();
+        foreach ($volunteer as $v) {
+            $v['course'] = $this->courseId_To_courseName($v['course']);
+        }
+        return redirect()->route('volunteer.view-edit')->with(['volunteer' => $volunteer, 'success' => 'Volunteer details updated successfully !']);
     }
 
     public function insert(Request $r)
@@ -97,13 +90,16 @@ class VolunteerController extends Controller
     {
         // this returns an object
         $query = Volunteer::where('id', $r->search_string)
-        ->orWhere('name', 'like', '%' . $r->search_string . '%');
+            ->orWhere('name', 'like', '%' . $r->search_string . '%');
 
         //converting the returned object to array
         $volunteers = $query->paginate(5);
 
         if ($volunteers->count() > 0) {
-            if(Auth::user()->role == 1)
+            foreach ($volunteers as $v) {
+                $v['course'] = $this->courseId_To_courseName($v['course']);
+            }
+            if (Auth::user()->role == 1)
                 return view('admin.volunteers.view-edit', compact('volunteers'));
             else
                 return back()->with('volunteers', $volunteers);
@@ -127,46 +123,95 @@ class VolunteerController extends Controller
             return back()->with('error', 'Some error occured in updating volunteer details !');
     }
 
-    public function fetchDetails(){
+    public function fetchDetails()
+    {
         $obj = Volunteer::all();
 
         $volunteers = $obj->toArray();
 
         if ($volunteers) {
             return back()->with('volunteers', $volunteers);
-        } else{
+        } else {
             return back()->with('error', 'No results found');
         }
     }
 
-    public function getName($regno){
+    public function getName($regno)
+    {
         // dd("hello");
         $user = Volunteer::where('id', $regno)->first();
         // $user = $user->toArray();
-        if($user)
-            return response()->json(['name' => $user->name ]);
+        if ($user)
+            return response()->json(['name' => $user->name]);
         else
             return response()->json(['name' => 'No results found']);
     }
-    public function ajax(Request $upload){
+    public function ajax(Request $upload)
+    {
         $user = Volunteer::where('id', $upload->title)->first();
         // $desc = $upload->description;
-        if($user)
-            return response()->json(['message' => $user->name ]);
+        if ($user)
+            return response()->json(['message' => $user->name]);
         else
             return response()->json(['message' => 'No results found']);
     }
 
-    public function fetch(Request $r){
-        $volunteers = Volunteer::where([
-            'batch' => $r->batch,
-        ])->get();
-        // dd($volunteers);
+    function courseId_To_courseName($id)
+    {
+        $courseMapping = [
+            0 => "MCA",
+            1 => "BCA",
+            2 => "MBA",
+            3 => "BBA",
+            4 => "MSc Chemistry",
+            5 => "BSc Chemistry",
+            6 => "MSc Mathematics",
+            7 => "BSc Mathematics",
+            8 => "MSc Physics",
+            9 => "BSc Physics",
+            10 => "BTech CSE",
+            11 => "BTech CE",
+            12 => "BTech ME",
+            13 => "BTech AI&DS",
+            14 => "BTech IT",
+            15 => "BTech EEE",
+            16 => "BTech ECE",
+        ];
 
-        if($volunteers->count() > 0){
+        if (array_key_exists($id, $courseMapping)) {
+            return $courseMapping[$id];
+        } else {
+            return 'Unknown Course';
+        }
+    }
+
+    public function fetch(Request $r)
+    {
+        // All batch and all course
+        if ($r->batch == "*" && $r->course == "*") {
+            $volunteers = Volunteer::all();
+        } elseif ($r->batch == "*") { // All batch and different course
+            $volunteers = Volunteer::where('course', $r->course)->get();
+        } elseif ($r->course == "*") { // Different batch and all course
+            $volunteers = Volunteer::where('batch', $r->batch)->get();
+        } else { // Different batch and different course
+            $volunteers = Volunteer::where('batch', $r->batch)->where('course', $r->course)->get();
+        }
+        foreach ($volunteers as $v) {
+            $v['course'] = $this->courseId_To_courseName($v['course']);
+        }
+
+        if ($volunteers->count() > 0) {
             return back()->with('volunteers', $volunteers);
-        }else{
+        } else {
             return back()->with('error', 'No details found for batch specified');
         }
+    }
+
+    public function exportView()
+    {
+        $batches = Batch::pluck('name');
+        $courses = Courses::all();
+        return view('admin.volunteers.export', compact('batches', 'courses'));
     }
 }
