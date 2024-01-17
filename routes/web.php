@@ -66,6 +66,12 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     Route::post('/volunteer/manage/list-all', [VolunteerController::class, 'fetchDetails'])->name('volunteer.list-all');
 
+    Route::get('/volunteer/manage/export', function(){
+        return view('admin.volunteers.export');
+    })->name('volunteer.export');
+
+    Route::post('volunteer/manage/export', [VolunteerController::class, 'fetch'])->name('volunteer.fetchData');
+
     // volunteer manage end
 
     // drive section start
@@ -88,10 +94,12 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     Route::get('users/manage', [UserController::class, 'listUsers'])->name('users.manage');
 
+    // batch section start
+
     Route::get('batch/create', [BatchController::class, 'createView'])->name('batch.create');
     Route::post('batch/create', [BatchController::class, 'create'])->name('batch.create');
-    Route::get('batch/view-edit', [BatchController::class, 'viewEdit'])->name('batch.view-edit');
 
+    Route::get('batch/view-edit', [BatchController::class, 'viewEdit'])->name('batch.view-edit');
     Route::get('batch/view-edit/modify/', [BatchController::class, 'updateStatus'])->name('batch.view-edit.updateStatus');
 
     Route::get('drive/attendance/{driveId}', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');

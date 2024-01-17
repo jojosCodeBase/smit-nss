@@ -9,6 +9,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .data-table {
             background: #fff;
@@ -27,14 +28,19 @@
             display: none;
         }
 
-        .buttons-csv {
-            background-color: red;
-        }
+        /* .dt-buttons{
+            background: #f1f1f1;
+        } */
+
+        /* .buttons-csv{
+            background: red;
+            border: none;
+        } */
     </style>
 </head>
 
 <body>
-    <h2>Student Information</h2>
+    <h2 class="text-center mt-4">Student Information</h2>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -134,38 +140,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script>
-        // $(document).ready(function () {
-        //     var table = $('#myTable').DataTable({
-        //         buttons:['csv', 'excel', 'pdf', 'print']
-        //     });
+        $(document).ready(() => {
+            const csv = document.querySelector('.buttons-csv');
+            csv.id = "btn-csv";
+            csv.classList.remove('btn-secondary');
+            csv.classList.add('btn-warning');
+            csv.classList.add('bi');
+            csv.classList.add('bi-filetype-csv');
+            console.log(csv);
 
-        //     table.buttons().container().appendTo('.buttons');
-        // });
-        $(document).ready(function () {
-            var table = $('#myTable').DataTable({
-                buttons: ['csv', 'excel', 'pdf', 'print'],
-                "dom": 'Bfrtip', // Display buttons only
-                "pageLength": 10, // Set the number of rows per page
-                "lengthMenu": [10, 25, 50, 75, 100], // Options for the number of rows per page
-                "responsive": true, // Enable responsive design
-                "autoWidth": false // Disable automatic column width calculation
-            });
+            const excel = document.querySelector('.buttons-excel');
+            excel.id = "btn-excel";
+            excel.classList.remove('btn-secondary');
+            excel.classList.add('btn-success');
+            excel.classList.add('bi');
+            excel.classList.add('bi-file-earmark-spreadsheet');
+            console.log(excel);
 
-            // Customize the print view
-            table.buttons().container().appendTo('.buttons');
-            table.buttons().container().addClass('mb-3'); // Add some margin
-            table.buttons().text('Export / Print'); // Change the button text
+            const pdf = document.querySelector('.buttons-pdf');
+            pdf.id = "btn-pdf";
+            pdf.classList.remove('btn-secondary');
+            pdf.classList.add('btn-danger');
+            pdf.classList.add('bi');
+            pdf.classList.add('bi-filetype-pdf');
+            console.log(pdf);
 
-            // Add a custom message to the print view
-            table.buttons().container().appendTo('.buttons');
-            table.buttons().container().prepend('<div class="print-message">Your custom message here</div>');
+            const print = document.querySelector('.buttons-print');
+            print.id = "btn-print";
+            print.classList.remove('btn-secondary');
+            print.classList.add('btn-primary');
+            print.classList.add('bi');
+            print.classList.add('bi-printer-fill');
+            console.log(print);
+        });
+        $('#myTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'csv',
+                    text: ' CSV',
+                    title: 'NSS Batch 2023-24 Volunteer List'
+                },
+                {
+                    extend: 'excel',
+                    text: ' Excel',
+                    title: 'NSS Batch 2023-24 Volunteer List'
+                },
+                {
+                    extend: 'pdf',
+                    text: ' Pdf',
+                    title: 'NSS Batch 2023-24 Volunteer List'
+                },
+                {
+                    extend: 'print',
+                    text: ' Print',
+                    title: 'Datatables example: Customisation of the print view window',
+                    customize: function (win) {
+                        $(win.document.body)
+                            .css('font-size', '16px')
+                            .prepend(
+                                // '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                '<div>Data from 10 Jan 2023 to 25th Jan 2024</div>'
+                            );
 
-            // Customize the content for print
-            table.on('preXhr.dt', function (e, settings, data) {
-                data.columns.forEach(function (column, index) {
-                    column.search.search = ''; // Remove search values for print
-                });
-            });
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
         });
 
     </script>

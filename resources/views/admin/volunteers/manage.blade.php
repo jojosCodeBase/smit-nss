@@ -23,7 +23,7 @@
                             </a>
                         </div>
                         <div class="col-lg-4 col-md-3 col-xl-3">
-                            <a href="{{ route('batch.create') }}">
+                            <a href="{{ route('volunteer.export') }}">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row text-center">

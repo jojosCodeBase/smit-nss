@@ -1,10 +1,10 @@
 @extends('layouts/admin-content')
 @section('content')
-    @if (session('fail'))
+    @if (session('error'))
         <div class="row d-flex justify-content-center">
             <div class="col">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <b>{{ session('fail') }}</b>
+                    <b>{{ session('error') }}</b>
                     <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>

@@ -16,7 +16,7 @@
     font-size: 14px;
 }
 
-.btn-close{
+.btn-close {
     background-color: transparent;
     border: none;
 }
@@ -24,23 +24,41 @@
 .card-info .role {
     font-weight: bold;
 }
-.user-role .card:hover{
+
+.user-role .card:hover {
     box-shadow: 0 0 10px rgba(7, 7, 7, 0.3);
 }
-.user-role .card{
+
+.user-role .card {
     height: 140px;
 }
-.user-role a:hover{
+
+.user-role a:hover {
     text-decoration: none;
 }
 
-.card-text h5{
+.card-text h5 {
     font-weight: 800;
-    color:#007bff;
+    color: #007bff;
 }
 
-.title{
+.title {
     font-weight: bold;
+}
+.data-table {
+    background: #fff;
+    padding: 15px;
+    box-shadow: 1px 3px 5px #aaa;
+    border-radius: 5px;
+}
+
+.data-table .btn {
+    padding: 5px 10px;
+    margin: 10px 3px 10px 0;
+}
+#myTable_length,
+#myTable_filter {
+    display: none;
 }
 
 /* X-Small devices (portrait phones, less than 576px) */
@@ -48,23 +66,26 @@
 
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 576px) {
+
     .collapseItemDesktop,
-    .toggleBtnDesktop{
+    .toggleBtnDesktop {
         display: none;
     }
 
     /* .collapseItemMobile, */
-    .toggleBtnMobile{
+    .toggleBtnMobile {
         display: flex;
     }
 }
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px){
+@media (min-width: 768px) {
+
     .collapseItemDesktop,
-    .toggleBtnDesktop{
+    .toggleBtnDesktop {
         display: none;
     }
+
     /* .collapseItemMobile,
     .toggleBtnMobile{
         display: flex;
@@ -73,24 +94,28 @@
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+
     .collapseItemDesktop,
-    .toggleBtnDesktop{
+    .toggleBtnDesktop {
         display: flex;
     }
+
     .collapseItemMobile,
-    .toggleBtnMobile{
+    .toggleBtnMobile {
         display: none;
     }
 }
 
 /* X-Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+
     .collapseItemDesktop,
-    .toggleBtnDesktop{
+    .toggleBtnDesktop {
         display: flex;
     }
+
     .collapseItemMobile,
-    .toggleBtnMobile{
+    .toggleBtnMobile {
         display: none;
     }
 }

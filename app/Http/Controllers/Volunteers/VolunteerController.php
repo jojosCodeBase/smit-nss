@@ -124,7 +124,7 @@ class VolunteerController extends Controller
         if ($updateVolunteer) {
             return back()->with('success', 'Volunteers details updated successfully !');
         } else
-            return back()->with('fail', 'Some error occured in updating volunteer details !');
+            return back()->with('error', 'Some error occured in updating volunteer details !');
     }
 
     public function fetchDetails(){
@@ -135,12 +135,11 @@ class VolunteerController extends Controller
         if ($volunteers) {
             return back()->with('volunteers', $volunteers);
         } else{
-            return back()->with('fail', 'No results found');
+            return back()->with('error', 'No results found');
         }
     }
 
-    public function getName($regno)
-    {
+    public function getName($regno){
         // dd("hello");
         $user = Volunteer::where('id', $regno)->first();
         // $user = $user->toArray();
@@ -156,5 +155,18 @@ class VolunteerController extends Controller
             return response()->json(['message' => $user->name ]);
         else
             return response()->json(['message' => 'No results found']);
+    }
+
+    public function fetch(Request $r){
+        $volunteers = Volunteer::where([
+            'batch' => $r->batch,
+        ])->get();
+        // dd($volunteers);
+
+        if($volunteers->count() > 0){
+            return back()->with('volunteers', $volunteers);
+        }else{
+            return back()->with('error', 'No details found for batch specified');
+        }
     }
 }
