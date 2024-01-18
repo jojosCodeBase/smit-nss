@@ -79,8 +79,13 @@
 
                     <li class="sidebar-header">Batch</li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('users.manage') }}">
-                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Create</span>
+                        <a class="sidebar-link" href="{{ route('batch.view-edit') }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">View/Edit Batch Details</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('batch.create') }}">
+                            <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Create Batch</span>
                         </a>
                     </li>
 

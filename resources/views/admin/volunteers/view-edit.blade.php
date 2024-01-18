@@ -21,6 +21,7 @@
         </div>
     @endif
     <div class="container-fluid p-0">
+        <span class="alert alert-danger">Message: Course After Update causing error, check</span>
         <h2 class="text-center fw-bold">Search Volunteers</h2>
         <div class="row">
             <div class="col-xl-8 offset-xl-2 col-md-10 offset-md-2">
@@ -82,6 +83,84 @@
                                                 onclick="showDetails({{ $v['id'] }}, {{ json_encode($v['name']) }}, {{ json_encode($v['email']) }}, {{ json_encode($v['phone']) }}, {{ json_encode($v['course']) }}, {{ json_encode($v['batch']) }}, {{ $v['drives_participated'] }})">View</a>
                                         </td>
                                     </tr>
+                                    <tr style="display: none;" id="volunteerDetails">
+                                        <td colspan="7">
+                                            <div class="collapse p-2" id="viewDetails">
+                                                <form action="{{ route('volunteer.update') }}" method="POST">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col justify-content-start p-3">
+                                                            <div class="row title mb-2">
+                                                                <div class="col-3">
+                                                                    <span>Registration number</span>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <span>Name</span>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <span>Email</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row info">
+                                                                <div class="col-3">
+                                                                    <input class="form-control" type="number" name="regno" id="regno" readonly>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <input class="form-control" type="text" name="name" id="name" readonly>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <input class="form-control" type="email" name="email" id="email" readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row title mt-2">
+                                                                <div class="col-3">
+                                                                    <span>Phone</span>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <span>Course</span>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <span>NSS Batch</span>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <span>Drives Attended</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row info mt-1">
+                                                                <div class="col-3">
+                                                                    <input class="form-control" type="number" name="phone" id="phone" readonly>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    {{-- <select name="course" id="course" class="form-select">
+                                                                        <option value="" selected></option>
+                                                                    </select> --}}
+                                                                    <input class="form-control" type="text" name="course" id="course" readonly>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <input class="form-control" type="text" name="batch" id="batch" readonly>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <input class="form-control" type="number" name="attended" id="attended" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-3">
+                                                        <div class="col">
+                                                            <button type="button" class="btn btn-success" onclick="editDetails()"><i class="bi-pencil-fill"
+                                                                    id="editBtn"></i>
+                                                                Edit</button>
+                                                            <button type="submit" id="updateBtn" class="btn btn-primary"
+                                                                style="display: none;">Update</button>
+                                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i
+                                                                    class="bi-trash-fill"></i>
+                                                                Delete</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -98,78 +177,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="collapse p-2" id="viewDetails">
-            <form action="{{ route('volunteer.update') }}" method="POST">
-                @csrf
-                <div class="row">
-                    <div class="col justify-content-start p-3">
-                        <div class="row title">
-                            <div class="col-3">
-                                <span>Registration number</span>
-                            </div>
-                            <div class="col-4">
-                                <span>Name</span>
-                            </div>
-                            <div class="col">
-                                <span>Email</span>
-                            </div>
-                        </div>
-                        <div class="row info">
-                            <div class="col-3">
-                                <input class="form-control" type="number" name="regno" id="regno" readonly>
-                            </div>
-                            <div class="col-4">
-                                <input class="form-control" type="text" name="name" id="name" readonly>
-                            </div>
-                            <div class="col">
-                                <input class="form-control" type="email" name="email" id="email" readonly>
-                            </div>
-                        </div>
-                        <div class="row title">
-                            <div class="col-3">
-                                <span>Phone</span>
-                            </div>
-                            <div class="col-3">
-                                <span>Course</span>
-                            </div>
-                            <div class="col-3">
-                                <span>NSS Batch</span>
-                            </div>
-                            <div class="col-3">
-                                <span>Drives Attended</span>
-                            </div>
-                        </div>
-                        <div class="row info">
-                            <div class="col-3">
-                                <input class="form-control" type="number" name="phone" id="phone" readonly>
-                            </div>
-                            <div class="col-3">
-                                <input class="form-control" type="text" name="course" id="course" readonly>
-                            </div>
-                            <div class="col-3">
-                                <input class="form-control" type="text" name="batch" id="batch" readonly>
-                            </div>
-                            <div class="col-3">
-                                <input class="form-control" type="number" name="attended" id="attended" readonly>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col">
-                        <button type="button" class="btn btn-success" onclick="editDetails()"><i class="bi-pencil-fill"
-                                id="editBtn"></i>
-                            Edit</button>
-                        <button type="submit" id="updateBtn" class="btn btn-primary"
-                            style="display: none;">Update</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i
-                                class="bi-trash-fill"></i>
-                            Delete</button>
-                    </div>
-                </div>
-            </form>
-        </div>
     </div>
     <script>
         var regno = document.getElementById('regno');
@@ -181,6 +188,8 @@
         var attended = document.getElementById('attended');
 
         function showDetails(id, nameVal, emailVal, phoneVal, courseVal, batchVal, attendedVal) {
+            var x = document.getElementById('volunteerDetails');
+            x.style.display = "table-row";
             regno.value = id;
             volName.value = nameVal;
             email.value = emailVal;
@@ -188,6 +197,7 @@
             course.value = courseVal;
             batch.value = batchVal;
             attended.value = attendedVal;
+
         }
 
         function editDetails() {

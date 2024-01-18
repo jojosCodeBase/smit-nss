@@ -235,35 +235,5 @@
     <script src="{{ asset('assets/js/vfs_fonts.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script>
-        // window.onbeforeunload = function() {
-        //     localStorage.setItem("course", $('#course').val());
-        //     localStorage.setItem("batch", $('#batch').val());
-        // }
-
-        // $(document).ready(() => {
-        //     if(localStorage.getItem("batch") != -1){
-        //         if(localStorage.getItem("course") != -1){
-        //             $('#batch').val(localStorage.getItem("batch"));
-        //             $('#course').val(localStorage.getItem("course"));
-        //         }
-        //         else
-        //             alert('Select course from list');
-        //     }else{
-        //         alert('Select batch from list');
-        //     }
-            // if($('#batch').val() != -1){
-            //     if($('#course').val() != -1){
-            //         alert('hi');
-            //         $('#batch').val(localStorage.getItem("batch"));
-            //         $('#course').val(localStorage.getItem("course"));
-            //     }
-            //     else
-            //         alert('Select course from list');
-            // }else{
-            //     alert('Select batch from list');
-            // }
-        // });
-    </script>
 </body>
 </html>

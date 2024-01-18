@@ -98,10 +98,10 @@ $('#myTable').DataTable({
             customize: function (win) {
                 $(win.document.body)
                     .css('font-size', '16px')
-                    .prepend(
-                        // '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
-                        '<div>Data from 10 Jan 2023 to 25th Jan 2024</div>'
-                    );
+                    // .prepend(
+                    //     // '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                    //     // '<div>Data from 10 Jan 2023 to 25th Jan 2024</div>'
+                    // );
 
                 $(win.document.body).find('table')
                     .addClass('compact')
