@@ -21,7 +21,6 @@
         </div>
     @endif
     <div class="container-fluid p-0">
-        <span class="alert alert-danger">Message: Course After Update causing error, check</span>
         <h2 class="text-center fw-bold">Search Volunteers</h2>
         <div class="row">
             <div class="col-xl-8 offset-xl-2 col-md-10 offset-md-2">
@@ -103,13 +102,16 @@
                                                             </div>
                                                             <div class="row info">
                                                                 <div class="col-3">
-                                                                    <input class="form-control" type="number" name="regno" id="regno" readonly>
+                                                                    <input class="form-control" type="number"
+                                                                        name="regno" id="regno" readonly>
                                                                 </div>
                                                                 <div class="col-4">
-                                                                    <input class="form-control" type="text" name="name" id="name" readonly>
+                                                                    <input class="form-control" type="text"
+                                                                        name="name" id="name" readonly>
                                                                 </div>
                                                                 <div class="col">
-                                                                    <input class="form-control" type="email" name="email" id="email" readonly>
+                                                                    <input class="form-control" type="email"
+                                                                        name="email" id="email" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="row title mt-2">
@@ -128,31 +130,39 @@
                                                             </div>
                                                             <div class="row info mt-1">
                                                                 <div class="col-3">
-                                                                    <input class="form-control" type="number" name="phone" id="phone" readonly>
+                                                                    <input class="form-control" type="number"
+                                                                        name="phone" id="phone" readonly>
                                                                 </div>
                                                                 <div class="col-3">
-                                                                    {{-- <select name="course" id="course" class="form-select">
-                                                                        <option value="" selected></option>
-                                                                    </select> --}}
-                                                                    <input class="form-control" type="text" name="course" id="course" readonly>
+                                                                    <select name="course" id="course"
+                                                                        class="form-select" disabled>
+                                                                        @foreach ($courses as $c)
+                                                                            <option value="{{ $c['cid'] }}">
+                                                                                {{ $c['cname'] }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 <div class="col-3">
-                                                                    <input class="form-control" type="text" name="batch" id="batch" readonly>
+                                                                    <input class="form-control" type="text"
+                                                                        name="batch" id="batch" readonly>
                                                                 </div>
                                                                 <div class="col-3">
-                                                                    <input class="form-control" type="number" name="attended" id="attended" readonly>
+                                                                    <input class="form-control" type="number"
+                                                                        name="attended" id="attended" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row mt-3">
                                                         <div class="col">
-                                                            <button type="button" class="btn btn-success" onclick="editDetails()"><i class="bi-pencil-fill"
+                                                            <button type="button" class="btn btn-success"
+                                                                onclick="editDetails()"><i class="bi-pencil-fill"
                                                                     id="editBtn"></i>
                                                                 Edit</button>
                                                             <button type="submit" id="updateBtn" class="btn btn-primary"
                                                                 style="display: none;">Update</button>
-                                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i
+                                                            <button type="button" class="btn btn-danger"
+                                                                data-toggle="modal" data-target="#deleteModal" onclick="deleteVolunteer({{ $v['id'] }})"><i
                                                                     class="bi-trash-fill"></i>
                                                                 Delete</button>
                                                         </div>
@@ -178,6 +188,30 @@
             </div>
         </div>
     </div>
+    <div id="deleteModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Volunteer</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this volunteer?
+                    </p>
+                    <p class="text-danger f-5"><small>This action cannot be
+                        undone.</small></p>
+                    </div>
+                <form action="{{route('volunteer.delete')}}" method="POST">
+                    @csrf
+                    <input type="number" id="volunteer-regno" name="regno" hidden>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script>
         var regno = document.getElementById('regno');
         var volName = document.getElementById('name');
@@ -194,7 +228,9 @@
             volName.value = nameVal;
             email.value = emailVal;
             phone.value = phoneVal;
-            course.value = courseVal;
+
+            course.value = courseMapping(courseVal);
+
             batch.value = batchVal;
             attended.value = attendedVal;
 
@@ -204,10 +240,38 @@
             volName.readOnly = false;
             email.readOnly = false;
             phone.readOnly = false;
-            course.readOnly = false;
+            course.disabled = false;
             batch.readOnly = false;
 
             document.getElementById('updateBtn').style.display = "table-row";
+        }
+
+        function courseMapping(cname) {
+            var courseMapping = {
+                "MCA": 0,
+                "BCA": 1,
+                "MBA": 2,
+                "BBA": 3,
+                "MSc Chemistry": 4,
+                "BSc Chemistry": 5,
+                "MSc Mathematics": 6,
+                "BSc Mathematics": 7,
+                "MSc Physics": 8,
+                "BSc Physics": 9,
+                "BTech CSE": 10,
+                "BTech CE": 11,
+                "BTech ME": 12,
+                "BTech AI&DS": 13,
+                "BTech IT": 14,
+                "BTech EEE": 15,
+                "BTech ECE": 16
+            };
+
+            return courseMapping[cname];
+        }
+
+        function deleteVolunteer(id){
+            document.getElementById('volunteer-regno').value = id;
         }
     </script>
 @endsection

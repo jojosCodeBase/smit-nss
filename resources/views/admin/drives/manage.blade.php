@@ -73,7 +73,6 @@
                                     @endphp
                                     <tr>
                                         <td class="text-center">{{ $slno }}</td>
-                                        {{-- <td>{{ $d['id'] }}</td> --}}
                                         <td>{{ $d['title'] }}</td>
                                         <td>{{ $d['conductedBy'] }}</td>
                                         <td>{{ $d['area'] }}</td>

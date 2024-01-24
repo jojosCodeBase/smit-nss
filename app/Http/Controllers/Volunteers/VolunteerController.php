@@ -42,14 +42,24 @@ class VolunteerController extends Controller
             $v['course'] = $this->courseId_To_courseName($v['course']);
         }
 
-        return view('admin.volunteers.view-edit', compact('volunteers'));
+        $courses = Courses::all();
+
+        return view('admin.volunteers.view-edit', compact('volunteers', 'courses'));
 
     }
     public function list()
     {
-        // // 'user' is not authenticated to edit volunteers
+        // 'user' is not authenticated to edit volunteers
         return view('volunteers.list');
+    }
 
+    public function delete(Request $r){
+        $delete = Volunteer::where('id', $r->regno)->delete();
+        if($delete){
+            return back()->with('success', 'Volunteer deleted successfully !');
+        }else{
+            return back()->with('error', 'Some error occured in deleting volunteer');
+        }
     }
     public function viewUpdate($regno)
     {
@@ -69,7 +79,11 @@ class VolunteerController extends Controller
                 'name' => $r->name,
                 'email' => $r->email,
                 'phone' => $r->phone,
-                'department' => $r->department,
+                'gender' => $r->gender,
+                'date_of_birth' => $r->dob,
+                'category' => $r->category,
+                'nationality' => $r->nationality,
+                'document_number' => $r->document_number,
                 'course' => $r->course,
                 'batch' => $r->batch,
             ]);

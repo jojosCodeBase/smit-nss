@@ -36,6 +36,11 @@
                                         <img src="{{ asset('assets/img/icons/admin-icon.png') }}" alt="admin_image"
                                             class="img-fluid rounded-circle" width="132" height="132" />
                                     </div>
+                                    @if ($errors->has('invalid'))
+                                            <div class="alert alert-danger">
+                                                {{ $errors->first('invalid') }}
+                                            </div>
+                                        @endif
                                     <form action="{{ route('login') }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
@@ -43,22 +48,18 @@
                                             <input class="form-control form-control-lg" type="email" name="email"
                                                 id="email" placeholder="Enter your email" required>
                                             <span class="text-danger" id="email-error"></span>
-
+                                            @error('email')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
                                             <input class="form-control form-control-lg" type="password" name="password"
                                                 id="password" placeholder="Enter your password" required>
                                             <span class="text-danger" id="password-error"></span>
-                                        </div>
-                                        <div>
-                                            <label class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="remember-me"
-                                                    name="remember-me" checked>
-                                                <span class="form-check-label">
-                                                    Remember me
-                                                </span>
-                                            </label>
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="text-center mt-3">
                                             <input type="submit" class="btn btn-lg btn-primary w-100 fw-bold fs-4"

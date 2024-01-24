@@ -62,11 +62,8 @@ class DriveController extends Controller
     function addAttendance()
     {
         $drive = Drive::whereDate('created_at', Carbon::today())->get();
-        // dd($drive);
 
         if($drive->empty()){
-            // return back()->with('error', 'No drives found for today');
-            // dd($drive);
             return view('user.drives.attendance');
         }else{
             $attend = Attendance::where('driveId', $drive[0]['id'])->get();
@@ -114,7 +111,7 @@ class DriveController extends Controller
             'from' => $r->from,
             'to' => $r->to,
             'conductedBy' => $r->conductedBy,
-            'updatedBy' => $r->updatedBy,
+            'updatedBy' => Auth::user()->role,
             'type' => $r->driveType,
             'area' => $r->area,
             'present' => $r->present,

@@ -33,9 +33,19 @@ Route::get('/dashboard', function(){
     return view('hello world');
 })->name('dashboard');
 
+
+Route::get('/analytics', function(){
+    return view('admin.analytics');
+})->name('analytics');
+
 Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+
+// Route::post('/login', function(){
+//     return "Hello from login post";
+// })->name('login');
+
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
 ->name('password.request');
@@ -44,6 +54,7 @@ Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
 ->name('password.email');
 
 Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
+Route::post('batch/regsitrationForm/register', [BatchController::class, 'register'])->name('register');
 
 // routes for admin panel
 
@@ -65,6 +76,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     // Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
     Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
+    Route::post('/volunteer/manage/delete', [VolunteerController::class, 'delete'])->name('volunteer.delete');
 
     Route::get('/volunteer/manage/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
 
@@ -131,12 +143,6 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
     Route::post('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('user.attendance.delete');
 
 });
-
-Route::get('/test', function () {
-    return "Hello from test";
-});
-
-Route::post('ajaxupload', [VolunteerController::class, 'ajax'])->name('test');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
