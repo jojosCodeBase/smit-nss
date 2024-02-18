@@ -102,6 +102,9 @@ class VolunteerController extends Controller
 
     public function searchDetails(Request $r)
     {
+        $r->validate([
+            'search_string' => 'required|string|max:265'
+        ]);
         // this returns an object
         $query = Volunteer::where('id', $r->search_string)
             ->orWhere('name', 'like', '%' . $r->search_string . '%');

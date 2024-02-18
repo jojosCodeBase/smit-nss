@@ -61,7 +61,7 @@
                 <table class="table table-hover my-0">
                     <thead>
                         <tr>
-                            <th>Date</th>
+                            <th style="width: 105px">Date</th>
                             <th>Title</th>
                             <th class="d-none d-xl-table-cell">Area</th>
                             <th class="d-none d-xl-table-cell">Present</th>

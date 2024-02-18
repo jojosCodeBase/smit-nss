@@ -1,33 +1,80 @@
-{{-- @extends('layouts/admin-content')
+@extends('layouts/admin-content')
+@section('title', 'Profile Edit')
 @section('content')
-<h1>Profile edit section for {{ Auth::user()->name }}</h1>
-@endsection --}}
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        @if (session('status'))
+        <div class="alert alert-success">
+            <span>{{ session('status') }}</span>
+        </div>
+        @endif
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Profile Information</h4>
+                        <p>Update your account's profile information and email address.</p>
+                        <form method="post" action="{{ route('profile.update') }}">
+                            @csrf
+                            @method('patch')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('admin.profile.partials.update-profile-information-form')
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" value="{{ $user->name }}" required>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" value="{{ $user->email }}" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="submit" class="btn btn-primary w-25" value="Save">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('admin.profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('admin.profile.partials.delete-user-form')
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Update Password</h4>
+                        <p>Ensure your account is using a long, random password to stay secure.</p>
+                        <form method="post" action="{{ route('password.update') }}">
+                            @csrf
+                            @method('put')
+                            <div class="form-group">
+                                <label class="form-label">Current Password</label>
+                                <input type="password" class="form-control" name="current_password">
+                                <div class="mt-2 text-danger">
+                                    @if($errors->updatePassword->has('current_password'))
+                                        <span>{{ $errors->updatePassword->first('current_password') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-control" name="password">
+                                <div class="mt-2 text-danger">
+                                    @if($errors->updatePassword->has('password'))
+                                        <span>{{ $errors->updatePassword->first('password') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" name="password_confirmation">
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="submit" class="btn btn-primary w-25" value="Save">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

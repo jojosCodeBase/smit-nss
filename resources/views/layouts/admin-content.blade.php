@@ -45,12 +45,6 @@
                         </a>
                     </li>
 
-                    {{-- <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('volunteer.search') }}">
-                            <i class="align-middle" data-feather="search"></i> <span class="align-middle">Search</span>
-                        </a>
-                    </li> --}}
-
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ route('volunteer.add') }}">
                             <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Add</span>
@@ -127,17 +121,10 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="{{ route('admin.profile.edit') }}"><i
                                         class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="{{ route('analytics') }}"><i class="align-middle me-1"
-                                        data-feather="pie-chart"></i> Analytics</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="dashboard.html"><i class="align-middle me-1"
-                                        data-feather="settings"></i> Settings & Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                                        data-feather="help-circle"></i> Help Center</a>
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <input type="submit" class="dropdown-item" value="Log out">
+                                    <button type="submit" class="dropdown-item"><i class="align-middle me-1" data-feather="logout"></i> Logout</button>
                                 </form>
                             </div>
                         </li>

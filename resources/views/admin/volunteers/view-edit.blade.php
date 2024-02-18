@@ -41,6 +41,13 @@
                                             <input type="submit" class="btn btn-primary w-100" value="Search">
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        @if ($errors->has('search_string'))
+                                            <div class="mt-2">
+                                                <span class="text-danger">Student name or registration number required</span>
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -162,7 +169,8 @@
                                                             <button type="submit" id="updateBtn" class="btn btn-primary"
                                                                 style="display: none;">Update</button>
                                                             <button type="button" class="btn btn-danger"
-                                                                data-toggle="modal" data-target="#deleteModal" onclick="deleteVolunteer({{ $v['id'] }})"><i
+                                                                data-toggle="modal" data-target="#deleteModal"
+                                                                onclick="deleteVolunteer({{ $v['id'] }})"><i
                                                                     class="bi-trash-fill"></i>
                                                                 Delete</button>
                                                         </div>
@@ -199,9 +207,9 @@
                     <p>Are you sure you want to delete this volunteer?
                     </p>
                     <p class="text-danger f-5"><small>This action cannot be
-                        undone.</small></p>
-                    </div>
-                <form action="{{route('volunteer.delete')}}" method="POST">
+                            undone.</small></p>
+                </div>
+                <form action="{{ route('volunteer.delete') }}" method="POST">
                     @csrf
                     <input type="number" id="volunteer-regno" name="regno" hidden>
                     <div class="modal-footer">
@@ -270,7 +278,7 @@
             return courseMapping[cname];
         }
 
-        function deleteVolunteer(id){
+        function deleteVolunteer(id) {
             document.getElementById('volunteer-regno').value = id;
         }
     </script>

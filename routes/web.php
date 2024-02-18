@@ -6,7 +6,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Batch\BatchController;
-use App\Http\Controllers\Users\AdminController;
 use App\Http\Controllers\Drives\DriveController;
 use App\Http\Controllers\Volunteers\VolunteerController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -23,20 +22,11 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
-require __DIR__ . '/auth.php';
 
 Route::get('/homepage', function(){
     return view('welcome');
 })->name('welcome');
 
-Route::get('/dashboard', function(){
-    return view('hello world');
-})->name('dashboard');
-
-
-Route::get('/analytics', function(){
-    return view('admin.analytics');
-})->name('analytics');
 
 Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
@@ -61,7 +51,7 @@ Route::post('batch/regsitrationForm/register', [BatchController::class, 'registe
 Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('admin.home');
 
-    Route::get('profile', [UserController::class, 'index'])->name('admin.profile.edit');
+    Route::get('profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
 
     Route::get('volunteer/add', [VolunteerController::class, 'add'])->name('volunteer.add');
     Route::post('volunteer/add-new', [VolunteerController::class, 'insert'])->name('volunteer.add-new');
@@ -149,3 +139,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__ . '/auth.php';
+

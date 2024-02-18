@@ -28,22 +28,42 @@
                     <div class="row mt-3 p-0 px-0">
                         <div class="col-md-4 col-lg-4 mb-lg-0 mg-md-0 mb-2">
                             <input type="text" name="name" class="form-control" placeholder="Name*">
+                            @if ($errors->has('name'))
+                                <div class="mt-2">
+                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                </div>
+                            @endif
                         </div>
                         <div class="col-md-3 col-lg-4 mg-md-0 mb-2">
                             <input type="text" name="regno" class="form-control" maxlength="9" pattern="[0-9]+"
                                 placeholder="Registration no*">
+                                @if ($errors->has('regno'))
+                                <div class="mt-2">
+                                    <span class="text-danger">{{ $errors->first('regno') }}</span>
+                                </div>
+                            @endif
                         </div>
                         <div class="col-md-3 col-lg-4 mg-md-0 mb-2">
                             <input type="email" name="email" class="form-control" placeholder="Email*">
+                            @if ($errors->has('email'))
+                                <div class="mt-2">
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row mt-lg-3">
                         <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
                             <input type="number" name="phone" class="form-control" placeholder="Phone*">
+                            @if ($errors->has('phone'))
+                                <div class="mt-2">
+                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                </div>
+                            @endif
                         </div>
-                        <div class="col-md-3 col-lg-4 mg-md-0 mb-2">
+                        <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
                             <select name="course" id="" class="form-select">
-                                <option value="" selected>Select course from list</option>
+                                <option value="">Select course from list</option>
                                 <option value="">MBA</option>
                                 <option value="">MCA</option>
                                 <option value="">M.Sc</option>
@@ -52,15 +72,23 @@
                                 <option value="">BBA</option>
                                 <option value="">B.Sc</option>
                             </select>
+                            @if ($errors->has('course'))
+                                <div class="mt-2">
+                                    <span class="text-danger">{{ $errors->first('course') }}</span>
+                                </div>
+                            @endif
                         </div>
-                    </div>
-                    <div class="row mt-lg-3">
                         <div class="col-md-4 col-lg-4">
                             <select name="batch" id="" class="form-select">
-                                <option value="" selected>Select batch from list</option>
+                                <option value="">Select batch from list</option>
                                 <option value="">2022-24</option>
                                 <option value="">2023-25</option>
                             </select>
+                            @if ($errors->has('batch'))
+                                <div class="mt-2">
+                                    <span class="text-danger">{{ $errors->first('batch') }}</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col text-center mt-3">
