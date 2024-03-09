@@ -34,7 +34,7 @@
                                         <div
                                             class="col-lg-10 col-md-10 col-12 mx-lg-0 ps-xl-0 ps-xl-0 ps-lg-0 ps-md-0 pe-lg-2 pe-md-2">
                                             <input type="search" placeholder="Search by name or regno" class="form-control"
-                                                name="search_string">
+                                                name="search_string" required>
                                         </div>
                                         <div
                                             class="col-lg-2 col-md-2 col-12 d-flex justify-content-center mt-lg-0 mt-lg-0 mt-2 mt-md-0 pe-xl-0 ps-xl-0 pe-lg-0 pe-md-0 ps-lg-3 ps-md-3">
@@ -140,7 +140,7 @@
                                                                     <input class="form-control" type="number"
                                                                         name="phone" id="phone" readonly>
                                                                 </div>
-                                                                <div class="col-3">
+                                                                {{-- <div class="col-3">
                                                                     <select name="course" id="course"
                                                                         class="form-select" disabled>
                                                                         @foreach ($courses as $c)
@@ -148,7 +148,7 @@
                                                                                 {{ $c['cname'] }}</option>
                                                                         @endforeach
                                                                     </select>
-                                                                </div>
+                                                                </div> --}}
                                                                 <div class="col-3">
                                                                     <input class="form-control" type="text"
                                                                         name="batch" id="batch" readonly>

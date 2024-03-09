@@ -145,7 +145,7 @@
                             <div class="row mt-3 p-0 px-0">
                                 <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                                     <select name="batch" class="form-select" id="batch" required>
-                                        <option value="-1" selected>Select batch from list</option>
+                                        <option value="" selected>Select batch from list</option>
                                         <option value="*">All</option>
                                         @for ($index = 0; $index < $batches->count(); $index++)
                                             <option value="{{ $batches[$index] }}">{{ $batches[$index] }}</option>
@@ -154,7 +154,7 @@
                                 </div>
                                 <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                                     <select name="course" class="form-select" id="course" required>
-                                        <option value="-1" selected>Select course from list</option>
+                                        <option value="" selected>Select course from list</option>
                                         <option value="*">All</option>
                                         @foreach ($courses as $c)
                                             <option value="{{ $c['cid'] }}">{{ $c['cname'] }}</option>

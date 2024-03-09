@@ -16,7 +16,7 @@ class HomeController extends Controller
         $batches = Batch::all();
         $batchInfo = ['batch1' => $batches[0], 'batch2' => $batches[1]];
 
-        $drives = Drive::orderBy('created_at', 'desc')->limit(5)->get();
+        $drives = Drive::orderBy('date', 'desc')->limit(5)->get();
         if(Auth::user()->role == 1)
             return view('admin.home', compact('totalDrives', 'totalVolunteers', 'drives',  'batchInfo'));
         else

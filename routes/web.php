@@ -62,7 +62,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'viewEdit'])->name('volunteer.view-edit');
 
     Route::post('/volunteer/manage/search-details', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
-    Route::get('/volunteer/manage/search-details', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
+    // Route::get('/volunteer/manage/search-details', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
 
     // Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
     Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
