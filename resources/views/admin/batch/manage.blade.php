@@ -83,7 +83,6 @@
                                         $statusText = 'Accepting Responses';
                                     @endphp
                                 @endif
-
                                 <td>
                                     <button type="button" class="btn {{ $buttonClass }}"
                                         id="status-btn{{ $b['id'] }}"
