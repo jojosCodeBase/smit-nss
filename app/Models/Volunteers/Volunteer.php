@@ -11,6 +11,10 @@ class Volunteer extends Model
     protected $fillable = [
         'id',
         'name',
+        'gender',
+        'date_of_birth',
+        'category',
+        'nationality',
         'phone',
         'email',
         'department',
@@ -18,5 +22,6 @@ class Volunteer extends Model
         'batch',
         'drives_participated',
         'absent',
+        'document_number',
     ];
 }

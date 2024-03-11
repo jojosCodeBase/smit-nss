@@ -20,10 +20,12 @@ class VolunteerController extends Controller
     public function add()
     {
         // 'user' is authenticated to add volunteers
+        $courses = Courses::all();
+        $batches = Batch::all();
         if (Auth::user()->role == 2)
-            return view('user.volunteers.add');
+            return view('user.volunteers.add', ['batches' => $batches, 'courses' => $courses]);
         else
-            return view('admin.volunteers.add');
+            return view('admin.volunteers.add', ['batches' => $batches, 'courses' => $courses]);
     }
     public function search()
     {
@@ -43,8 +45,9 @@ class VolunteerController extends Controller
         }
 
         $courses = Courses::all();
+        $batches = Batch::all();
 
-        return view('admin.volunteers.view-edit', compact('volunteers', 'courses'));
+        return view('admin.volunteers.view-edit', compact('volunteers', 'courses', 'batches'));
 
     }
     public function list()
@@ -73,31 +76,40 @@ class VolunteerController extends Controller
 
     public function insert(Request $r)
     {
-        try {
-            $volunteer = Volunteer::create([
-                'id' => $r->regno,
-                'name' => $r->name,
-                'email' => $r->email,
-                'phone' => $r->phone,
-                'gender' => $r->gender,
-                'date_of_birth' => $r->dob,
-                'category' => $r->category,
-                'nationality' => $r->nationality,
-                'document_number' => $r->document_number,
-                'course' => $r->course,
-                'batch' => $r->batch,
-            ]);
+        $r->validate([
+            'name' => 'required|string|max:50',
+            'regno' => 'required|numeric|unique:volunteers,id|max:999999999',
+            'email' => 'required|email|unique:volunteers,email',
+            'gender' => 'required|string|max:2',
+            'phone' => 'required|numeric|max:9999999999',
+            'dob' => 'required|date',
+            'batch' => 'required|numeric|max:99',
+            'course' => 'required|numeric|max:99',
+            'document' => 'required|string|unique:volunteers,document_number|max:50',
+        ],[
+            'regno.unique' => 'Vounteer with this registration number already exists.',
+            'email.unique' => 'Vounteer with this email already exists.',
+            'ddcument.unique' => 'Vounteer with this document number already exists.',
+        ]);
+        // dd($r->all());
+        $volunteer = Volunteer::create([
+            'id' => $r->regno,
+            'name' => $r->name,
+            'email' => $r->email,
+            'phone' => $r->phone,
+            'gender' => $r->gender,
+            'date_of_birth' => $r->dob,
+            'category' => $r->category,
+            'nationality' => $r->nationality,
+            'document_number' => $r->document,
+            'course' => $r->course,
+            'batch' => $r->batch,
+        ]);
 
-            if ($volunteer)
-                return redirect()->route('volunteer.add')->withSuccess('success');
-            else
-                return redirect()->route('volunteer.add')->with('error', 'Some error occured while adding volunteer');
-        } catch (QueryException $e) {
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return redirect()->route('volunteer.add')->with('error', 'Volunteer Already Exists');
-            }
-        }
+        if ($volunteer)
+            return redirect()->route('volunteer.add')->with('success', 'Volunteer Added Successfully !');
+        else
+            return redirect()->route('volunteer.add')->with('error', 'Some error occured while adding volunteer');
     }
 
     public function searchDetails(Request $r)
@@ -126,6 +138,13 @@ class VolunteerController extends Controller
 
     public function updateDetails(Request $r)
     {
+        $r->validate([
+            'name' => 'required|string|max:50',
+            'phone' => 'required|numeric',
+            'email' => 'required|string|max:50',
+            'course' => 'required|numeric',
+            'batch' => 'required|string|max:10',
+        ]);
         $updateVolunteer = Volunteer::where('id', $r->regno)->update([
             'name' => $r->name,
             'phone' => $r->phone,
@@ -162,6 +181,10 @@ class VolunteerController extends Controller
             return response()->json(['name' => $user->name]);
         else
             return response()->json(['name' => 'No results found']);
+    }
+    public function getVolunteerInfo($regno)
+    {
+        return response()->json(['volunteer' => Volunteer::where('id', $regno)->get()]);
     }
     public function ajax(Request $upload)
     {
@@ -204,6 +227,10 @@ class VolunteerController extends Controller
 
     public function fetch(Request $r)
     {
+        $r->validate([
+            'batch' => 'required|string',
+            'course' => 'required|string',
+        ]);
         // All batch and all course
         if ($r->batch == "*" && $r->course == "*") {
             $volunteers = Volunteer::all();

@@ -23,14 +23,14 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 */
 
 
-Route::get('/homepage', function(){
-    return view('welcome');
-})->name('welcome');
+// Route::get('/homepage', function(){
+//     return view('welcome');
+// })->name('welcome');
 
 
-Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
+// Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
+Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 
 // Route::post('/login', function(){
 //     return "Hello from login post";
@@ -54,7 +54,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
 
     Route::get('volunteer/add', [VolunteerController::class, 'add'])->name('volunteer.add');
-    Route::post('volunteer/add-new', [VolunteerController::class, 'insert'])->name('volunteer.add-new');
+    Route::post('volunteer/add', [VolunteerController::class, 'insert'])->name('volunteer.add-new');
     Route::get('volunteer/search', [VolunteerController::class, 'search'])->name('volunteer.search');
 
     // volunteer manage start
@@ -66,7 +66,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     // Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
     Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
-    Route::post('/volunteer/manage/delete', [VolunteerController::class, 'delete'])->name('volunteer.delete');
+    Route::delete('/volunteer/manage/delete', [VolunteerController::class, 'delete'])->name('volunteer.delete');
 
     Route::get('/volunteer/manage/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
 
@@ -92,7 +92,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     // Route::get('drive/attendance', [DriveController::class, 'showAttendance'])->name('user.drive.show.attendance');
     Route::get('drive/attendance/add/{regno}', [VolunteerController::class, 'getName']);
     Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('drive.attendance.add');
-    Route::post('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('drive.attendance.delete');
+    Route::delete('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('drive.attendance.delete');
 
     // drive section end
 
@@ -100,14 +100,17 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     // batch section start
 
-    Route::get('batch/create', [BatchController::class, 'createView'])->name('batch.create');
-    Route::post('batch/create', [BatchController::class, 'create'])->name('batch.create');
+    Route::get('batch/manage', [BatchController::class, 'manage'])->name('batch.manage');
+    Route::post('batch/manage/create', [BatchController::class, 'create'])->name('batch.create');
 
-    Route::get('batch/view-edit', [BatchController::class, 'viewEdit'])->name('batch.view-edit');
-    Route::get('batch/view-edit/modify/', [BatchController::class, 'updateStatus'])->name('batch.view-edit.updateStatus');
+    Route::get('batch/manage/edit', [BatchController::class, 'viewEdit'])->name('batch.view-edit');
 
     Route::get('drive/attendance/{driveId}', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
     // Route::post('drive/attendance', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
+
+    // ajax
+    Route::get('volunteer/getInfo/{id}', [VolunteerController::class, 'getVolunteerInfo']);
+    Route::get('batch/manage/updateStatus', [BatchController::class, 'updateStatus'])->name('batch.manage.updateStatus');
 });
 // });
 
@@ -130,7 +133,7 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
     // Route::post('drive/attendance/add/getName', [VolunteerController::class, 'getName'])->name('getName');
     Route::get('drive/attendance/add/{regno}', [VolunteerController::class, 'getName']);
 
-    Route::post('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('user.attendance.delete');
+    Route::delete('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('user.attendance.delete');
 
 });
 

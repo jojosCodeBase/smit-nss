@@ -20,75 +20,111 @@
             </div>
         </div>
     @endif
+    @if ($errors->any())
+        <div id="alertMessage" class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
     <div class="container-fluid p-0">
         <div class="card">
             <div class="card-body">
                 <div class="card-title">Add New Volunteer</div>
-                <form action="">
+                <form action="{{ route('volunteer.add-new') }}" method="POST">
+                    @csrf
                     <div class="row mt-3 p-0 px-0">
                         <div class="col-md-4 col-lg-4 mb-lg-0 mg-md-0 mb-2">
-                            <input type="text" name="name" class="form-control" placeholder="Name*">
-                            @if ($errors->has('name'))
-                                <div class="mt-2">
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                </div>
-                            @endif
+                            <label class="form-label">Name</label>
+                            <input type="text" name="name" class="form-control" required>
                         </div>
                         <div class="col-md-3 col-lg-4 mg-md-0 mb-2">
-                            <input type="text" name="regno" class="form-control" maxlength="9" pattern="[0-9]+"
-                                placeholder="Registration no*">
-                                @if ($errors->has('regno'))
-                                <div class="mt-2">
-                                    <span class="text-danger">{{ $errors->first('regno') }}</span>
-                                </div>
-                            @endif
+                            <label class="form-label">Registration no</label>
+                            <input type="text" name="regno" class="form-control" maxlength="9" required>
                         </div>
                         <div class="col-md-3 col-lg-4 mg-md-0 mb-2">
-                            <input type="email" name="email" class="form-control" placeholder="Email*">
-                            @if ($errors->has('email'))
-                                <div class="mt-2">
-                                    <span class="text-danger">{{ $errors->first('email') }}</span>
-                                </div>
-                            @endif
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
                         </div>
                     </div>
                     <div class="row mt-lg-3">
                         <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
-                            <input type="number" name="phone" class="form-control" placeholder="Phone*">
-                            @if ($errors->has('phone'))
-                                <div class="mt-2">
-                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+                            <label class="form-label">Select gender</label>
+                            <div class="d-flex">
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" name="gender">
+                                    <label class="form-check-label">
+                                        Male
+                                    </label>
                                 </div>
-                            @endif
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" name="gender">
+                                    <label class="form-check-label">
+                                        Female
+                                    </label>
+                                </div>
+                                <div class="form-check me-3">
+                                    <input class="form-check-input" type="radio" name="gender">
+                                    <label class="form-check-label">
+                                        Others
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
-                            <select name="course" id="" class="form-select">
-                                <option value="">Select course from list</option>
-                                <option value="">MBA</option>
-                                <option value="">MCA</option>
-                                <option value="">M.Sc</option>
-                                <option value="">BTech</option>
-                                <option value="">BCA</option>
-                                <option value="">BBA</option>
-                                <option value="">B.Sc</option>
-                            </select>
-                            @if ($errors->has('course'))
-                                <div class="mt-2">
-                                    <span class="text-danger">{{ $errors->first('course') }}</span>
-                                </div>
-                            @endif
+                            <label class="form-label">Phone number</label>
+                            <input type="text" name="phone" class="form-control" required>
                         </div>
+                        <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
+                            <label class="form-label">Date of birth</label>
+                            <input type="date" name="dob" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row mt-lg-3">
                         <div class="col-md-4 col-lg-4">
-                            <select name="batch" id="" class="form-select">
-                                <option value="">Select batch from list</option>
-                                <option value="">2022-24</option>
-                                <option value="">2023-25</option>
+                            <label class="form-label">NSS Batch</label>
+                            <select name="batch" class="form-select" required>
+                                <option value="" disabled selected>Select batch from list</option>
+                                @foreach($batches as $batch)
+                                    <option value="{{ $batch['id'] }}">{{ $batch['name'] }}</option>
+                                @endforeach
                             </select>
-                            @if ($errors->has('batch'))
-                                <div class="mt-2">
-                                    <span class="text-danger">{{ $errors->first('batch') }}</span>
-                                </div>
-                            @endif
+                        </div>
+                        <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
+                            <label class="form-label">Course</label>
+                            <select name="course" id="" class="form-select" required>
+                                <option value="" disabled selected>Select course from list</option>
+                                @foreach($courses as $course)
+                                    <option value="{{ $course['cid'] }}">{{ $course['cname'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
+                            <label class="form-label">Category</label>
+                            <select name="category" id="" class="form-select" required>
+                                <option value="" disabled selected>Select category from list</option>
+                                <option value="1">General</option>
+                                <option value="2">OBC</option>
+                                <option value="3">ST</option>
+                                <option value="4">SC</option>
+                                <option value="5">Minority</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
+                            <label class="form-label">Nationality</label>
+                            <select name="nationality" id="nationality" class="form-select" required>
+                                <option value="" disabled selected>Select nationality from list</option>
+                                <option value="I">Indian</option>
+                                <option value="NI">Non-Indian</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
+                            <label class="form-label" id="aadhar-number-input">Aadhar number</label>
+                            <label class="form-label" id="document-number-input" style="display: none;">Other document
+                                number</label>
+                            <input type="text" name="document" class="form-control" required>
                         </div>
                     </div>
                     <div class="col text-center mt-3">
@@ -98,4 +134,17 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $('#nationality').on('change', function() {
+            if ($('#nationality').val() == 1) {
+                $('#aadhar-number-input').css('display', 'none');
+                $('#document-number-input').css('display', 'block');
+            } else {
+                $('#aadhar-number-input').css('display', 'block');
+                $('#document-number-input').css('display', 'none');
+            }
+        });
+    </script>
 @endsection

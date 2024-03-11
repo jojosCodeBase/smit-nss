@@ -21,6 +21,11 @@ return new class extends Migration
             $table->string('batch');
             $table->integer('drives_participated')->default(0);
             $table->integer('absent')->default(0);
+            $table->string('gender')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('category')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('document_number')->nullable();
             $table->timestamps();
         });
     }

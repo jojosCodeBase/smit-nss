@@ -111,3 +111,93 @@ $('#myTable').DataTable({
     ]
 });
 
+
+function viewInfoModalInit(id){
+    console.log(id);
+    $.ajax({
+        url: '/admin/volunteer/getInfo/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response){
+            console.log(response.volunteer);
+            var volunteerInfo = response.volunteer[0];
+            $('#regno').val(volunteerInfo.id);
+            $('#name').val(volunteerInfo.name);
+            $('#email').val(volunteerInfo.email);
+            $('#phone').val(volunteerInfo.phone);
+            $('#course').val(volunteerInfo.course);
+            $('#batch').val(volunteerInfo.batch);
+            $('#attended').val(volunteerInfo.drives_participated);
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX request failed: ', status, error);
+        }
+    });
+}
+
+function deleteVolunteer() {
+    var regno = ($('#regno').val());
+    $('#volunteer-regno').val(regno);
+}
+
+// manage batch scripts start
+
+document.getElementById('batchName').addEventListener('keyup', function() {
+    var batchName = document.getElementById('batchName');
+    var message = document.getElementById('message');
+    var regex = /^\d{4}-\d{2}$/;
+
+    if (regex.test(batchName.value)) {
+        message.className = "text-success";
+        batchName.className = "form-control mb-1 border-success";
+        message.innerHTML = "Valid batch name";
+    } else {
+        message.className = "text-danger";
+        batchName.className = "form-control mb-1 border-danger";
+        message.innerHTML = "Invalid batch name. Format should be yyyy-yy";
+    }
+});
+
+function changeStatus(id, status) {
+    var status_btn = document.getElementById('status-btn' + id);
+    var form_status = document.getElementById('form-status' + id);
+
+    if(status == 0 && status_btn.innerHTML === "Open"){
+        status = 1;
+    }else{
+        status = 0;
+    }
+
+    jQuery.ajax({
+        url: '/admin/batch/manage/updateStatus', // if your url is using prefix enter url with prefix
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            id: id,
+            status: status
+        },
+        success: function(response) {
+            console.log(response);
+            if (response.message === "success") {
+                if (status_btn.innerHTML === "Close" && form_status.innerHTML ===
+                    "Accepting Responses") {
+                    status_btn.className = "btn btn-success";
+                    status_btn.innerHTML = "Open";
+                    form_status.innerHTML = "Not accepting responses";
+                } else {
+                    status_btn.className = "btn btn-danger";
+                    status_btn.innerHTML = "Close";
+                    form_status.innerHTML = "Accepting Responses";
+                }
+            } else {
+                alert('Some error occured in opening/closing form !');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX request failed: ', status, error);
+        }
+    });
+}
+
+// manage batch scripts end
+

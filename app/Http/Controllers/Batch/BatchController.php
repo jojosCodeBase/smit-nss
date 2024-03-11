@@ -11,6 +11,12 @@ use Illuminate\Database\QueryException;
 class BatchController extends Controller
 {
     public function create(Request $r){
+        $r->validate([
+            'name' => 'required|string|unique:batches,name|max:10',
+            'studentCoordinator' => 'required|string|max:50'
+        ],[
+            'name,unique' => 'Batch already exists'
+        ]);
         $batch = Batch::create([
             'name' => $r->name,
             'studentCoordinator' => $r->studentCoordinator,
@@ -56,8 +62,9 @@ class BatchController extends Controller
         }
     }
 
-    public function createView(){
-        return view('admin.batch.create');
+    public function manage(){
+        $batches = Batch::all();
+        return view('admin.batch.manage', ['batches' => $batches]);
     }
 
     public function viewEdit(){

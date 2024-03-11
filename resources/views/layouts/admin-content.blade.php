@@ -73,13 +73,8 @@
 
                     <li class="sidebar-header">Batch</li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('batch.view-edit') }}">
-                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">View/Edit Batch Details</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('batch.create') }}">
-                            <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Create Batch</span>
+                        <a class="sidebar-link" href="{{ route('batch.manage') }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage Batches</span>
                         </a>
                     </li>
 
@@ -165,6 +160,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    @yield('scripts')
 </body>
 
 </html>
