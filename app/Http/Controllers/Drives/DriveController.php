@@ -30,7 +30,10 @@ class DriveController extends Controller
 
     function searchDrive(Request $r)
     {
-        $query = Drive::where('title', $r->search_string)->get();
+        $r->validate([
+            'search_string' => 'required|string|max:50'
+        ]);
+        $query = Drive::where('title', 'like', '%' . $r->search_string . '%')->get();
         $drives = $query->toArray();
 
         if ($drives) {
@@ -105,6 +108,23 @@ class DriveController extends Controller
 
     function update(Request $r)
     {
+        // dd($r->all());
+        // 'title' => 'required|string|unique:drives,title',
+        $r->validate([
+            'id' => 'required|numeric|max:999999999999999999999',
+            'date' => 'required|date',
+            'from' => 'required|date_format:H:i',
+            'to' => 'required|date_format:H:i',
+            'title' => 'required|string|max:100',
+            'area' => 'required|string|max:100',
+            'conductedBy' => 'required|string|max:50',
+            'driveType' => 'required|string|max:50',
+            'present' => 'required|numeric|max:99999999',
+            'description' => 'required|string|max:500',
+        ],[
+            'from.date_format' => 'Invalid date format at From',
+            'to.date_format' => 'Invalid date format at To',
+        ]);
         $drive = Drive::where('id', $r->id)->update([
             'title' => $r->title,
             'date' => $r->date,
@@ -145,5 +165,9 @@ class DriveController extends Controller
         $volunteers = Volunteer::whereIn('id', $volunteerIds)->get(); //  fetches records from table which matches the given regno's
         // dd($volunteers);
         return response()->json($volunteers);
+    }
+
+    function getDriveInfo($id){
+        return response()->json(Drive::where('id', $id)->get());
     }
 }

@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Get the current URL path
-    var path = window.location.protocol +"//" +  window.location.host + window.location.pathname;
+    var path = window.location.protocol + "//" + window.location.host + window.location.pathname;
 
     // Find the corresponding navigation link and add the 'active' class
     var links = document.querySelectorAll('.sidebar-nav .sidebar-item a');
     console.log(links);
-    links.forEach(function(link) {
+    links.forEach(function (link) {
         if (link.getAttribute('href') === path) {
             link.closest('li').classList.add('active');
         }
@@ -98,10 +98,10 @@ $('#myTable').DataTable({
             customize: function (win) {
                 $(win.document.body)
                     .css('font-size', '16px')
-                    // .prepend(
-                    //     // '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
-                    //     // '<div>Data from 10 Jan 2023 to 25th Jan 2024</div>'
-                    // );
+                // .prepend(
+                //     // '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                //     // '<div>Data from 10 Jan 2023 to 25th Jan 2024</div>'
+                // );
 
                 $(win.document.body).find('table')
                     .addClass('compact')
@@ -112,14 +112,12 @@ $('#myTable').DataTable({
 });
 
 
-function viewInfoModalInit(id){
-    console.log(id);
+function viewInfoModalInit(id) {
     $.ajax({
         url: '/admin/volunteer/getInfo/' + id,
         type: 'GET',
         dataType: 'json',
-        success: function(response){
-            console.log(response.volunteer);
+        success: function (response) {
             var volunteerInfo = response.volunteer[0];
             $('#regno').val(volunteerInfo.id);
             $('#name').val(volunteerInfo.name);
@@ -129,7 +127,7 @@ function viewInfoModalInit(id){
             $('#batch').val(volunteerInfo.batch);
             $('#attended').val(volunteerInfo.drives_participated);
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error('AJAX request failed: ', status, error);
         }
     });
@@ -142,7 +140,7 @@ function deleteVolunteer() {
 
 // manage batch scripts start
 
-document.getElementById('batchName').addEventListener('keyup', function() {
+document.getElementById('batchName').addEventListener('keyup', function () {
     var batchName = document.getElementById('batchName');
     var message = document.getElementById('message');
     var regex = /^\d{4}-\d{2}$/;
@@ -162,9 +160,9 @@ function changeStatus(id, status) {
     var status_btn = document.getElementById('status-btn' + id);
     var form_status = document.getElementById('form-status' + id);
 
-    if(status == 0 && status_btn.innerHTML === "Open"){
+    if (status == 0 && status_btn.innerHTML === "Open") {
         status = 1;
-    }else{
+    } else {
         status = 0;
     }
 
@@ -176,7 +174,7 @@ function changeStatus(id, status) {
             id: id,
             status: status
         },
-        success: function(response) {
+        success: function (response) {
             console.log(response);
             if (response.message === "success") {
                 if (status_btn.innerHTML === "Close" && form_status.innerHTML ===
@@ -193,7 +191,7 @@ function changeStatus(id, status) {
                 alert('Some error occured in opening/closing form !');
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error('AJAX request failed: ', status, error);
         }
     });
@@ -201,3 +199,35 @@ function changeStatus(id, status) {
 
 // manage batch scripts end
 
+// manage drive scripts start
+
+function driveEditModalInit(id) {
+    $.ajax({
+        url: '/admin/drive/getInfo/' + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response[0]);
+            var driveInfo = response[0];
+            $('#drive-id').val(driveInfo.id);
+            $('#drive-date').val(driveInfo.date);
+            $('#drive-from').val(driveInfo.from);
+            $('#drive-to').val(driveInfo.to);
+            $('#drive-type').val(driveInfo.type);
+            $('#drive-title').val(driveInfo.title);
+            $('#drive-area').val(driveInfo.area);
+            $('#drive-conducted-by').val(driveInfo.conductedBy);
+            $('#drive-attended-by').val(driveInfo.present);
+            $('#drive-description').val(driveInfo.description);
+        },
+        error: function (xhr, status, error) {
+            console.error('AJAX request failed: ', status, error);
+        }
+    });
+}
+
+function driveDeleteModalInit(id){
+    $('#delete-drive-id').val(id);
+}
+
+// manage drive scripts end

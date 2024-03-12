@@ -84,7 +84,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     Route::post('/drive/manage/list/update', [DriveController::class, 'update'])->name('drive.updateDetails');
 
-    Route::delete('/drive/manage/list/delete', [DriveController::class, 'delete'])->name('drive.deleteDetails');
+    Route::delete('/drive/manage/list/delete', [DriveController::class, 'delete'])->name('drive.delete');
 
     Route::get('drive/add', [DriveController::class, 'addView'])->name('drive.add');
     Route::post('drive/add', [DriveController::class, 'addDrive'])->name('drive.add');
@@ -110,6 +110,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     // ajax
     Route::get('volunteer/getInfo/{id}', [VolunteerController::class, 'getVolunteerInfo']);
+    Route::get('drive/getInfo/{id}', [DriveController::class, 'getDriveInfo']);
     Route::get('batch/manage/updateStatus', [BatchController::class, 'updateStatus'])->name('batch.manage.updateStatus');
 });
 // });

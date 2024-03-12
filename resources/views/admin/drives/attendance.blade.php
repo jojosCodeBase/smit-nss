@@ -5,7 +5,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="col">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <b>{{ session('success') }}</b>
+                        <span>{{ session('success') }}</span>
                         <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </div>
@@ -15,12 +15,20 @@
             <div class="row d-flex justify-content-center">
                 <div class="col">
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <b>{{ session('error') }}</b>
+                        <span>{{ session('error') }}</span>
                         <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </div>
             </div>
         @endif
+        @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+            <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
         <h2 class="text-center fw-bold">NSS Drives Attendance</h2>
         <div class="row">
             <div class="col-xl-8 offset-xl-2 col-md-10 offset-md-2">
@@ -33,8 +41,8 @@
                                     <div class="row">
                                         <div
                                             class="col-lg-10 col-md-10 col-12 mx-lg-0 ps-xl-0 ps-xl-0 ps-lg-0 ps-md-0 pe-lg-2 pe-md-2">
-                                            <input type="search" placeholder="Search by name or regno" class="form-control"
-                                                name="search_string">
+                                            <input type="search" placeholder="Search by drive title" class="form-control"
+                                                name="search_string" required>
                                         </div>
                                         <div
                                             class="col-lg-2 col-md-2 col-12 d-flex justify-content-center mt-lg-0 mt-lg-0 mt-2 mt-md-0 pe-xl-0 ps-xl-0 pe-lg-0 pe-md-0 ps-lg-3 ps-md-3">
