@@ -10,6 +10,25 @@ document.addEventListener('DOMContentLoaded', function () {
             link.closest('li').classList.add('active');
         }
     });
+
+    (() => {
+        'use strict'
+    
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+    
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+    
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
 });
 
 function changeToggleMobile(id) {
@@ -231,3 +250,12 @@ function driveDeleteModalInit(id){
 }
 
 // manage drive scripts end
+
+
+//validation start{
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+//This code is for invalidation warning
+
+
+//   validation end }
