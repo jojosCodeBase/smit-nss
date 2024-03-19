@@ -61,6 +61,10 @@
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
+                                        <div>
+                                            <input type="checkbox" id="showPassword" class="">
+                                            <label for="showPassword" class="form-label">Show password</label>
+                                        </div>
                                         <div class="text-center mt-3">
                                             <input type="submit" class="btn btn-lg btn-primary w-100 fw-bold fs-4"
                                                 value="Login">
@@ -79,6 +83,7 @@
         </div>
     </main>
     <script src="/js/app.js"></script>
+
 </body>
 
 </html>

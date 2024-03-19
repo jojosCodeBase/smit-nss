@@ -10,7 +10,30 @@ document.addEventListener('DOMContentLoaded', function () {
             link.closest('li').classList.add('active');
         }
     });
+
+//    Code for validation start
+
+    (() => {
+        'use strict'
+    
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+    
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+    
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
 });
+
+// Code for validation End
 
 function changeToggleMobile(id) {
     var trCollapseId = "trCollapse" + id;
@@ -231,3 +254,24 @@ function driveDeleteModalInit(id){
 }
 
 // manage drive scripts end
+
+
+//validation start{
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+//This code is for invalidation warning
+
+// Show password's javascript start
+        const passwordInput = document.getElementById('password');
+    const showPasswordCheckbox = document.getElementById('showPassword');
+
+    showPasswordCheckbox.addEventListener('change', function() {
+        if (showPasswordCheckbox.checked) {
+            // If checkbox is checked, show the password
+            passwordInput.type = 'text';
+        } else {
+            // If checkbox is unchecked, hide the password
+            passwordInput.type = 'password';
+        }
+    });
+    // Show password's javascript end
