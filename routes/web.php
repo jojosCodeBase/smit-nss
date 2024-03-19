@@ -29,19 +29,19 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
 // Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
-Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login-page');
-Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
+Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login-page');  
+// Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
 
 // Route::post('/login', function(){
 //     return "Hello from login post";
 // })->name('login');
 
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-->name('password.request');
+// Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+// Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
+// ->name('password.request');
 
-Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-->name('password.email');
+// Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+// ->name('password.email');
 
 Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
 Route::post('batch/regsitrationForm/register', [BatchController::class, 'register'])->name('volunteer-register-form');

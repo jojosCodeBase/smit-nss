@@ -18,7 +18,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): View
     {
         return view('auth.login');
-    }
+    }w
 
     /**
      * Handle an incoming authentication request.
@@ -33,8 +33,9 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(RouteServiceProvider::HOME);
         elseif (Auth::user()->role == 1)
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-        return redirect()->intended(RouteServiceProvider::USER_HOME);
+        return redirect()->intended(RouteServiceProvider::USER_HOME); 
     }
+    
 
     /**
      * Destroy an authenticated session.
