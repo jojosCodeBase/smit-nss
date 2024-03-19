@@ -30,6 +30,7 @@ class BatchController extends Controller
 
     public function register(Request $r)
     {
+        dd($r->all());
         try {
             $volunteer = Volunteer::create([
                 'id' => $r->regno,
@@ -83,7 +84,6 @@ class BatchController extends Controller
     public function registrationForm($batchName){
         $batch = Batch::where('name', $batchName)->get();
         $status = $batch[0]['status'];
-
         $courses = Courses::all();
         return view('admin.batch.registration-form', compact('batchName', 'status', 'courses'));
     }

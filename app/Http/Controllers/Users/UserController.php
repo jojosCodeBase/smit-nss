@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function index(){
+
+    }
     public function listUsers(){
         $roles = [1, 2];
         $users = User::whereIn('role', $roles)->get();

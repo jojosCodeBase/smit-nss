@@ -29,8 +29,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
 // Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
-Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
+Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login-page');
+Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
 
 // Route::post('/login', function(){
 //     return "Hello from login post";
@@ -44,7 +44,7 @@ Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
 ->name('password.email');
 
 Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
-Route::post('batch/regsitrationForm/register', [BatchController::class, 'register'])->name('register');
+Route::post('batch/regsitrationForm/register', [BatchController::class, 'register'])->name('volunteer-register-form');
 
 // routes for admin panel
 
@@ -121,10 +121,9 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 Route::middleware(['isUser'])->prefix('user/')->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('user.home');
 
-    Route::get('profile', [UserController::class, 'index'])->name('user.profile.edit');
+    Route::get('profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
     Route::get('volunteers/search', [VolunteerController::class, 'search'])->name('user.volunteer.search');
     Route::post('volunteers/search', [VolunteerController::class, 'searchDetails'])->name('user.volunteer.view-details');
-
 
     Route::get('drive/add', [DriveController::class, 'addView'])->name('user.drive.add');
     Route::post('drive/add', [DriveController::class, 'addDrive'])->name('user.drive.add');
