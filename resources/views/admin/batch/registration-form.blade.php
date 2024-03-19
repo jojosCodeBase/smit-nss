@@ -36,7 +36,7 @@
             box-shadow: none;
         }
 
-        .input-group-text {
+        .form-group-text {
             /* border-top: none;
             border-right: none;
             border-left: none;
@@ -56,86 +56,127 @@
 <body>
     <div class="container mt-4">
         <div class="row d-flex justify-content-center">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-xl-6 col-lg-6 col-md-10 col">
                 <div class="card p-3">
                     <div class="card-body">
                         <h4 class="fw-bold text-center">NSS Batch {{ $batchName }} Registration Form</h4>
-                        <hr class="underline mb-4">
-                        @if(session('success'))
-                            <h5 class="text-center">{{ session('success') }}</h5>
-                        @elseif(session('error'))
-                            <h5 class="text-center">{{ session('error') }}</h5>
-                        @elseif($status)
-                            <form action="{{ route('register') }}" method="POST">
+                        <hr class="underline mb-2">
+                        @if (session('error'))
+                            <div class="row d-flex justify-content-center">
+                                <div class="col">
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <b>{{ session('error') }}</b>
+                                        <button type="button" class="btn-close " data-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="row d-flex justify-content-center">
+                                <div class="col">
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <span>{{ session('success') }}</span>
+                                        <button type="button" class="btn-close " data-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($errors->any())
+                            <div id="alertMessage" class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <p>{{ $error }}</p>
+                                @endforeach
+                            </div>
+                        @endif
+                        @if ($status)
+                            <form action="{{ route('volunteer-register-form') }}" method="POST">
                                 @csrf
-                                <div class="input-group mb-4">
-                                    <input type="number" class="form-control" name="regno" placeholder="Registration number"
-                                        required>
+                                <div class="form-group mb-2">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" name="name" class="form-control" required>
                                 </div>
-                                <div class="input-group mb-4">
-                                    <input type="text" class="form-control" name="name" placeholder="Name"
-                                        required>
-                                    <i class="input-group-text bi-person-fill"></i>
+                                <div class="form-group mb-2">
+                                    <label class="form-label">Registration no</label>
+                                    <input type="text" name="regno" class="form-control" maxlength="9" required>
                                 </div>
-                                <div class="input-group mb-4">
-                                    <input type="email" class="form-control" name="email" placeholder="Email" required>
-                                    <i class="input-group-text bi-envelope-fill"></i>
+                                <div class="form-group mb-2">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" required>
                                 </div>
-                                <div class="input-group mb-4">
-                                    <input type="phone" class="form-control" name="phone" placeholder="Phone" required>
-                                    <i class="input-group-text bi-telephone-fill"></i>
-                                </div>
-                                <div class="input-group mb-4">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="male" value="M">
-                                        <label class="form-check-label">Male</label>
+                                <div class="form-group mb-2">
+                                    <label class="form-label">Select gender</label>
+                                    <div class="d-flex">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="radio" name="gender">
+                                            <label class="form-check-label">
+                                                Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="radio" name="gender">
+                                            <label class="form-check-label">
+                                                Female
+                                            </label>
+                                        </div>
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="radio" name="gender">
+                                            <label class="form-check-label">
+                                                Others
+                                            </label>
+                                        </div>
                                     </div>
-
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="female" value="F">
-                                        <label class="form-check-label">Female</label>
-                                    </div>
                                 </div>
-                                <label class="form-label">Date of birth</label>
-                                <div class="input-group mb-4">
-                                    <input type="date" name="dob" class="form-control">
+                                <div class="form-group mb-2">
+                                    <label class="form-label">Phone number</label>
+                                    <input type="text" name="phone" class="form-control" required>
                                 </div>
-                                <div class="input-group mb-4">
-                                    <select name="category" class="form-select">
-                                        <option value="-1" selected>Select category from list</option>
-                                        <option value="st">ST</option>
-                                        <option value="sc">SC</option>
-                                        <option value="general">General</option>
-                                        <option value="obc">OBC</option>
-                                    </select>
+                                <div class="form-group mb-2">
+                                    <label class="form-label">Date of birth</label>
+                                    <input type="date" name="dob" class="form-control" required>
                                 </div>
-                                <label class="form-label">Nationality</label>
-                                <div class="input-group mb-4">
-                                    <select name="nationality" id="nationality" class="form-select">
-                                        <option value="0">Indian</option>
-                                        <option value="1">Non-Indian</option>
-                                    </select>
-                                </div>
-                                <div class="input-group mb-4" id="document-number">
-                                    <input type="text" name="document-number" id="aadhar" class="form-control"
-                                        placeholder="Aadhar number">
-                                    <input type="text" name="document_number" id="other-document" class="form-control"
-                                        placeholder="Other document number" style="display: none;" disabled>
-                                </div>
-                                <div class="input-group mb-4">
-                                    <select name="course" id="course" class="form-select" required>
-                                        <option value="-1" selected>Select course from list</option>
-                                        @foreach ($courses as $c)
-                                            <option value="{{ $c['cid'] }}">{{ $c['cname'] }}</option>
+                                <div class="col mb-2">
+                                    <label class="form-label">Course</label>
+                                    <select name="course" id="" class="form-select" required>
+                                        <option value="" disabled selected>Select course from list</option>
+                                        @foreach ($courses as $course)
+                                            <option value="{{ $course['cid'] }}">{{ $course['cname'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <input type="text" name="batch" class="form-control" value="{{ $batchName }}" hidden>
-                                {{-- <div class="input-group mb-4">
-                                    <input type="semester" name="semester" class="form-control" placeholder="Semester" required>
-                                </div> --}}
-                                <div class="input-group mb-4 d-flex justify-content-center">
-                                    <input type="submit" class="btn btn-primary w-25" value="Submit">
+                                <div class="form-group mb-2" id="document-number">
+                                    <label class="form-label">Category</label>
+                                    <select name="category" id="" class="form-select" required>
+                                        <option value="" disabled selected>Select category from list</option>
+                                        <option value="1">General</option>
+                                        <option value="2">OBC</option>
+                                        <option value="3">ST</option>
+                                        <option value="4">SC</option>
+                                        <option value="5">Minority</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label class="form-label">Nationality</label>
+                                    <select name="nationality" id="nationality" class="form-select" required>
+                                        <option value="" disabled selected>Select nationality from list</option>
+                                        <option value="I">Indian</option>
+                                        <option value="NI">Non-Indian</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-2">
+                                    <label class="form-label" id="aadhar-number-input">Aadhar number</label>
+                                    <label class="form-label" id="document-number-input"
+                                        style="display: none;">Other document
+                                        number</label>
+                                    <input type="text" name="document" class="form-control" required>
+                                </div>
+
+                                <div class="form-group mb-2 d-flex justify-content-center">
+                                    <div class="col-xl-6 col-lg-10 col-md-12 col">
+                                        <input type="submit" class="btn btn-primary w-100" value="Submit">
+                                    </div>
                                 </div>
                             </form>
                         @else
@@ -155,16 +196,14 @@
     <script>
         document.getElementById('nationality').addEventListener('change', () => {
             // for Non-Indian
-            if (document.getElementById('nationality').value == 1) {
-                document.getElementById('aadhar').style.display = 'none';
-                document.getElementById('other-document').style.display = 'block';
-                document.getElementById('other-document').disabled = false;
+            if (document.getElementById('nationality').value == 'I') {
+                document.getElementById('aadhar-number-input').style.display = 'block';
+                document.getElementById('document-number-input').style.display = 'none';
             } else {
                 // for Indian
-                if (document.getElementById('nationality').value == 0) {
-                    document.getElementById('aadhar').style.display = 'block';
-                    document.getElementById('other-document').style.display = 'none';
-                    document.getElementById('other-document').disabled = true;
+                if (document.getElementById('nationality').value == 'NI') {
+                    document.getElementById('aadhar-number-input').style.display = 'none';
+                    document.getElementById('document-number-input').style.display = 'block';
                 }
             }
         });
