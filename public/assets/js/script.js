@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+//    Code for validation start
+
     (() => {
         'use strict'
     
@@ -30,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     })()
 });
+
+// Code for validation End
 
 function changeToggleMobile(id) {
     var trCollapseId = "trCollapse" + id;
@@ -257,5 +261,17 @@ function driveDeleteModalInit(id){
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 //This code is for invalidation warning
 
+// Show password's javascript start
+        const passwordInput = document.getElementById('password');
+    const showPasswordCheckbox = document.getElementById('showPassword');
 
-//   validation end }
+    showPasswordCheckbox.addEventListener('change', function() {
+        if (showPasswordCheckbox.checked) {
+            // If checkbox is checked, show the password
+            passwordInput.type = 'text';
+        } else {
+            // If checkbox is unchecked, hide the password
+            passwordInput.type = 'password';
+        }
+    });
+    // Show password's javascript end

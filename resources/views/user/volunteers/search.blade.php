@@ -22,12 +22,12 @@
                                 <div class="card p-1">
                                     <div class="card-body">
                                         <div class="row d-flex justify-content-center">
-                                            <div class="col-lg-9 col-md-10 col-12 mx-lg-0 ps-xl-0 ps-xl-0 ps-lg-0 ps-md-0 pe-lg-2 pe-md-2">
+                                            <div class="col-lg-9 col-md-9 col-12 mx-lg-0 ps-xl-0 ps-xl-0 ps-lg-0 ps-md-0 pe-lg-2 pe-md-2">
                                                 <input type="search" placeholder="Search by name or regno"
                                                     class="form-control" name="search_string">
                                             </div>
                                             <div
-                                                class="col-lg-3 col-md-2 col-6 mt-lg-0 mt-3 pe-xl-0 ps-xl-0 pe-lg-0 pe-md-0 ps-lg-3 ps-md-3">
+                                                class="col-lg-3 col-md-3 col-6 mt-lg-0 pe-xl-0 ps-xl-0 pe-lg-0 pe-md-0 ps-lg-3 ps-md-3">
                                                 <input type="submit" class="btn btn-primary w-100" value="Search">
                                             </div>
                                         </div>
