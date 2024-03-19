@@ -174,11 +174,10 @@ class VolunteerController extends Controller
 
     public function getName($regno)
     {
-        // dd("hello");
-        $user = Volunteer::where('id', $regno)->first();
-        // $user = $user->toArray();
-        if ($user)
-            return response()->json(['name' => $user->name]);
+        // this is used to fetch the first occurence of the given id and no need to use volunteer[0] to access array elements
+        $volunteer = Volunteer::where('id', $regno)->first();
+        if ($volunteer)
+            return response()->json(['name' => $volunteer->name]);
         else
             return response()->json(['name' => 'No results found']);
     }

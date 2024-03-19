@@ -32,17 +32,6 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login-page');
 Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
 
-// Route::post('/login', function(){
-//     return "Hello from login post";
-// })->name('login');
-
-Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-->name('password.request');
-
-Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-->name('password.email');
-
 Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
 Route::post('batch/regsitrationForm/register', [BatchController::class, 'register'])->name('volunteer-register-form');
 
@@ -96,7 +85,8 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
 
     // drive section end
 
-    Route::get('users/manage', [UserController::class, 'listUsers'])->name('users.manage');
+    Route::get('users/manage', [UserController::class, 'index'])->name('users.manage');
+    Route::post('users/manage/add', [UserController::class, 'addModerator'])->name('add-moderator');
 
     // batch section start
 
@@ -131,13 +121,13 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
     Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('user.drive.add.attendance');
 
     // Route::post('drive/attendance/add/getName', [VolunteerController::class, 'getName'])->name('getName');
-    Route::get('drive/attendance/add/{regno}', [VolunteerController::class, 'getName']);
 
     Route::delete('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('user.attendance.delete');
 
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('getname/{regno}', [VolunteerController::class, 'getName']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -1,7 +1,6 @@
 @extends('layouts/user-content')
 @section('content')
 <div class="container-fluid p-0 mt-0">
-    <h1>USER PANEL</h1>
     <div class="row">
         <div class="col-xl-12 col-xxl-5 d-flex">
             <div class="w-100">

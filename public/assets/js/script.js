@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     // Show password's javascript end
 
+    // ajax function to get student name
+
+
     //    Code for validation start
 
     (() => {
@@ -79,6 +82,63 @@ function changeToggleDesktop(id) {
 }
 
 $(document).ready(() => {
+    $('#getNameBtn').on('click', function () {
+        event.preventDefault();
+        var regno = $('#fetchRegno').val();
+        if (regno == '') {
+            swal("Registration number cannot be empty", "", "error");
+        } else if (isNaN(regno) || regno.length != 9) {
+            swal('Invalid registration number', "", "error");
+        } else {
+            jQuery.ajax({
+                url: '/getname/' + regno,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response && response.name) {
+                        document.getElementById('response-volunteer-name').value = response.name;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX request failed: ', status, error);
+                }
+            });
+        }
+    });
+
+    $('#addAttendanceForm').submit(function (event) {
+        // Prevent default form submission
+        event.preventDefault();
+
+        // Serialize form data
+        var formData = $(this).serialize();
+
+        // Send AJAX request
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: formData,
+            success: function (response) {
+                // Handle success response
+                swal("Attendance Recorded", "", "success");
+                $('#fetchRegno').val('');
+                $('#response-volunteer-name').val('');
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error(xhr.responseText);
+                // You can display an error message to the user here
+            }
+        });
+    });
+
+    $('#addModeratorBtn').on('click', function(){
+        if($('#response-volunteer-name').val() == 'No results found' || $('#response-volunteer-name').val() == ""){
+            event.preventDefault();
+            alert('Volunteer not found, enter valid volunteer details');
+        }
+    });
+
     const csv = document.querySelector('.buttons-csv');
     csv.id = "btn-csv";
     csv.classList.remove('btn-secondary');

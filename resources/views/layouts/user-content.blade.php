@@ -29,7 +29,7 @@
 
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
-                        Pages
+                        Menu
                     </li>
 
                     <li class="sidebar-item">
@@ -91,17 +91,10 @@
                                     class="text-dark">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <span class="dropdown-item text-center">{{ Auth::user()->name }}</span>
-                                <div class="dropdown-divider"></div>
+                                <span class="dropdown-item text-center d-xl-none d-lg-none d-md-none d-block">{{ Auth::user()->name }}</span>
+                                <div class="dropdown-divider xl-d-block lg-d-block d-none"></div>
                                 <a class="dropdown-item" href="{{ route('user.profile.edit') }}"><i
                                         class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                                        data-feather="pie-chart"></i> Analytics</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="dashboard.html"><i class="align-middle me-1"
-                                        data-feather="settings"></i> Settings & Privacy</a>
-                                <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                                        data-feather="help-circle"></i> Help Center</a>
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
@@ -134,9 +127,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
     </script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/script.js') }}"></script>
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
     </script>
@@ -145,26 +135,9 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        function getName() {
-            var regno = document.getElementById('fetchRegno').value;
-            event.preventDefault();
-            jQuery.ajax({
-                url: '/user/drive/attendance/add/' + regno, // if your url is using prefix enter url with prefix
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    console.log(response);
-                    if (response && response.name) {
-                        document.getElementById('name').value = response.name;
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX request failed: ', status, error);
-                }
-            });
-        }
-    </script>
+    <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 </body>
 
 </html>

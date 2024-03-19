@@ -21,43 +21,42 @@
         </div>
     @endif
 
-    @if (session('driveAvailable'))
+    @if ($available)
         <div class="container-fluid p-0">
-            <h2 class="text-center fw-bold">Add Drive Attendance</h2>
-            <div class="row">
-                <div class="col-12 col-lg-12 col-xxl-9 d-flex">
+            <h2 class="text-center fw-bold">Today's Drive</h2>
+            <div class="row d-flex justify-content-center p-0">
+                <div class="col-12 col-lg-12 col-xxl-9 p-0">
                     <div class="card flex-fill">
-                        <div class="card-header">
-                            <h5 class="mb-0 h4 text-center fw-bold">Today's Drive</h5>
-                        </div>
                         @foreach ($drive as $d)
                             <div class="card-body">
-                                <div class="row title">
-                                    <div class="col">Drive Id</div>
-                                    <div class="col">Drive Title</div>
-                                    <div class="col">Created by</div>
-                                </div>
-                                <div class="row info">
-                                    <div class="col">{{ $d['id'] }}</div>
-                                    <div class="col">{{ $d['title'] }}</div>
-                                    <div class="col">jhuma</div>
-                                </div>
-                                <div class="row title mt-2">
-                                    <div class="col">Time created</div>
-                                    <div class="col">Time</div>
-                                    <div class="col">Area</div>
-                                </div>
-                                <div class="row info">
-                                    <div class="col">{{ $d['created_at'] }}</div>
-                                    <div class="col">{{ $d['from'] }} - {{ $d['to'] }}</div>
-                                    <div class="col">{{ $d['area'] }}</div>
+                                <div class="row">
+                                    <div class="col-xl-3 col-6 mb-3">
+                                        <label class="title">Drive Id</label>
+                                        <div class="info">{{ $d['id'] }}</div>
+                                    </div>
+                                    <div class="col-xl-3 col-6 mb-3">
+                                        <div class="title">Drive Title</div>
+                                        <div class="info">{{ $d['title'] }}</div>
+                                    </div>
+                                    <div class="col-xl-3 col-6 mb-3">
+                                        <div class="title">Created by</div>
+                                        <div class="info">{{ $d['id'] }}</div>
+                                    </div>
+                                    <div class="col-xl-3 col-6 mb-3">
+                                        <div class="title">Time</div>
+                                        <div class="info">{{ $d['from'] }} - {{ $d['to'] }}</div>
+                                    </div>
+                                    <div class="col-xl-3 col-12">
+                                        <div class="title">Area</div>
+                                        <div class="info">{{ $d['area'] }}</div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
 
-                        <div class="row mb-3 mt-3 d-flex justify-content-center">
+                        <div class="row mb-3 d-flex justify-content-center">
                             <div class="col-lg-3 col-md-3 d-flex justify-content-center">
-                                <button class="btn btn-success w-75" data-toggle="collapse"
+                                <button class="btn btn-success" data-toggle="collapse"
                                     data-target="#allAttendees{{ $d['id'] }}">View
                                     All Attendees</button>
                             </div>
@@ -93,7 +92,7 @@
                                                         <td>
                                                             <button class="btn btn-danger" data-toggle="modal"
                                                                 data-target="#deleteModal"
-                                                                onclick=attDelete({{ $at['id'] }})><i
+                                                                onclick=attDelete({{ $at['id'] }}))><i
                                                                     class="bi-trash"></i></button>
                                                         </td>
                                                     </tr>
@@ -117,7 +116,8 @@
                             <div id="addAttendanceModal" class="modal fade">
                                 <div class="modal-dialog delete-modal-diaglog">
                                     <div class="modal-content">
-                                        <form action="{{ route('user.drive.add.attendance') }}" method="POST">
+                                        <form id="addAttendanceForm" action="{{ route('user.drive.add.attendance') }}" method="POST">
+                                        {{-- <form id="addAttendanceForm" method="POST"> --}}
                                             @csrf
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Add Attendance</h4>
@@ -146,19 +146,20 @@
                                                 <div class="form-group mb-3">
                                                     <label class="form-label">Registration no</label>
                                                     <div class="row">
-                                                        <div class="col-7">
+                                                        <div class="col-xl-9 col-8">
                                                             <input type="text" class="form-control" name="regno"
-                                                                id="fetchRegno">
+                                                                id="fetchRegno" required>
                                                         </div>
-                                                        <div class="col-3">
-                                                            <button class="btn btn-primary"
-                                                                onclick="getName()">Verify</button>
+                                                        <div class="col-xl-3 col-4">
+                                                            <button class="btn btn-primary w-100"
+                                                                id="getNameBtn">Verify</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label class="form-label">Name</label>
-                                                    <input type="text" class="form-control" id="name" readonly>
+                                                    <input type="text" class="form-control"
+                                                        id="response-volunteer-name" readonly>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -219,5 +220,4 @@
             </div>
         </div>
     @endif
-
 @endsection
