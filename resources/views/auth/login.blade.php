@@ -11,6 +11,7 @@
 
     <title>SMIT-NSS | Login</title>
 
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -62,8 +63,8 @@
                                             @enderror
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="showPassword" class="">
-                                            <label for="showPassword" class="form-label">Show password</label>
+                                            <input type="checkbox" id="showPassword" class="form-check-input me-2">
+                                            <label for="showPassword" class="form-label user-select-none">Show password</label>
                                         </div>
                                         <div class="text-center mt-3">
                                             <input type="submit" class="btn btn-lg btn-primary w-100 fw-bold fs-4"
@@ -71,8 +72,8 @@
                                         </div>
                                     </form>
                                     <div class="mt-2 text-center">
-                                        {{-- <a href="{{ route('password.request') }}">Forgot password?</a> --}}
-                                        <a href="{{ route('register') }}">Forgot password?</a>
+                                        <a href="{{ route('password.request') }}">Forgot password?</a>
+                                        {{-- <a href="{{ route('register') }}">Forgot password?</a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +83,7 @@
             </div>
         </div>
     </main>
-    <script src="/js/app.js"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 
 </body>
 
