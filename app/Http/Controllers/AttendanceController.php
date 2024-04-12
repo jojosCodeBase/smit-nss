@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Drives\Drive;
 use Illuminate\Http\Request;
-use App\Models\Volunteers\Volunteer;
+use App\Models\Volunteer;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance\Attendance;
 use Illuminate\Database\QueryException;

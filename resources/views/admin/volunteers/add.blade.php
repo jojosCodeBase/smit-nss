@@ -1,32 +1,6 @@
 @extends('layouts/admin-content')
 @section('content')
-    @if (session('error'))
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <b>{{ session('error') }}</b>
-                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <span>{{ session('success') }}</span>
-                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    @endif
-    @if ($errors->any())
-        <div id="alertMessage" class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        </div>
-    @endif
+   @include('include/alerts')
     <div class="container-fluid p-0">
         <div class="card">
             <div class="card-body">
@@ -52,19 +26,19 @@
                             <label class="form-label">Select gender</label>
                             <div class="d-flex">
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" name="gender">
+                                    <input class="form-check-input" type="radio" name="gender" value="M">
                                     <label class="form-check-label">
                                         Male
                                     </label>
                                 </div>
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" name="gender">
+                                    <input class="form-check-input" type="radio" name="gender" value="F">
                                     <label class="form-check-label">
                                         Female
                                     </label>
                                 </div>
                                 <div class="form-check me-3">
-                                    <input class="form-check-input" type="radio" name="gender">
+                                    <input class="form-check-input" type="radio" name="gender" value="O">
                                     <label class="form-check-label">
                                         Others
                                     </label>
@@ -103,11 +77,11 @@
                             <label class="form-label">Category</label>
                             <select name="category" id="" class="form-select" required>
                                 <option value="" disabled selected>Select category from list</option>
-                                <option value="1">General</option>
-                                <option value="2">OBC</option>
-                                <option value="3">ST</option>
-                                <option value="4">SC</option>
-                                <option value="5">Minority</option>
+                                <option value="General">General</option>
+                                <option value="OBC">OBC</option>
+                                <option value="ST">ST</option>
+                                <option value="SC">SC</option>
+                                <option value="Minority">Minority</option>
                             </select>
                         </div>
                     </div>

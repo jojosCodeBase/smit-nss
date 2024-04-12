@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('drives', function (Blueprint $table) {
             $table->integer('id')->primary();
-            $table->string('title');
-            $table->date('date');
-            $table->string('from');
-            $table->string('to');
-            $table->string('conductedBy');
-            $table->string('type');
-            $table->string('area');
-            $table->integer('present');
-            $table->integer('absent');
-            $table->string('description');
+            $table->string('title')->nullable();
+            $table->date('date')->nullable();
+            $table->string('from')->nullable();
+            $table->string('to')->nullable();
+            $table->string('conductedBy')->nullable();
+            $table->string('updatedBy')->nullable();
+            $table->string('type')->nullable();
+            $table->string('area')->nullable();
+            $table->integer('present')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

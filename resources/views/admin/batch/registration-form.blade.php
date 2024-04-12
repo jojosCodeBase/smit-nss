@@ -17,7 +17,7 @@
             font-family: "Inter", "Helvetica Neue", Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             ;
             /* background-color: rgb(245, 247, 251); */
-            background-color: rgb(73, 7, 226);
+            background-color: #dad7d7;
         }
 
         .form-control {
@@ -57,7 +57,7 @@
     <div class="container mt-4">
         <div class="row d-flex justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-10 col">
-                <div class="card p-3">
+                <div class="card p-xl-3">
                     <div class="card-body">
                         <h4 class="fw-bold text-center">NSS Batch {{ $batchName }} Registration Form</h4>
                         <hr class="underline mb-2">
@@ -65,18 +65,7 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col">
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <b>{{ session('error') }}</b>
-                                        <button type="button" class="btn-close " data-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                        @if (session('success'))
-                            <div class="row d-flex justify-content-center">
-                                <div class="col">
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <span>{{ session('success') }}</span>
+                                        {{ session('error') }}
                                         <button type="button" class="btn-close " data-dismiss="alert"
                                             aria-label="Close"></button>
                                     </div>
@@ -84,101 +73,113 @@
                             </div>
                         @endif
                         @if ($errors->any())
-                            <div id="alertMessage" class="alert alert-danger">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 @foreach ($errors->all() as $error)
                                     <p>{{ $error }}</p>
                                 @endforeach
+                                <button type="button" class="btn-close " data-dismiss="alert"
+                                    aria-label="Close"></button>
                             </div>
                         @endif
                         @if ($status)
-                            <form action="{{ route('volunteer-register-form') }}" method="POST">
-                                @csrf
-                                <div class="form-group mb-2">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" name="name" class="form-control" required>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label class="form-label">Registration no</label>
-                                    <input type="text" name="regno" class="form-control" maxlength="9" required>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" name="email" required>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label class="form-label">Select gender</label>
-                                    <div class="d-flex">
-                                        <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="gender">
-                                            <label class="form-check-label">
-                                                Male
-                                            </label>
-                                        </div>
-                                        <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="gender">
-                                            <label class="form-check-label">
-                                                Female
-                                            </label>
-                                        </div>
-                                        <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="gender">
-                                            <label class="form-check-label">
-                                                Others
-                                            </label>
+                            @if (session('success'))
+                                <h5 class="text-center">Your Response has been recorded. Thank you</h5>
+                            @else
+                                <form action="{{ route('volunteer-register-form') }}" method="POST">
+                                    @csrf
+                                    <input type="text" name="batch" value="{{ $batchId }}" hidden>
+                                    <div class="form-group mb-2">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" name="name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label class="form-label">Registration no</label>
+                                        <input type="text" name="regno" class="form-control" maxlength="9"
+                                            required>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email" required>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label class="form-label">Select gender</label>
+                                        <div class="d-flex">
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                    value="M">
+                                                <label class="form-check-label">
+                                                    Male
+                                                </label>
+                                            </div>
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                    value="F">
+                                                <label class="form-check-label">
+                                                    Female
+                                                </label>
+                                            </div>
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                    value="O">
+                                                <label class="form-check-label">
+                                                    Others
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label class="form-label">Phone number</label>
-                                    <input type="text" name="phone" class="form-control" required>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label class="form-label">Date of birth</label>
-                                    <input type="date" name="dob" class="form-control" required>
-                                </div>
-                                <div class="col mb-2">
-                                    <label class="form-label">Course</label>
-                                    <select name="course" id="" class="form-select" required>
-                                        <option value="" disabled selected>Select course from list</option>
-                                        @foreach ($courses as $course)
-                                            <option value="{{ $course['cid'] }}">{{ $course['cname'] }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group mb-2" id="document-number">
-                                    <label class="form-label">Category</label>
-                                    <select name="category" id="" class="form-select" required>
-                                        <option value="" disabled selected>Select category from list</option>
-                                        <option value="1">General</option>
-                                        <option value="2">OBC</option>
-                                        <option value="3">ST</option>
-                                        <option value="4">SC</option>
-                                        <option value="5">Minority</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mb-2">
-                                    <label class="form-label">Nationality</label>
-                                    <select name="nationality" id="nationality" class="form-select" required>
-                                        <option value="" disabled selected>Select nationality from list</option>
-                                        <option value="I">Indian</option>
-                                        <option value="NI">Non-Indian</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group mb-2">
-                                    <label class="form-label" id="aadhar-number-input">Aadhar number</label>
-                                    <label class="form-label" id="document-number-input"
-                                        style="display: none;">Other document
-                                        number</label>
-                                    <input type="text" name="document" class="form-control" required>
-                                </div>
-
-                                <div class="form-group mb-2 d-flex justify-content-center">
-                                    <div class="col-xl-6 col-lg-10 col-md-12 col">
-                                        <input type="submit" class="btn btn-primary w-100" value="Submit">
+                                    <div class="form-group mb-2">
+                                        <label class="form-label">Phone number</label>
+                                        <input type="text" name="phone" class="form-control" required>
                                     </div>
-                                </div>
-                            </form>
+                                    <div class="form-group mb-2">
+                                        <label class="form-label">Date of birth</label>
+                                        <input type="date" name="dob" class="form-control" required>
+                                    </div>
+                                    <div class="col mb-2">
+                                        <label class="form-label">Course</label>
+                                        <select name="course" id="" class="form-select" required>
+                                            <option value="" disabled selected>Select course from list</option>
+                                            @foreach ($courses as $course)
+                                                <option value="{{ $course['cid'] }}">{{ $course['cname'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-2" id="document-number">
+                                        <label class="form-label">Category</label>
+                                        <select name="category" id="" class="form-select" required>
+                                            <option value="" disabled selected>Select category from list</option>
+                                            <option value="General">General</option>
+                                            <option value="OBC">OBC</option>
+                                            <option value="ST">ST</option>
+                                            <option value="SC">SC</option>
+                                            <option value="Minority">Minority</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label class="form-label">Nationality</label>
+                                        <select name="nationality" id="nationality" class="form-select" required>
+                                            <option value="" disabled selected>Select nationality from list
+                                            </option>
+                                            <option value="I">Indian</option>
+                                            <option value="NI">Non-Indian</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group mb-2">
+                                        <label class="form-label" id="aadhar-number-input">Aadhar number</label>
+                                        <label class="form-label" id="document-number-input"
+                                            style="display: none;">Other document
+                                            number</label>
+                                        <input type="text" name="document" class="form-control" required>
+                                    </div>
+
+                                    <div class="form-group mb-2 d-flex justify-content-center">
+                                        <div class="col-xl-6 col-lg-10 col-md-12 col">
+                                            <input type="submit" class="btn btn-primary w-100" value="Submit">
+                                        </div>
+                                    </div>
+                                </form>
+                            @endif
                         @else
                             <h5 class="text-center">This form is not accepting responses</h5>
                         @endif
@@ -188,9 +189,7 @@
         </div>
     </div>
     <footer class="text-center mt-3 mb-2">
-        <span class="text-light">Designed and developed by <a href="" class="text-light">Kunsang
-                Moktan</a>
-        </span>
+        <span>Designed and Developed by Kunsang Moktan, Department of Computer Applications</span>
     </footer>
 
     <script>

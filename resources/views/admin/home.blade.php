@@ -21,7 +21,9 @@
                                 </div>
                                 <h1 class="mt-1 mb-3">{{ $totalVolunteers }}</h1>
                                 <div class="mb-0">
-                                    <span class="text-muted">{{ $batchInfo['batch1']->name }}: <span class="text-success"> {{ $batchInfo['batch1']->volunteers }}</span> / {{ $batchInfo['batch2']->name }}: <span class="text-success"> {{ $batchInfo['batch2']->volunteers }}</span></span>
+                                    @if($batchInfo != 0)
+                                        <span class="text-muted">{{ $batchInfo['batch1']->name }}: <span class="text-success"> {{ $batchInfo['batch1']->volunteers }}</span> / {{ $batchInfo['batch2']->name }}: <span class="text-success"> {{ $batchInfo['batch2']->volunteers }}</span></span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -42,7 +44,7 @@
                                 </div>
                                 <h1 class="mt-1 mb-3">{{ $totalDrives }}</h1>
                                 <div class="mb-0">
-                                    <span class="text-muted">Since 2023</span>
+                                    <span class="text-muted">Since 2024</span>
                                 </div>
                             </div>
                         </div>

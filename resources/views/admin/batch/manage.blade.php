@@ -1,33 +1,6 @@
 @extends('layouts/admin-content')
 @section('content')
-    @if (session('success'))
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <b>{{ session('success') }}</b>
-                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <b>{{ session('error') }}</b>
-                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    @endif
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-            <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+    @include('include/alerts')
     <div class="container-fluid p-0">
         <div class="card">
             <div class="card-body">
@@ -38,6 +11,7 @@
                         <div class="col-md-5 col-lg-4">
                             <input type="text" name="name" class="form-control mb-1" placeholder="Batch Name"
                                 id="batchName" required>
+                            <p id="message"></p>
                         </div>
                         <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                             <input type="text" name="studentCoordinator" class="form-control"
@@ -48,6 +22,8 @@
                         </div>
                     </div>
                 </form>
+                <p class="text-danger mt-3">Note: The batch name should be in format (Batch Starting Year Full - Batch End
+                    Year Last Two Digits), E.g. 2022-24</p>
             </div>
         </div>
     </div>
@@ -93,38 +69,22 @@
                                 <td>
                                     <div class="more-btn">
                                         <div class="dropdown">
-                                            <button type="button" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
+                                            <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="bi bi-three-dots"></i>
                                             </button>
                                             <ul class="dropdown-menu mt-5" aria-labelledby="dropdownMenuButton1">
-                                                <li><a class="dropdown-item" href="{{ route('batch.registration-form', $b['name']) }}" target="_blank">View Form</a></li>
-                                                <button class="dropdown-item" data-toggle="modal" data-target="#editModal"
-                                                    onclick="editModal()">Edit</button>
-                                                <button class="dropdown-item" data-toggle="modal" data-target="#deleteModal"
-                                                    onclick="deleteModal()">Delete</button>
+                                                <li><a class="dropdown-item"
+                                                        href="{{ route('batch.registration-form', $b['name']) }}"
+                                                        target="_blank">View Form</a></li>
+                                                <button class="dropdown-item batchEditBtn" data-toggle="modal"
+                                                    data-target="#editBatchModal"
+                                                    data-batch-Id="{{ $b['id'] }}">Edit</button>
+                                                <button class="dropdown-item batchDeleteBtn" data-toggle="modal"
+                                                    data-target="#deleteModal"
+                                                    data-batch-Id="{{ $b['id'] }}">Delete</button>
                                             </ul>
                                         </div>
                                     </div>
-                                    {{-- <div class="more-btn">
-                                        <button class="dropdown" type="button" id="dropdownMenuButton"
-                                            data-toggle="dropdown">
-                                            <i class="fa fa-circle" aria-hidden="true"></i>
-                                            <i class="fa fa-circle" aria-hidden="true"></i>
-                                            <i class="fa fa-circle" aria-hidden="true"></i>
-                                            <i class="bi bi-three-dots"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <button class="dropdown-item view-button" data-toggle="modal"
-                                                data-target="#viewModal"
-                                                onclick="viewModalInit()">View</button>
-                                            <button class="dropdown-item" data-toggle="modal" data-target="#editModal"
-                                                onclick="editModal()">Edit</button>
-                                            <button class="dropdown-item" data-toggle="modal" data-target="#deleteModal"
-                                                onclick="deleteModal()">Delete</button>
-                                        </div>
-                                    </div>
-                                    <a href="{{ route('batch.registration-form', $b['name']) }}" target="_blank">View</a> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -133,4 +93,38 @@
             </div>
         </div>
     </div>
+    <div id="editBatchModal" class="modal fade">
+        <div class="modal-dialog edit-modal-diaglog">
+            <div class="modal-content">
+                <form action="{{ route('batch.update') }}" method="POST">
+                    @csrf
+                    <input type="text" name="id" id="id" hidden>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Batch</h4>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Batch Name</label>
+                            <input type="text" class="form-control" id="response-batch-name" name="batchName" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Student Co-ordinator</label>
+                            <input type="text" class="form-control" id="response-batch-student-coordinator" name="studentCoordinator" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <button type="submit" class="btn btn-success" id="updateBatchInfoBtn">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
+{{-- @section('scripts')
+    <script>
+        // ajax function to get batch info
+
+    </script>
+@endsection --}}

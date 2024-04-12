@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\User;
-use App\Models\Volunteers\Volunteer;
+use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;

@@ -50,7 +50,6 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     Route::get('/volunteer/manage', [VolunteerController::class, 'manage'])->name('volunteer.manage');
     Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'viewEdit'])->name('volunteer.view-edit');
 
-    Route::post('/volunteer/manage/search-details', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
     // Route::get('/volunteer/manage/search-details', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
 
     // Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
@@ -64,6 +63,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     Route::get('/volunteer/manage/export', [VolunteerController::class, 'exportView'])->name('volunteer.export');
 
     Route::post('volunteer/manage/export', [VolunteerController::class, 'fetch'])->name('volunteer.fetchData');
+    Route::post('/volunteer/manage/search-details/', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
 
     // volunteer manage end
 
@@ -94,6 +94,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     Route::post('batch/manage/create', [BatchController::class, 'create'])->name('batch.create');
 
     Route::get('batch/manage/edit', [BatchController::class, 'viewEdit'])->name('batch.view-edit');
+    Route::post('batch/manage/update', [BatchController::class, 'updateBatchInfo'])->name('batch.update');
 
     Route::get('drive/attendance/{driveId}', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
     // Route::post('drive/attendance', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
@@ -101,6 +102,7 @@ Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
     // ajax
     Route::get('volunteer/getInfo/{id}', [VolunteerController::class, 'getVolunteerInfo']);
     Route::get('drive/getInfo/{id}', [DriveController::class, 'getDriveInfo']);
+    Route::get('batch/getInfo/{id}', [BatchController::class, 'getBatchInfo']);
     Route::get('batch/manage/updateStatus', [BatchController::class, 'updateStatus'])->name('batch.manage.updateStatus');
 });
 // });

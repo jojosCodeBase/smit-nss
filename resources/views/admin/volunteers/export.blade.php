@@ -9,33 +9,7 @@
 <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
 @section('content')
-    @if (session('error'))
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <b>{{ session('error') }}</b>
-                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <span>{{ session('success') }}</span>
-                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    @endif
-    @if ($errors->any())
-        <div id="alertMessage" class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        </div>
-    @endif
+    @include('include/alerts')
     <div class="container p-0">
         <div class="card">
             <div class="card-body">

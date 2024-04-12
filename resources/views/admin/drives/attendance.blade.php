@@ -1,34 +1,7 @@
 @extends('layouts/admin-content')
 @section('content')
     <div class="container-fluid p-0">
-        @if (session('success'))
-            <div class="row d-flex justify-content-center">
-                <div class="col">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <span>{{ session('success') }}</span>
-                        <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="row d-flex justify-content-center">
-                <div class="col">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <span>{{ session('error') }}</span>
-                        <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
-        @endif
-        @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-            <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+        @include('include/alerts')
         <h2 class="text-center fw-bold">NSS Drives Attendance</h2>
         <div class="row">
             <div class="col-xl-8 offset-xl-2 col-md-10 offset-md-2">

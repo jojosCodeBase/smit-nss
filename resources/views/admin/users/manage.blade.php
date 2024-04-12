@@ -1,26 +1,9 @@
 @extends('layouts/admin-content')
 @section('content')
     <div class="container-fluid">
-        @if (session('success'))
-            <div class="row d-flex justify-content-center">
-                <div class="col">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <b>{{ session('success') }}</b>
-                        <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="row d-flex justify-content-center">
-                <div class="col">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <b>{{ session('error') }}</b>
-                        <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            </div>
-        @endif
+
+        @include('include/alerts')
+
         <div class="row user-role">
             @foreach ($users as $u)
                 <div class="col-lg-3 col-md-3">

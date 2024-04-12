@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Controllers\Drives;
 use Carbon\Carbon;
-use App\Models\Drives\Drive;
+use App\Models\Drive;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Volunteers\Volunteer;
+use App\Models\Volunteer;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance\Attendance;
 
@@ -19,7 +19,11 @@ class DriveController extends Controller
     function addView()
     {
         $recentDrive = Drive::latest()->first();
-        $id = $recentDrive->id + 1;
+        if ($recentDrive == null) {
+            $id = 1;
+        } else {
+            $id = $recentDrive->id + 1;
+        }
 
         // 'user' is authenticated to add drive
         if (Auth::user()->role == 2)

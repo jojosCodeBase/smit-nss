@@ -1,25 +1,6 @@
 @extends('layouts/admin-content')
 @section('content')
-    @if (session('error'))
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <b>{{ session('error') }}</b>
-                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    @endif
-    @if (session('success'))
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <span>{{ session('success') }}</span>
-                    <button type="button" class="btn-close " data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    @endif
+    @include('include/alerts')
     <div class="container-fluid p-0">
         <h2 class="text-center fw-bold">Search Volunteers</h2>
         <div class="row">
@@ -103,6 +84,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -142,6 +124,7 @@
                                             required>
                                     </div>
                                 </div>
+
                                 <div class="row title mt-2">
                                     <div class="col-3">
                                         <span>Phone</span>
@@ -156,6 +139,7 @@
                                         <span>Drives Attended</span>
                                     </div>
                                 </div>
+
                                 <div class="row info mt-1">
                                     <div class="col-3">
                                         <input class="form-control" type="number" name="phone" id="phone" readonly
@@ -172,7 +156,7 @@
                                     <div class="col-3">
                                         <select name="batch" id="batch" class="form-select" required disabled>
                                             @foreach ($batches as $b)
-                                                <option value="{{ $b['name'] }}">
+                                                <option value="{{ $b['id'] }}">
                                                     {{ $b['name'] }}</option>
                                             @endforeach
                                         </select>
@@ -180,6 +164,63 @@
                                     <div class="col-3">
                                         <input class="form-control" type="number" name="attended" id="attended"
                                             readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row title mt-2">
+                                    <div class="col-3">
+                                        <span>Gender</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>Date of birth</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>Category</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>Nationality</span>
+                                    </div>
+                                </div>
+                                <div class="row info mt-1">
+                                    <div class="col-3">
+                                        <select name="gender" id="gender" class="form-select" required disabled>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
+                                            <option value="O">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <input class="form-control" type="date" name="dob" id="dob"
+                                            disabled required>
+                                    </div>
+                                    <div class="col-3">
+                                        <select name="category" id="category" class="form-select" required disabled>
+                                            <option value="General">General</option>
+                                            <option value="OBC">OBC</option>
+                                            <option value="ST">ST</option>
+                                            <option value="SC">SC</option>
+                                            <option value="Minority">Minority</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <select name="nationality" id="nationality" class="form-select" required
+                                            disabled>
+                                            <option value="I">Indian</option>
+                                            <option value="NI">Non-Indian</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row title mt-2">
+                                    <div class="col-3">
+                                        <span>Document number</span>
+                                    </div>
+                                </div>
+
+                                <div class="row info mt-1">
+                                    <div class="col-3">
+                                        <input class="form-control" type="number" name="document_number"
+                                            id="document_number" required disabled>
                                     </div>
                                 </div>
                             </div>
@@ -230,30 +271,7 @@
             </div>
         </div>
     </div>
-    {{-- <div id="deleteModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Volunteer</h4>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete this volunteer?
-                    </p>
-                    <p class="text-danger"><small>This action cannot be
-                            undone.</small></p>
-                </div>
-                <form action="{{ route('volunteer.delete') }}" method="POST">
-                    @csrf
-                    <input type="number" id="volunteer-regno" name="regno" hidden>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-danger" value="Delete">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
+
     <script>
         var regno = document.getElementById('regno');
         var volName = document.getElementById('name');
@@ -262,21 +280,25 @@
         var course = document.getElementById('course');
         var batch = document.getElementById('batch');
         var attended = document.getElementById('attended');
+        var gender = document.getElementById('gender');
+        var nationality = document.getElementById('nationality');
+        var dob = document.getElementById('dob');
+        var category = document.getElementById('category');
+        var document_number = document.getElementById('document_number');
 
-        function showDetails(id, nameVal, emailVal, phoneVal, courseVal, batchVal, attendedVal) {
-            var x = document.getElementById('volunteerDetails');
-            x.style.display = "table-row";
-            regno.value = id;
-            volName.value = nameVal;
-            email.value = emailVal;
-            phone.value = phoneVal;
+        // function showDetails(id, nameVal, emailVal, phoneVal, courseVal, batchVal, attendedVal) {
+        //     var x = document.getElementById('volunteerDetails');
+        //     x.style.display = "table-row";
+        //     regno.value = id;
+        //     volName.value = nameVal;
+        //     email.value = emailVal;
+        //     phone.value = phoneVal;
 
-            course.value = courseMapping(courseVal);
+        //     course.value = courseMapping(courseVal);
 
-            batch.value = batchVal;
-            attended.value = attendedVal;
-
-        }
+        //     batch.value = batchVal;
+        //     attended.value = attendedVal;
+        // }
 
         function editDetails() {
             volName.readOnly = false;
@@ -284,6 +306,12 @@
             phone.readOnly = false;
             course.disabled = false;
             batch.disabled = false;
+            batch.disabled = false;
+            gender.disabled = false;
+            nationality.disabled = false;
+            dob.disabled = false;
+            category.disabled = false;
+            document_number.disabled = false;
 
             document.getElementById('updateBtn').style.display = "table-row";
         }
@@ -311,6 +339,26 @@
 
             return courseMapping[cname];
         }
-
+    </script>
+@endsection
+@section('scripts')
+    <script>
+        $('#search_string').on('input', function() {
+            var searchString = $('#search_string').val();
+            $.ajax({
+                url: '/admin/volunteer/manage/search-details/' + searchString,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    $('#tableFilter').html(response);
+                    // alert('sd');
+                    console.log(response);
+                    // console.log('success');
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX request failed: ', status, error);
+                }
+            });
+        });
     </script>
 @endsection

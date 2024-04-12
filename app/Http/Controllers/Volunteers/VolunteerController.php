@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Volunteers;
 
-use App\Models\Batch\Batch;
+use App\Models\Batch;
 use Illuminate\Http\Request;
-use App\Models\Courses\Courses;
+use App\Models\Courses;
 use App\Http\Controllers\Controller;
-use App\Models\Volunteers\Volunteer;
+use App\Models\Volunteer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Validator;
 
 class VolunteerController extends Controller
 {
@@ -39,9 +40,10 @@ class VolunteerController extends Controller
     public function viewEdit()
     {
         // 'user' is not authenticated to edit volunteers
-        $volunteers = Volunteer::paginate(10);
+        $volunteers = Volunteer::orderBy('created_at', 'desc')->paginate(10);
         foreach ($volunteers as $v) {
             $v['course'] = $this->courseId_To_courseName($v['course']);
+            $v['batch'] = Batch::where('id', $v['batch'])->pluck('name')->first();
         }
 
         $courses = Courses::all();
@@ -56,11 +58,12 @@ class VolunteerController extends Controller
         return view('volunteers.list');
     }
 
-    public function delete(Request $r){
+    public function delete(Request $r)
+    {
         $delete = Volunteer::where('id', $r->regno)->delete();
-        if($delete){
+        if ($delete) {
             return back()->with('success', 'Volunteer deleted successfully !');
-        }else{
+        } else {
             return back()->with('error', 'Some error occured in deleting volunteer');
         }
     }
@@ -85,8 +88,10 @@ class VolunteerController extends Controller
             'dob' => 'required|date',
             'batch' => 'required|numeric|max:99',
             'course' => 'required|numeric|max:99',
+            'nationality' => 'required|string|max:20',
             'document' => 'required|string|unique:volunteers,document_number|max:50',
-        ],[
+            'category' => 'required|string',
+        ], [
             'regno.unique' => 'Vounteer with this registration number already exists.',
             'email.unique' => 'Vounteer with this email already exists.',
             'ddcument.unique' => 'Vounteer with this document number already exists.',
@@ -114,26 +119,32 @@ class VolunteerController extends Controller
 
     public function searchDetails(Request $r)
     {
+        $search_string = trim($r->search_string); // Trim whitespace from the search string
+
         $r->validate([
             'search_string' => 'required|string|max:265'
         ]);
-        // this returns an object
-        $query = Volunteer::where('id', $r->search_string)
-            ->orWhere('name', 'like', '%' . $r->search_string . '%');
 
-        //converting the returned object to array
+        // this returns an object
+        // $output = null;
+
+        $query = Volunteer::where('id', $search_string)->orWhere('name', 'like', '%' . $search_string . '%');
         $volunteers = $query->paginate(5);
+
+        $courses = Courses::all();
+        $batches = Batch::all();
 
         if ($volunteers->count() > 0) {
             foreach ($volunteers as $v) {
                 $v['course'] = $this->courseId_To_courseName($v['course']);
+                $v['batch'] = Batch::where('id', $v['batch'])->pluck('name')->first();
             }
             if (Auth::user()->role == 1)
-                return view('admin.volunteers.view-edit', compact('volunteers'));
+                return view('admin.volunteers.view-edit', compact('volunteers', 'courses', 'batches', 'search_string'));
             else
                 return back()->with('volunteers', $volunteers);
         } else
-            return back()->with('error', 'No results found for ' . $r->search_string);
+            return back()->with('error', 'No results found for ' . $search_string);
     }
 
     public function updateDetails(Request $r)
@@ -143,7 +154,12 @@ class VolunteerController extends Controller
             'phone' => 'required|numeric',
             'email' => 'required|string|max:50',
             'course' => 'required|numeric',
-            'batch' => 'required|string|max:10',
+            'batch' => 'required|numeric',
+            'gender' => 'required|string|max:2',
+            'dob' => 'required|date',
+            'nationality' => 'required|string|max:20',
+            'document_number' => 'required|numeric',
+            'category' => 'required|string',
         ]);
         $updateVolunteer = Volunteer::where('id', $r->regno)->update([
             'name' => $r->name,
@@ -151,6 +167,11 @@ class VolunteerController extends Controller
             'email' => $r->email,
             'course' => $r->course,
             'batch' => $r->batch,
+            'gender' => $r->gender,
+            'date_of_birth' => $r->dob,
+            'nationality' => $r->nationality,
+            'document_number' => $r->document_number,
+            'category' => $r->category,
         ]);
 
         if ($updateVolunteer) {
@@ -230,6 +251,7 @@ class VolunteerController extends Controller
             'batch' => 'required|string',
             'course' => 'required|string',
         ]);
+
         // All batch and all course
         if ($r->batch == "*" && $r->course == "*") {
             $volunteers = Volunteer::all();
@@ -240,8 +262,10 @@ class VolunteerController extends Controller
         } else { // Different batch and different course
             $volunteers = Volunteer::where('batch', $r->batch)->where('course', $r->course)->get();
         }
+        // dd($volunteers);
         foreach ($volunteers as $v) {
             $v['course'] = $this->courseId_To_courseName($v['course']);
+            $v['batch'] = Batch::where('id', $v['batch'])->pluck('name')->first();
         }
 
         if ($volunteers->count() > 0) {

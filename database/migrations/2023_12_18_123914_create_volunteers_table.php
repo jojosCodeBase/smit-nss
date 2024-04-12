@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('volunteers', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('name');
+            $table->id();
+            $table->string('name')->nullable();
             $table->string('email')->unique();
-            $table->string('phone');
-            $table->string('department');
-            $table->string('course');
-            $table->string('batch');
+            $table->string('phone')->nullable();
+            $table->integer('course')->nullable();
+            // $table->foreign('cid')->references('cid')->on('courses');
+            // $table->foreign('cid')->references('cid')->on('courses');
+            $table->integer('batch')->nullable();
             $table->integer('drives_participated')->default(0);
             $table->integer('absent')->default(0);
             $table->string('gender')->nullable();
