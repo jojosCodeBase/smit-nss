@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Batch;
+namespace App\Http\Controllers;
 
 use App\Models\Batch;
 use Illuminate\Http\Request;
 use App\Models\Courses;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Models\Volunteer;
 use Illuminate\Database\QueryException;

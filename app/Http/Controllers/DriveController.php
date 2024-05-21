@@ -1,12 +1,12 @@
 <?php
-namespace App\Http\Controllers\Drives;
+namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Drive;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Volunteer;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Attendance\Attendance;
+use App\Models\Attendance;
 
 class DriveController extends Controller
 {

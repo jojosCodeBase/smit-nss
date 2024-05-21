@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DriveController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttendanceController;
-use App\Http\Controllers\Users\UserController;
-use App\Http\Controllers\Batch\BatchController;
-use App\Http\Controllers\Drives\DriveController;
-use App\Http\Controllers\Volunteers\VolunteerController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\BatchController;
+use App\Http\Controllers\VolunteerController;
+// use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +23,16 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 */
 
 
-// Route::get('/homepage', function(){
-//     return view('welcome');
-// })->name('welcome');
+Route::get('/', function(){
+    return view('welcome');
+})->name('welcome');
 
 
 // Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
-Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('login-page');
-Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login');
+Route::get('/', [AuthController::class, 'create'])->name('login-page');
+Route::post('login', [AuthController::class, 'store'])->name('login');
+
+Route::post('logout', [AuthController::class, 'destroy'])->name('logout');
 
 Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
 Route::post('batch/regsitrationForm/register', [BatchController::class, 'register'])->name('volunteer-register-form');
@@ -132,8 +134,6 @@ Route::middleware('auth')->group(function () {
     Route::get('getname/{regno}', [VolunteerController::class, 'getName']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/password', [ProfileController::class, 'update'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-require __DIR__ . '/auth.php';
-

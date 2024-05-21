@@ -19,11 +19,11 @@
 
                             <div class="form-group">
                                 <label class="form-label">Name</label>
-                                <input type="text" class="form-control" name="name" value="{{ $user->name }}" required>
+                                <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" required>
                             </div>
                             <div class="form-group mt-2">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" value="{{ $user->email }}" required>
+                                <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
                             </div>
                             <div class="form-group mt-3">
                                 <input type="submit" class="btn btn-primary w-25" value="Save">

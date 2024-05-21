@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Batch;
-use App\Models\Drives\Drive;
+use App\Models\Drive;
 use Illuminate\Http\Request;
 use App\Models\Volunteer;
 use Illuminate\Support\Facades\Auth;

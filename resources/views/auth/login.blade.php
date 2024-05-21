@@ -72,7 +72,7 @@
                                         </div>
                                     </form>
                                     <div class="mt-2 text-center">
-                                        <a href="{{ route('password.request') }}">Forgot password?</a>
+                                        {{-- <a href="{{ route('password.request') }}">Forgot password?</a> --}}
                                     </div>
                                 </div>
                             </div>

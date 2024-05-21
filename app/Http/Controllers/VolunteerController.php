@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Volunteers;
+namespace App\Http\Controllers;
 
 use App\Models\Batch;
-use Illuminate\Http\Request;
 use App\Models\Courses;
-use App\Http\Controllers\Controller;
 use App\Models\Volunteer;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Validator;
 
 class VolunteerController extends Controller
 {
