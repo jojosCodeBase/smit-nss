@@ -56,7 +56,7 @@
                                     <tr>
                                         <td class="text-center">{{ $slno }}</td>
                                         <td>{{ $d['title'] }}</td>
-                                        <td>{{ $d['attendanceBy'] }}</td>
+                                        {{-- <td>{{ $d['attendanceBy'] }}</td> --}}
                                         <td>{{ $d['area'] }}</td>
                                         <td>{{ $d['date'] }}</td>
                                         <td>{{ $d['present'] }}</td>

@@ -131,3 +131,8 @@
 
 /* XX-Large devices (larger desktops, 1400px and up) */
 @media (max-width: 1400px) {}
+
+
+/* .sidebar-nav .active{
+    color: #000;
+} */

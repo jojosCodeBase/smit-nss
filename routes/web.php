@@ -136,4 +136,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/password', [ProfileController::class, 'update'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+    Route::get('forgot-password', function () {
+        return view('forgot-password');
+    })->name('forgot-password');
+
+    Route::get('register', function () {
+        return view('register');
+    })->name('register');
 });

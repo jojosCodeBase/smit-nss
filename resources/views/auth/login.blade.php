@@ -70,10 +70,13 @@
                                             <input type="submit" class="btn btn-lg btn-primary w-100 fw-bold fs-4"
                                                 value="Login">
                                         </div>
+                                        <div class="form-group text-center forgot-password mt-3">
+                                            <a href="auth.forgot-password">Forgot password?</a>
+                                        </div>
                                     </form>
-                                    <div class="mt-2 text-center">
-                                        {{-- <a href="{{ route('password.request') }}">Forgot password?</a> --}}
-                                    </div>
+                                    {{-- <div class="mt-2 text-center">
+                                        <a href="{{ route('password.request') }}">Forgot password?</a>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

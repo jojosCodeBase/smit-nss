@@ -34,47 +34,48 @@
                         Menu
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ Route::is('admin.home') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('admin.home') }}">
-                            <i class="align-middle" data-feather="sliders"></i> <span
-                                class="align-middle">Dashboard</span>
+                            <i class="align-middle" data-feather="sliders"></i>
+                            <span class="align-middle">Dashboard</span>
                         </a>
                     </li>
+                    
                     <li class="sidebar-header">Volunteers</li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item  {{ Route::is('volunteer.manage') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('volunteer.manage') }}">
                             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ Route::is('volunteer.add') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('volunteer.add') }}">
                             <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Add</span>
                         </a>
                     </li>
 
                     <li class="sidebar-header">Drive</li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ Route::is('drive.list') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('drive.list') }}">
                             <i class="align-middle" data-feather="file"></i> <span class="align-middle">Manage</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ Route::is('drive.attendance') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('drive.attendance') }}">
                             <i class="align-middle" data-feather="calendar"></i> <span
                                 class="align-middle">Attendance</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ Route::is('drive.add') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('drive.add') }}">
                             <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Add</span>
                         </a>
                     </li>
 
                     <li class="sidebar-header">Batch</li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ Route::is('batch.manage') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('batch.manage') }}">
                             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage
                                 Batches</span>
@@ -82,7 +83,7 @@
                     </li>
 
                     <li class="sidebar-header">Users</li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item {{ Route::is('users.manage') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('users.manage') }}">
                             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage</span>
                         </a>
@@ -98,8 +99,10 @@
                     <i class="hamburger align-self-center"></i>
                 </a>
 
-                <div class="breadcrumb-bar px-4">
-                    <span class="breadcrumb-item active">Dashboard</span>
+                <div class="breadcrumb-bar px-3">
+                    <span class="breadcrumb-item text-primary">
+                        @yield('breadcrumb')
+                    </span>
                 </div>
 
                 <div class="navbar-collapse collapse">
