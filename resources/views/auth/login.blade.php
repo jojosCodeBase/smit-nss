@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-color: #e0f1f3">
     <main class="d-flex w-100">
         <div class="container d-flex flex-column">
             <div class="row vh-100">
