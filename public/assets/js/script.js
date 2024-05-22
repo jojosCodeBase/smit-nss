@@ -1,3 +1,11 @@
+document.getElementById('showPassword').addEventListener('change', function () {
+    var passwordField = document.getElementById('password');
+    if (this.checked) {
+        passwordField.type = 'text';
+    } else {
+        passwordField.type = 'password';
+    }
+});
 document.addEventListener('DOMContentLoaded', function () {
     $('.batchEditBtn').on('click', function() {
         var batchId = $(this).data('batch-id');
@@ -367,3 +375,4 @@ function driveEditModalInit(id) {
 function driveDeleteModalInit(id) {
     $('#delete-drive-id').val(id);
 }
+

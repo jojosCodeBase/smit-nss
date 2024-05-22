@@ -71,7 +71,7 @@
                                                 value="Login">
                                         </div>
                                         <div class="form-group text-center forgot-password mt-3">
-                                            <a href="auth.forgot-password">Forgot password?</a>
+                                            <a href="{{ route('forgot-password') }}">Forgot password?</a>
                                         </div>
                                     </form>
                                     {{-- <div class="mt-2 text-center">
