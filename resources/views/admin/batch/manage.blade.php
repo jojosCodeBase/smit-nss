@@ -1,4 +1,5 @@
 @extends('layouts/admin-content')
+@section('breadcrumb', 'Manage Batches')
 @section('content')
     @include('include/alerts')
     <div class="container-fluid p-0">
