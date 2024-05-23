@@ -40,6 +40,9 @@ Route::post('batch/regsitrationForm/register', [BatchController::class, 'registe
 // routes for admin panel
 
 Route::middleware(['isAdmin'])->prefix('admin/')->group(function () {
+    Route::get('add-course', function () {
+        return view('admin.course.add-course');
+    })->name('add-course');
     Route::get('dashboard', [HomeController::class, 'index'])->name('admin.home');
 
     Route::get('profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
@@ -137,13 +140,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/password', [ProfileController::class, 'update'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
-
-    Route::get('forgot-password', function () {
-        return view('forgot-password');
-    })->name('forgot-password');
-
-    Route::get('register', function () {
-        return view('register');
-    })->name('register');
+   
 });
+
+Route::get('forgot-password', function () {
+    return view('auth.forgot-password');
+})->name('forgot-password');
+
+Route::get('register', function () {
+    return view('auth.register');
+})->name('register');
+Route::get('confirm-password', function () {
+    return view('auth.confirm-password');
+})->name('confirm-password');

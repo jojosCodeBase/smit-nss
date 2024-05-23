@@ -88,7 +88,12 @@
                             <i class="align-middle" data-feather="users"></i> <span class="align-middle">Manage</span>
                         </a>
                     </li>
-
+                    <li class="sidebar-header">Manage Course</li>
+                    <li class="sidebar-item {{ Route::is('add-course') ? 'active' : '' }} mb-5">
+                        <a class="sidebar-link" href="{{ route('add-course') }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Add</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -26,7 +26,8 @@
                         @else
                             <p class="text-secondary mb-3">We will send an email to recover your account</p>
                         @endif
-                        <form action="{{ route('password.email') }}" method="POST">
+                        {{-- <form action="{{ route('password.email') }}" method="POST"> --}}
+                        <form action="" method="POST">
                             @csrf
                             <div class="form-group mb-3">
                                 <input type="text" class="form-control mb-3" placeholder="Email" name="email" value="{{ old('email') }}">
