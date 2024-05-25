@@ -139,7 +139,7 @@
                 </div>
             </nav>
 
-            <main class="content p-4">
+            <main class="content p-xxl-4 p-xl-4 p-lg-4 p-md-4 p-2">
                 @yield('content')
             </main>
 
