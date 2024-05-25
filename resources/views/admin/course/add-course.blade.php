@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-3 col-6 ">
-                        <h4 class="text-custom">All Subjects</h4>
+                        <h4 class="text-custom">All Courses</h4>
                     </div>
                     <div class="col-xl-7 col-md-12 col-12 order-3 order-xl-0 mt-3 mt-xl-0">
                         <div class="row d-flex justify-content-xl-end">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-xl-2 col-6 d-flex justify-content-end justify-content-xl-start">
                         <button class="btn btn-primary"data-bs-toggle="modal" data-bs-target="#addSubjectModal"></i>Add
-                            Subject
+                            Course
                         </button>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                                                 <li>
                                                     <button class="dropdown-item editButton" type="button"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#editSubjectModal">Edit</button>
+                                                        data-bs-target="#editCourseModal">Edit</button>
                                                 </li>
                                                 <li>
                                                     <button class="dropdown-item deleteBtn" type="button"
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    {{-- Add-Subject modal start --}}
+    {{-- Add-course modal start --}}
     <div class="modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -117,50 +117,37 @@
             </div>
         </div>
     </div>
-    {{-- Add-Subject modal end --}}
+    {{-- Add-Course modal end --}}
 
-    {{-- Edit-Subject modal start --}}
-    <div class="modal fade" id="editSubjectModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{-- Edit-Course modal start --}}
+    <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-custom" id="exampleModalLabel">Edit Subject Info</h1>
+                    <h1 class="modal-title fs-5 text-custom" id="exampleModalLabel">Edit Course Info</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-12">
-                                <span class="title fw-bold">
-                                    Subject Code
-                                </span>
-                                <div class="mt-2">
-                                    <input type="text" id="edit-modal-subject-code"
-                                        class="form-control text-uppercase" name="subjectId" readonly>
-                                </div>
-                            </div>
-                            <div class="col-12 pt-3">
-                                <span class="title fw-bold">
-                                    Subject Name
-                                </span>
-                                <div class="mt-1">
-                                    <input type="text" id="edit-modal-subject-name" name="subject_name"
-                                        class="form-control" placeholder="E.g. Python">
-                                </div>
-                            </div>
-                            <div class="col-12 mt-2 mb-2">
-                                <label class="form-label">Subject Name</label>
-                                <select name="course" class="form-select" id="edit-modal-subject-course" required>
+
+                            <div class="col-12 mt-3 mb-3">
+                                <label class="form-label">Course Name</label>
+                                <select name="course" class="form-select" id="" required>
                                     <option value="" selected disabled>Select course from list</option>
                                     <option value="MCA">MCA</option>
                                     <option value="BCA">BCA</option>
+                                    <option value="BCA">Btech</option>
+                                    <option value="BCA">MBA</option>
+                                    <option value="BCA">BBA</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Please select course
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="modal-footer  my-1 d-flex justify-content-end">
@@ -171,9 +158,9 @@
             </div>
         </div>
     </div>
-    {{-- Edit-Subject modal end --}}
+    {{-- Edit-Course modal end --}}
 
-    {{-- Delete-Subject modal start --}}
+    {{-- Delete-Course modal start --}}
     <div class="modal fade" id="deleteSubjectModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -185,9 +172,9 @@
                         </div>
                     </div>
 
-                    <h4 class="text-center text-custom">Delete Subject</h4>
+                    <h4 class="text-center text-custom">Delete Course</h4>
 
-                    <p class="text-danger fs-6 text-center">Are you sure you want to delete this Subject? <br>This
+                    <p class="text-danger fs-6 text-center">Are you sure you want to delete this Corse? <br>This
                         action cannot be undone</p>
 
                     <form action="" method="POST">
@@ -206,5 +193,5 @@
             </div>
         </div>
     </div>
-    {{-- Delete-Subject modal end --}}
+    {{-- Delete-Course modal end --}}
 @endsection
