@@ -3,9 +3,9 @@
 @section('content')
 
 @section('content')
-    {{-- <div class="container-fluid mb-2">
-        @include('include/error-alert')
-    </div> --}}
+    <div class="container-fluid mb-2">
+        @include('include/alerts')
+    </div>
 
     <div class="container-fluid p-lx-3 p-lg-3 p-md-3 pt-0">
         {{-- <h3 class="text-muted mb-4 mt-1">All Subjects</h3> --}}
@@ -40,11 +40,10 @@
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($courses as $index => $c) --}}
+                            @foreach ($courses as $index => $c)
                                 <tr>
-                                    {{-- <td>{{ ($currentPage - 1) * $perPage + $index + 1 }}</td> --}}
-                                    <td class="courseId">1</td>
-                                    <td>BCA</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $c->name }}</td>
                                     <td>
                                         <div class="more-btn">
                                             <button class="dropdown" type="button" data-bs-toggle="dropdown"
@@ -54,28 +53,31 @@
                                             <ul class="dropdown-menu">
                                                 <li>
                                                     <button class="dropdown-item editButton" type="button"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#editCourseModal">Edit</button>
+                                                        data-bs-toggle="modal" data-bs-target="#editCourseModal"
+                                                        data-course-id="{{ $c->id }}"
+                                                        data-course-name="{{ $c->name }}">Edit</button>
                                                 </li>
                                                 <li>
                                                     <button class="dropdown-item deleteBtn" type="button"
                                                         data-bs-toggle="modal" data-bs-target="#deleteSubjectModal"
-                                                        data-course-id="">Delete</button>
+                                                        data-course-id="{{ $c->id }}"
+                                                        data-course-name="{{ $c->name }}">Delete</button>
                                                 </li>
                                             </ul>
                                         </div>
                                     </td>
                                 </tr>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                     <span id="pagination">
-                       
+
                     </span>
                 </div>
             </div>
         </div>
     </div>
+
     {{-- Add-course modal start --}}
     <div class="modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -88,19 +90,12 @@
                     <div class="row">
                         <form action="" method="POST" class="needs-validation" novalidate>
                             @csrf
-                           
+
                             <div class="col-12 mt-3 mb-3">
                                 <label class="form-label">Course Name</label>
-                                <select name="course" class="form-select" id="" required>
-                                    <option value="" selected disabled>Select course from list</option>
-                                    <option value="MCA">MCA</option>
-                                    <option value="BCA">BCA</option>
-                                    <option value="BCA">Btech</option>
-                                    <option value="BCA">MBA</option>
-                                    <option value="BCA">BBA</option>
-                                </select>
+                                <input type="text" name="course">
                                 <div class="invalid-feedback">
-                                    Please select course
+                                    Please enter course
                                 </div>
                             </div>
                             <div class="modal-footer Custom_Footer my-1 d-flex justify-content-end pe-2 mb-0">
@@ -120,34 +115,23 @@
     {{-- Add-Course modal end --}}
 
     {{-- Edit-Course modal start --}}
-    <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 text-custom" id="exampleModalLabel">Edit Course Info</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="" method="POST">
+                <form action="{{ route('admin.update-course') }}" method="POST">
                     @csrf
                     <div class="modal-body">
-                        <div class="row">
-
-                            <div class="col-12 mt-3 mb-3">
-                                <label class="form-label">Course Name</label>
-                                <select name="course" class="form-select" id="" required>
-                                    <option value="" selected disabled>Select course from list</option>
-                                    <option value="MCA">MCA</option>
-                                    <option value="BCA">BCA</option>
-                                    <option value="BCA">Btech</option>
-                                    <option value="BCA">MBA</option>
-                                    <option value="BCA">BBA</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please select course
-                                </div>
+                        <div class="form-group">
+                            <label class="form-label">Course Name</label>
+                            <input type="text" name="course_id" id="edit-course_id" hidden>
+                            <input type="text" name="course" class="form-control" id="edit-course">
+                            <div class="invalid-feedback">
+                                Please enter course
                             </div>
-
                         </div>
                     </div>
                     <div class="modal-footer  my-1 d-flex justify-content-end">
@@ -194,4 +178,12 @@
         </div>
     </div>
     {{-- Delete-Course modal end --}}
+@endsection
+@section('scripts')
+    <script>
+        $('.editButton').on('click', function() {
+            $('#edit-course').val($(this).data('course-name'));
+            $('#edit-course_id').val($(this).data('course-id'));
+        });
+    </script>
 @endsection

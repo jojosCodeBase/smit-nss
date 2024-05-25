@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Batch;
 use App\Models\Drive;
-use Illuminate\Http\Request;
+use App\Models\Courses;
 use App\Models\Volunteer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -20,11 +21,32 @@ class HomeController extends Controller
             $batchInfo = 0;
         }
 
-
         $drives = Drive::orderBy('date', 'desc')->limit(5)->get();
         if(Auth::user()->role == 1)
             return view('admin.home', compact('totalDrives', 'totalVolunteers', 'drives',  'batchInfo'));
         else
             return view('user.home', compact('totalDrives', 'totalVolunteers', 'drives', 'batchInfo'));
+    }
+
+    public function manageCourses(){
+        return view('admin.course.manage', ['courses' => Courses::orderBy('name')->get()]);
+    }
+
+    public function updateCourse(Request $request){
+        $request->validate([
+            'course' => 'required|string|max:20'
+        ]);
+
+        $update = Courses::where('id', $request->course_id)->update([
+            'name' => $request->course
+        ]);
+
+        if($update)
+            return back()->withSuccess('Course updated successfully');
+        else
+            return back()->withErrors('Some error occured in updatin course');
+    }
+    public function addCourse(Request $request){
+        return 'hello';
     }
 }

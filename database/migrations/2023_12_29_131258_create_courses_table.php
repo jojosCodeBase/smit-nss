@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->integer('cid')->primary();
-            $table->string('cname')->nullable();
+            $table->id();
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
