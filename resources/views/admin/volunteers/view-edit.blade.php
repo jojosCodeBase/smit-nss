@@ -57,6 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- @dump($volunteers) --}}
                                 @foreach ($volunteers as $v)
                                     <tr>
                                         <td>{{ $v['id'] }}</td>
@@ -74,17 +75,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col px-4 mb-3">
-                            Showing {{ $volunteers->firstItem() }} to {{ $volunteers->lastItem() }} of
-                            {{ $volunteers->total() }} entries
-                        </div>
-                        <div class="col d-flex justify-content-end">
-                            <span class="mx-2">{{ $volunteers->links() }}</span>
-                        </div>
+                    <div class="p-2">
+                        {{ $volunteers->links() }}
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -148,8 +142,8 @@
                                     <div class="col-3">
                                         <select name="course" id="course" class="form-select" required disabled>
                                             @foreach ($courses as $c)
-                                                <option value="{{ $c['cid'] }}">
-                                                    {{ $c['cname'] }}</option>
+                                                <option value="{{ $c['id'] }}">
+                                                    {{ $c['name'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -195,7 +189,7 @@
                                     </div>
                                     <div class="col-3">
                                         <select name="category" id="category" class="form-select" required disabled>
-                                            <option value="General">General</option>
+                                            <option value="GENERAL">General</option>
                                             <option value="OBC">OBC</option>
                                             <option value="ST">ST</option>
                                             <option value="SC">SC</option>
@@ -206,7 +200,7 @@
                                         <select name="nationality" id="nationality" class="form-select" required
                                             disabled>
                                             <option value="I">Indian</option>
-                                            <option value="NI">Non-Indian</option>
+                                            <option value="N">Non-Indian</option>
                                         </select>
                                     </div>
                                 </div>

@@ -19,23 +19,18 @@ class UserController extends Controller
 
     public function addModerator(Request $r){
         $r->validate([
-            'regno' => 'required',
+            'regno' => 'required|integer|max:999999999',
+            'email' => 'required|email',
+            'name' => 'required|string',
             'password' => 'required',
         ]);
 
-        // $r->validate([
-            //     'name' => 'required|string|max:255',
-        //     'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        // ]);
-
-        $userInfo = Volunteer::where('id', $r->regno)->first();
-        // dd($userInfo);
-
         $user = User::create([
-            'name' => $userInfo->name,
-            'email' => $userInfo->email,
+            'name' => $r->name,
+            'email' => $r->email,
             'password' => Hash::make($r->password),
+            'role' => 2,
+            'status' => 1,
         ]);
 
         if($user)

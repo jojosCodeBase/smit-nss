@@ -87,20 +87,30 @@ class DriveController extends Controller
         }
     }
 
-    function addDrive(Request $r)
+    function addDrive(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|max:100',
+            'date' => 'required|date',
+            'from' => 'required|date_format:H:i',
+            'to' => 'required|date_format:H:i',
+            'conductedBy' => 'required|string|max:100',
+            'driveType' => 'required|string|max:100',
+            'area' => 'required|string|max:255',
+            'description' => 'required|string|max:300',
+        ]);
+        // dd($request->all());
         $drive = Drive::create([
-            'id' => $r->id,
-            'title' => $r->title,
-            'date' => $r->date,
-            'from' => $r->from,
-            'to' => $r->to,
-            'conductedBy' => $r->conductedBy,
+            'id' => $request->id,
+            'title' => $request->title,
+            'date' => $request->date,
+            'from' => $request->from,
+            'to' => $request->to,
+            'conductedBy' => $request->conductedBy,
             'updatedBy' => Auth::user()->role,
-            'type' => $r->driveType,
-            'area' => $r->area,
-            'present' => $r->present,
-            'description' => $r->description,
+            'type' => $request->driveType,
+            'area' => $request->area,
+            'description' => $request->description,
         ]);
 
         if ($drive) {
@@ -112,13 +122,11 @@ class DriveController extends Controller
 
     function update(Request $r)
     {
-        // dd($r->all());
-        // 'title' => 'required|string|unique:drives,title',
         $r->validate([
             'id' => 'required|numeric|max:999999999999999999999',
             'date' => 'required|date',
-            'from' => 'required|date_format:H:i',
-            'to' => 'required|date_format:H:i',
+            'from' => 'required|date_format:H:i:s',
+            'to' => 'required|date_format:H:i:s',
             'title' => 'required|string|max:100',
             'area' => 'required|string|max:100',
             'conductedBy' => 'required|string|max:50',
@@ -172,6 +180,11 @@ class DriveController extends Controller
     }
 
     function getDriveInfo($id){
-        return response()->json(Drive::where('id', $id)->get());
+        return response()->json(Drive::where('id', $id)->first());
+    }
+
+    public function viewDrive($id){
+        $drive = Drive::where('id', $id)->first();
+        return view('admin.drives.view', compact('drive'));
     }
 }

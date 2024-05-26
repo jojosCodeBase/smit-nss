@@ -76,6 +76,14 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::get('/drive/manage/list', [DriveController::class, 'listAll'])->name('drive.list');
     Route::post('/drive/manage/list/search', [DriveController::class, 'searchDrive'])->name('drive.search');
 
+
+
+    Route::get('/drive/manage/view/{id}', [DriveController::class, 'viewDrive'])->name('drive.view');
+
+
+
+
+
     Route::post('/drive/manage/list/update', [DriveController::class, 'update'])->name('drive.updateDetails');
 
     Route::delete('/drive/manage/list/delete', [DriveController::class, 'delete'])->name('drive.delete');

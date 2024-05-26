@@ -1,13 +1,30 @@
-document.getElementById('showPassword').addEventListener('change', function () {
-    var passwordField = document.getElementById('password');
-    if (this.checked) {
-        passwordField.type = 'text';
-    } else {
-        passwordField.type = 'password';
-    }
-});
 document.addEventListener('DOMContentLoaded', function () {
-    $('.batchEditBtn').on('click', function() {
+    console.log('DOM fully loaded and parsed');
+    // $(document).ready(function () {
+    $('#getNameByRegnoBtn').on('click', function () {
+        $.ajax({
+            url: '/admin/volunteer/getInfo/' + $('#regno').val(),
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                $('#response-volunteer-name').val(response.name);
+                $('#response-volunteer-email').val(response.email);
+            },
+            error: function (xhr, status, error) {
+                // Handle error response
+                console.error('AJAX request failed: ', status, error);
+                if (xhr.status === 404) {
+                    alert('Volunteer not found');
+                } else {
+                    alert('An error occurred: ' + error);
+                }
+            }
+        });
+    });
+
+
+    $('.batchEditBtn').on('click', function () {
         var batchId = $(this).data('batch-id');
         jQuery.ajax({
             url: '/admin/batch/getInfo/' + batchId,
@@ -62,33 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    // Get the current URL path
-    var path = window.location.protocol + "//" + window.location.host + window.location.pathname;
-
-    // Find the corresponding navigation link and add the 'active' class
-    var links = document.querySelectorAll('.sidebar-nav .sidebar-item a');
-    console.log(links);
-    links.forEach(function (link) {
-        if (link.getAttribute('href') === path) {
-            link.closest('li').classList.add('active');
-        }
-    });
-
-    // Show password's javascript start
-    const passwordInput = document.getElementById('password');
-    const showPasswordCheckbox = document.getElementById('showPassword');
-
-    showPasswordCheckbox.addEventListener('click', function () {
-        if (showPasswordCheckbox.checked) {
-            // If checkbox is checked, show the password
-            passwordInput.type = 'text';
-        } else {
-            // If checkbox is unchecked, hide the password
-            passwordInput.type = 'password';
-        }
-    });
-    // Show password's javascript end
-
     //    Code for validation start
 
     (() => {
@@ -109,62 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }, false)
         })
     })()
-});
-
-
-// Code for validation End
-
-function changeToggleMobile(id) {
-    var trCollapseId = "trCollapse" + id;
-    var toggleId = "collapseToggleBtnMobile" + id;
-    var trCollapse = document.getElementById(trCollapseId);
-    var toggle = document.getElementById(toggleId);
-    if (toggle.innerHTML === "View") {
-        trCollapse.style.display = "table-row";
-        toggle.innerHTML = "Close";
-    } else {
-        toggle.innerHTML = "View";
-        trCollapse.style.display = "none";
-    }
-}
-
-function changeToggleDesktop(id) {
-    var trCollapseId = "trCollapse" + id;
-    var toggleId = "collapseToggleBtnDesktop" + id;
-    var trCollapse = document.getElementById(trCollapseId);
-    var toggle = document.getElementById(toggleId);
-    if (toggle.innerHTML === "View") {
-        trCollapse.style.display = "table-row";
-        toggle.innerHTML = "Close";
-    } else {
-        toggle.innerHTML = "View";
-        trCollapse.style.display = "none";
-    }
-}
-
-$(document).ready(() => {
-    $('#getNameBtn').on('click', function () {
-        var regno = $('#fetchRegno').val();
-        if (regno == '') {
-            swal("Registration number cannot be empty", "", "error");
-        } else if (isNaN(regno) || regno.length != 9) {
-            swal('Invalid registration number', "", "error");
-        } else {
-            jQuery.ajax({
-                url: '/getname/' + regno,
-                type: 'GET',
-                dataType: 'json',
-                success: function (response) {
-                    if (response && response.name) {
-                        document.getElementById('response-volunteer-name').value = response.name;
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error('AJAX request failed: ', status, error);
-                }
-            });
-        }
-    });
 
     $('#addAttendanceForm').submit(function (event) {
         // Prevent default form submission
@@ -199,6 +133,7 @@ $(document).ready(() => {
         }
     });
 
+
     const csv = document.querySelector('.buttons-csv');
     csv.id = "btn-csv";
     csv.classList.remove('btn-secondary');
@@ -230,7 +165,79 @@ $(document).ready(() => {
     print.classList.add('bi');
     print.classList.add('bi-printer-fill');
     console.log(print);
+
 });
+
+document.getElementById('showPassword').addEventListener('change', function () {
+    var passwordField = document.getElementById('password');
+    if (this.checked) {
+        passwordField.type = 'text';
+    } else {
+        passwordField.type = 'password';
+    }
+});
+
+// Get the current URL path
+var path = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+// Find the corresponding navigation link and add the 'active' class
+var links = document.querySelectorAll('.sidebar-nav .sidebar-item a');
+console.log(links);
+links.forEach(function (link) {
+    if (link.getAttribute('href') === path) {
+        link.closest('li').classList.add('active');
+    }
+});
+
+// Show password's javascript start
+const passwordInput = document.getElementById('password');
+const showPasswordCheckbox = document.getElementById('showPassword');
+
+showPasswordCheckbox.addEventListener('click', function () {
+    if (showPasswordCheckbox.checked) {
+        // If checkbox is checked, show the password
+        passwordInput.type = 'text';
+    } else {
+        // If checkbox is unchecked, hide the password
+        passwordInput.type = 'password';
+    }
+});
+// Show password's javascript end
+
+// Code for validation End
+
+function changeToggleMobile(id) {
+    var trCollapseId = "trCollapse" + id;
+    var toggleId = "collapseToggleBtnMobile" + id;
+    var trCollapse = document.getElementById(trCollapseId);
+    var toggle = document.getElementById(toggleId);
+    if (toggle.innerHTML === "View") {
+        trCollapse.style.display = "table-row";
+        toggle.innerHTML = "Close";
+    } else {
+        toggle.innerHTML = "View";
+        trCollapse.style.display = "none";
+    }
+}
+
+function changeToggleDesktop(id) {
+    var trCollapseId = "trCollapse" + id;
+    var toggleId = "collapseToggleBtnDesktop" + id;
+    var trCollapse = document.getElementById(trCollapseId);
+    var toggle = document.getElementById(toggleId);
+    if (toggle.innerHTML === "View") {
+        trCollapse.style.display = "table-row";
+        toggle.innerHTML = "Close";
+    } else {
+        toggle.innerHTML = "View";
+        trCollapse.style.display = "none";
+    }
+}
+
+// $(document).ready(function() {
+
+
+// });
 $('#myTable').DataTable({
     dom: 'Bfrtip',
     buttons: [
@@ -346,6 +353,7 @@ function changeStatus(id, status) {
 // manage batch scripts end
 
 // manage drive scripts start
+
 
 function driveEditModalInit(id) {
     $.ajax({

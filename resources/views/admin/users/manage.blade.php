@@ -80,20 +80,25 @@
                                         <label class="form-label">Registration no</label>
                                         <div class="row">
                                             <div class="col-9">
-                                                <input type="text" class="form-control" name="regno" id="fetchRegno"
+                                                <input type="text" class="form-control" name="regno" id="regno"
                                                     required>
                                             </div>
                                             <div class="col-3">
-                                                <button class="btn btn-primary w-100" id="getNameBtn">Verify</button>
+                                                <button type="button" class="btn btn-primary w-100" id="getNameByRegnoBtn">Verify</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
                                         <label class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="response-volunteer-name" readonly
+                                        <input type="text" class="form-control" id="response-volunteer-name" name="name" readonly
                                             required>
                                     </div>
 
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="response-volunteer-email" value="" name="email"
+                                            readonly required>
+                                    </div>
                                     <div class="form-group mb-3">
                                         <label class="form-label">Password</label>
                                         <input type="text" class="form-control" value="Smitnss@1234" name="password"

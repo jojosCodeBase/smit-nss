@@ -163,7 +163,6 @@
     </script>
 
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-3.2.1.slim.min.js') }}"></script>
 
     <script src="{{ asset('assets/js/bootstrap-4.0.min.js') }}"></script>
@@ -174,6 +173,8 @@
 
     {{-- jquery to call ajax requests --}}
     <script src="{{ asset('assets/js/jquery-3.6.0.js') }}"></script>
+
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 
     @yield('scripts')
 </body>

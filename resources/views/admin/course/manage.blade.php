@@ -40,10 +40,10 @@
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            @foreach ($courses as $index => $c)
+                            @foreach ($courses as $index => $course)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $c->name }}</td>
+                                    <td>{{ $course->name }}</td>
                                     <td>
                                         <div class="more-btn">
                                             <button class="dropdown" type="button" data-bs-toggle="dropdown"
@@ -54,14 +54,14 @@
                                                 <li>
                                                     <button class="dropdown-item editButton" type="button"
                                                         data-bs-toggle="modal" data-bs-target="#editCourseModal"
-                                                        data-course-id="{{ $c->id }}"
-                                                        data-course-name="{{ $c->name }}">Edit</button>
+                                                        data-course-id="{{ $course->id }}"
+                                                        data-course-name="{{ $course->name }}">Edit</button>
                                                 </li>
                                                 <li>
                                                     <button class="dropdown-item deleteBtn" type="button"
                                                         data-bs-toggle="modal" data-bs-target="#deleteSubjectModal"
-                                                        data-course-id="{{ $c->id }}"
-                                                        data-course-name="{{ $c->name }}">Delete</button>
+                                                        data-course-id="{{ $course->id }}"
+                                                        data-course-name="{{ $course->name }}">Delete</button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -70,9 +70,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <span id="pagination">
-
-                    </span>
+                    {{-- {{ $courses->links() }} --}}
                 </div>
             </div>
         </div>
@@ -87,27 +85,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <form action="" method="POST" class="needs-validation" novalidate>
-                            @csrf
-
-                            <div class="col-12 mt-3 mb-3">
-                                <label class="form-label">Course Name</label>
-                                <input type="text" name="course">
-                                <div class="invalid-feedback">
-                                    Please enter course
-                                </div>
+                    <form action="{{ route('admin.add-course') }}" method="POST" class="needs-validation" novalidate>
+                        @csrf
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Course Name</label>
+                            <input type="text" name="course" class="form-control">
+                            <div class="invalid-feedback">
+                                Please enter course
                             </div>
-                            <div class="modal-footer Custom_Footer my-1 d-flex justify-content-end pe-2 mb-0">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </div>
-                            <hr>
-                            {{-- <div class="">
-                                <p style="color: red">Note: Once a subject is created, Subject Code cannot be changed.</p>
-                            </div> --}}
-                        </form>
-                    </div>
+                        </div>
+                        <div class="modal-footer Custom_Footer my-1 d-flex justify-content-end pe-2 mb-0">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

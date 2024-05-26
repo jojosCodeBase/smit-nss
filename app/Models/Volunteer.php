@@ -9,7 +9,7 @@ class Volunteer extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id',
+        'regno',
         'name',
         'gender',
         'date_of_birth',
@@ -21,7 +21,6 @@ class Volunteer extends Model
         'course',
         'batch',
         'drives_participated',
-        'absent',
         'document_number',
     ];
 }

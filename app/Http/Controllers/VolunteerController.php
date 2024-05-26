@@ -40,10 +40,12 @@ class VolunteerController extends Controller
         $volunteers = Volunteer::orderBy('created_at', 'desc')->paginate(10);
         foreach ($volunteers as $v) {
             $v['course'] = $this->courseId_To_courseName($v['course']);
+            // $v['course'] = ;
             $v['batch'] = Batch::where('id', $v['batch'])->pluck('name')->first();
         }
 
         $courses = Courses::all();
+        // dd($courses);
         $batches = Batch::all();
 
         return view('admin.volunteers.view-edit', compact('volunteers', 'courses', 'batches'));
@@ -78,7 +80,7 @@ class VolunteerController extends Controller
     {
         $r->validate([
             'name' => 'required|string|max:50',
-            'regno' => 'required|numeric|unique:volunteers,id|max:999999999',
+            'regno' => 'required|numeric|unique:volunteers,regno|max:999999999',
             'email' => 'required|email|unique:volunteers,email',
             'gender' => 'required|string|max:2',
             'phone' => 'required|numeric|max:9999999999',
@@ -93,9 +95,9 @@ class VolunteerController extends Controller
             'email.unique' => 'Vounteer with this email already exists.',
             'ddcument.unique' => 'Vounteer with this document number already exists.',
         ]);
-        // dd($r->all());
+
         $volunteer = Volunteer::create([
-            'id' => $r->regno,
+            'regno' => $r->regno,
             'name' => $r->name,
             'email' => $r->email,
             'phone' => $r->phone,
@@ -121,9 +123,6 @@ class VolunteerController extends Controller
         $r->validate([
             'search_string' => 'required|string|max:265'
         ]);
-
-        // this returns an object
-        // $output = null;
 
         $query = Volunteer::where('id', $search_string)->orWhere('name', 'like', '%' . $search_string . '%');
         $volunteers = $query->paginate(5);
@@ -200,9 +199,16 @@ class VolunteerController extends Controller
             return response()->json(['name' => 'No results found']);
     }
     public function getVolunteerInfo($regno)
-    {
-        return response()->json(['volunteer' => Volunteer::where('id', $regno)->get()]);
+{
+    $volunteer = Volunteer::where('regno', $regno)->first();
+
+    if ($volunteer) {
+        return response()->json($volunteer, 200); // 200 OK
+    } else {
+        return response()->json(['error' => 'Volunteer not found'], 404); // 404 Not Found
     }
+}
+
     public function ajax(Request $upload)
     {
         $user = Volunteer::where('id', $upload->title)->first();
@@ -215,31 +221,7 @@ class VolunteerController extends Controller
 
     function courseId_To_courseName($id)
     {
-        $courseMapping = [
-            0 => "MCA",
-            1 => "BCA",
-            2 => "MBA",
-            3 => "BBA",
-            4 => "MSc Chemistry",
-            5 => "BSc Chemistry",
-            6 => "MSc Mathematics",
-            7 => "BSc Mathematics",
-            8 => "MSc Physics",
-            9 => "BSc Physics",
-            10 => "BTech CSE",
-            11 => "BTech CE",
-            12 => "BTech ME",
-            13 => "BTech AI&DS",
-            14 => "BTech IT",
-            15 => "BTech EEE",
-            16 => "BTech ECE",
-        ];
-
-        if (array_key_exists($id, $courseMapping)) {
-            return $courseMapping[$id];
-        } else {
-            return 'Unknown Course';
-        }
+       return Courses::where('id', $id)->pluck('name')->first();
     }
 
     public function fetch(Request $r)

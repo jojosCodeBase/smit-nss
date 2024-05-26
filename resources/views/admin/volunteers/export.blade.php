@@ -31,7 +31,7 @@
                                 <option value="" selected>Select course from list</option>
                                 <option value="*">All</option>
                                 @foreach ($courses as $c)
-                                    <option value="{{ $c['cid'] }}">{{ $c['cname'] }}</option>
+                                    <option value="{{ $c['id'] }}">{{ $c['name'] }}</option>
                                 @endforeach
                             </select>
                         </div>

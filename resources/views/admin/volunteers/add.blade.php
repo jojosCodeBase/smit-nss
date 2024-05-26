@@ -70,7 +70,7 @@
                             <select name="course" id="" class="form-select" required>
                                 <option value="" disabled selected>Select course from list</option>
                                 @foreach($courses as $course)
-                                    <option value="{{ $course['cid'] }}">{{ $course['cname'] }}</option>
+                                    <option value="{{ $course['id'] }}">{{ $course['name'] }}</option>
                                 @endforeach
                             </select>
                         </div>

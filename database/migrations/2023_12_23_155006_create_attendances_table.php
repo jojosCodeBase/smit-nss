@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('attendance', function (Blueprint $table) {
+            $table->id();
             $table->integer('regno')->nullable;
-            $table->integer('driveId')->nullable;
+            $table->unsignedBigInteger('drive_id')->nullable;
             // making regno and drive as primary key
-            $table->primary(['regno', 'driveId']);
+            $table->unique(['regno', 'drive_id']);
+            $table->foreign('drive_id')->references('id')->on('drives');
+            $table->foreign('regno')->references('regno')->on('volunteers');
             $table->timestamps();
         });
     }

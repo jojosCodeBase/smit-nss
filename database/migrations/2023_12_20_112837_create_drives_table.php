@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('drives', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->id();
             $table->string('title')->nullable();
             $table->date('date')->nullable();
-            $table->string('from')->nullable();
-            $table->string('to')->nullable();
+            $table->time('from')->useCurrent();
+            $table->time('to')->useCurrent();
             $table->string('conductedBy')->nullable();
             $table->string('updatedBy')->nullable();
             $table->string('type')->nullable();

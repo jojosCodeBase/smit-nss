@@ -32,23 +32,20 @@
                         <div class="col-md-3 col-lg-4 mb-md-0 mb-2">
                             <input type="text" name="area" class="form-control" placeholder="Area">
                         </div>
-                        <div class="col-md-3 col-lg-4 mb-md-0 mb-2">
-                            <input type="number" name="present" class="form-control" placeholder="Present">
+                        <div class="col-md-4 col-lg-4 mb-2">
+                            <input type="time" name="from" class="form-control" placeholder="From">
                         </div>
                     </div>
                     <div class="row mt-lg-3">
                         <div class="col-md-4 col-lg-4 mb-2">
-                            <input type="text" name="from" class="form-control" placeholder="From">
+                            <input type="time" name="to" class="form-control" placeholder="To">
                         </div>
-                        <div class="col-md-4 col-lg-4 mb-2">
-                            <input type="text" name="to" class="form-control" placeholder="To">
-                        </div>
-                    </div>
-                    <div class="row mt-lg-3">
                         <div class="col mb-2">
                             <textarea name="description" id="" cols="30" rows="6" class="form-control description"
                                 placeholder="Add description about the drive"></textarea>
                         </div>
+                    </div>
+                    <div class="row mt-lg-3">
                     </div>
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-3 text-center mt-3">

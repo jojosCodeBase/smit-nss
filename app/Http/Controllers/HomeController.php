@@ -11,28 +11,31 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $totalVolunteers = Volunteer::count();
         $totalDrives = Drive::count();
         $totalBatch = Batch::count();
-        if($totalBatch != 0){
+        if ($totalBatch != 0) {
             $batchInfo = Batch::latest()->limit(2);
-        }else{
+        } else {
             $batchInfo = 0;
         }
 
         $drives = Drive::orderBy('date', 'desc')->limit(5)->get();
-        if(Auth::user()->role == 1)
-            return view('admin.home', compact('totalDrives', 'totalVolunteers', 'drives',  'batchInfo'));
+        if (Auth::user()->role == 1)
+            return view('admin.home', compact('totalDrives', 'totalVolunteers', 'drives', 'batchInfo'));
         else
             return view('user.home', compact('totalDrives', 'totalVolunteers', 'drives', 'batchInfo'));
     }
 
-    public function manageCourses(){
+    public function manageCourses()
+    {
         return view('admin.course.manage', ['courses' => Courses::orderBy('name')->get()]);
     }
 
-    public function updateCourse(Request $request){
+    public function updateCourse(Request $request)
+    {
         $request->validate([
             'course' => 'required|string|max:20'
         ]);
@@ -41,12 +44,24 @@ class HomeController extends Controller
             'name' => $request->course
         ]);
 
-        if($update)
+        if ($update)
             return back()->withSuccess('Course updated successfully');
         else
-            return back()->withErrors('Some error occured in updatin course');
+            return back()->withErrors('Some error occured in updating course');
     }
-    public function addCourse(Request $request){
-        return 'hello';
+    public function addCourse(Request $request)
+    {
+        $request->validate([
+            'course' => 'required|string|max:20|unique:courses,name'
+        ],[
+            'course.unique' => 'The course already exists.',
+        ]);
+        $add = Courses::create([
+            'name' => $request->course,
+        ]);
+        if ($add)
+            return back()->withSuccess('Course added successfully');
+        else
+            return back()->withErrors('Some error occured in adding course');
     }
 }
