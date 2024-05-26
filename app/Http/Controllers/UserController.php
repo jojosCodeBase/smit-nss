@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -20,9 +19,11 @@ class UserController extends Controller
     public function addModerator(Request $r){
         $r->validate([
             'regno' => 'required|integer|max:999999999',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'name' => 'required|string',
             'password' => 'required',
+        ],[
+            'email.unique' => 'Moderator already exists.'
         ]);
 
         $user = User::create([
@@ -37,5 +38,10 @@ class UserController extends Controller
             return back()->with('success', 'Moderator Added Successfully !');
         else
             return back()->with('error', 'Some error occured in adding moderator !');
+    }
+
+    public function viewModerator($id){
+        $details = User::where('id', $id)->first();
+        return view('admin.users.view', compact('details'));
     }
 }

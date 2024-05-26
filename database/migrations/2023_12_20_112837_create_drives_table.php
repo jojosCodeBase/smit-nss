@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('updatedBy')->nullable();
             $table->string('type')->nullable();
             $table->string('area')->nullable();
-            $table->integer('present')->nullable();
+            $table->integer('present')->default(0);
             $table->string('description')->nullable();
             $table->timestamps();
         });

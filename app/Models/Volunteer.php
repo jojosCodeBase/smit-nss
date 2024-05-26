@@ -23,4 +23,11 @@ class Volunteer extends Model
         'drives_participated',
         'document_number',
     ];
+
+    public function batches(){
+        return $this->belongsTo(Batch::class, 'batch');
+    }
+    public function courses(){
+        return $this->belongsTo(Courses::class, 'course');
+    }
 }

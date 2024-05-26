@@ -185,6 +185,8 @@ class DriveController extends Controller
 
     public function viewDrive($id){
         $drive = Drive::where('id', $id)->first();
-        return view('admin.drives.view', compact('drive'));
+        $attendees = Attendance::with('volunteer.batches', 'volunteer.courses')->where('drive_id', $id)->get();
+        // dd($attendees);
+        return view('admin.drives.view', compact('drive', 'attendees'));
     }
 }

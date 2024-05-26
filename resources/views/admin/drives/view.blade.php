@@ -37,7 +37,7 @@
                                     <div>{{ $drive['area'] }}</div>
                                 </div>
                                 <div class="col-xl-3 col-lg-1 col-12 mb-3">
-                                    <label class="form-label title">Volunteer Present</label>
+                                    <label class="form-label title">Volunteers Present</label>
                                     <div>{{ $drive['present'] }}</div>
                                 </div>
                                 <div class="col-xl-3 col-lg-1 col-12 mb-3">
@@ -48,7 +48,8 @@
                             <div class="row">
                                 <div class="col">
                                     <button type="button" class="btn btn-success edit-drive" data-toggle="modal"
-                                        data-target="#editDriveInfoDesktop" data-drive-id="{{ $drive->id }}">Edit</button>
+                                        data-target="#editDriveInfoDesktop"
+                                        data-drive-id="{{ $drive->id }}">Edit</button>
                                     <button type="button" class="btn btn-danger delete-drive" data-toggle="modal"
                                         data-target="#editDriveInfoDesktop">Delete</button>
                                 </div>
@@ -65,25 +66,34 @@
                     <div class="card-header">
                         <h5 class="mb-0 h4 text-center fw-bold">Volunteers Present</h5>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <th>Sl.no</th>
-                                <th>Regno</th>
-                                <th>Name</th>
-                                <th>Course</th>
-                                <th>Batch</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>202116033</td>
-                                    <td>Kunsang Moktan</td>
-                                    <td>BCA</td>
-                                    <td>2021-23</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-end">
+                            <input type="search" class="form-control" placeholder="Search by regno or name">
+                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                data-target="#addAttendanceModal">Add <i class="bi bi-person-plus-fill"></i></button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <th>Sl.no</th>
+                                    <th>Regno</th>
+                                    <th>Name</th>
+                                    <th>Course</th>
+                                    <th>Batch</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($attendees as $attendee)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $attendee->volunteer->regno }}</td>
+                                            <td>{{ $attendee->volunteer->name }}</td>
+                                            <td>{{ $attendee->volunteer->courses->name }}</td>
+                                            <td>{{ $attendee->volunteer->batches->name }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -121,8 +131,8 @@
                                 </div>
                                 <div class="col">
                                     <label class="form-label">To</label>
-                                    <input type="time" class="form-control" name="to" id="drive-to" value=""
-                                        required>
+                                    <input type="time" class="form-control" name="to" id="drive-to"
+                                        value="" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -133,8 +143,8 @@
                                 </div>
                                 <div class="col">
                                     <label class="form-label">Drive Area</label>
-                                    <input type="text" class="form-control" name="area" value="" id="drive-area"
-                                        required>
+                                    <input type="text" class="form-control" name="area" value=""
+                                        id="drive-area" required>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">Conducted by</label>
@@ -165,6 +175,45 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- add attendance modal --}}
+    <div id="addAttendanceModal" class="modal fade">
+        <div class="modal-dialog delete-modal-diaglog">
+            <div class="modal-content">
+                <form action="{{ route('drive.add-attendance') }}" method="POST">
+                    @csrf
+                    <input type="text" name="drive_id" value="{{ $drive->id }}" hidden>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Attendance</h4>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label class="form-label">Registration no</label>
+                            <div class="row">
+                                <div class="col-9">
+                                    <input type="text" class="form-control" name="regno" id="regno" required>
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn btn-primary w-100"
+                                        id="getNameByRegnoBtn">Verify</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Volunteer Name</label>
+                            <input type="text" class="form-control" id="response-volunteer-name" name="name"
+                                readonly required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <button type="submit" class="btn btn-success" id="addModeratorBtn">ADD</button>
                     </div>
                 </form>
             </div>

@@ -11,6 +11,10 @@ class Attendance extends Model
     protected $table = 'attendance';
     protected $fillable = [
         'regno',
-        'driveId'
+        'drive_id'
     ];
+
+    public function volunteer(){
+        return $this->belongsTo(Volunteer::class, 'regno', 'regno');
+    }
 }

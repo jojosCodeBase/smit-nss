@@ -1,5 +1,6 @@
 @extends('layouts/admin-content')
 @section('breadcrumb', 'Manage Drive')
+@section('title', 'Manage Drive')
 @section('content')
 @include('include/alerts')
     <div class="container-fluid p-0">
@@ -61,7 +62,7 @@
                                         <td>{{ $d['date'] }}</td>
                                         <td>
                                             <a href="{{ route('drive.view', ['id' => $d['id']]) }}">View</a>
-                                            <button type="button" data-toggle="modal" data-target="#editDriveInfoDesktop">Edit</button>
+                                            {{-- <button type="button" data-toggle="modal" data-target="#editDriveInfoDesktop">Edit</button> --}}
                                         </td>
                                     </tr>
                                 @endforeach

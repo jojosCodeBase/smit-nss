@@ -1,5 +1,6 @@
 @extends('layouts/admin-content')
-@section('breadcrumb', 'Manage Volunteer')
+@section('breadcrumb', 'Manage Volunteers')
+@section('title', 'Manage Volunteers')
 @section('content')
     <div class="container-fluid p-0">
         <div class="user-role row">

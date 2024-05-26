@@ -12,35 +12,36 @@ use Illuminate\Database\QueryException;
 class AttendanceController extends Controller
 {
     public function add(Request $r){
-        try {
-            $attend = Attendance::create([
-                'regno' => $r->regno,
-                'driveId' => $r->id,
-            ]);
+        $r->validate([
+            'regno' => 'required|numeric|max:9999999999',
+            'drive_id' => 'required|numeric',
+        ]);
 
-            $drive = Drive::where('id', $r->id)->get();
-            $presentCount = $drive[0]['present']+1;
+        $attend = Attendance::create([
+            'regno' => $r->regno,
+            'drive_id' => $r->drive_id,
+        ]);
 
-            $drive = Drive::where('id', $r->id)->update([
-                'attendanceBy' => Auth::user()->id,
-                'updatedBy' => Auth::user()->id,
-                'present' => $presentCount,
-            ]);
+        $drive = Drive::where('id', $r->drive_id)->first();
 
-            if ($attend && $drive) {
-                return back()->with('success', 'Attendance added successfully!');
-            } else {
-                return back()->with('error', 'Some error occurred in adding attendance!');
-            }
-        } catch (QueryException $e) {
-            $errorCode = $e->errorInfo[1];
+        $drive = Drive::where('id', $r->drive_id)->update([
+            'updatedBy' => Auth::user()->id,
+            'present' => $drive['present']+1,
+        ]);
 
-            if ($errorCode == 1062) { // Duplicate entry error code
-                return back()->with('error', 'Duplicate entry. Attendance already added.');
-            } else {
-                return back()->with('error', 'Some error occurred in adding attendance with error!');
-            }
+        // update volunteer's drives_participated also
+
+        $volunteer = Volunteer::where('regno', $r->regno)->first();
+        $participated = Volunteer::where('regno', $r->regno)->update([
+            'drives_participated' => $volunteer['drived_participated']+1,
+        ]);
+
+        if ($attend && $drive && $participated) {
+            return back()->with('success', 'Attendance added successfully!');
+        } else {
+            return back()->with('error', 'Some error occurred in adding attendance!');
         }
+        // return back()->with('error', 'Duplicate entry. Attendance already added.');
     }
     public function delete(Request $r){
         $attendance = Attendance::where('regno', $r->regno)->delete();

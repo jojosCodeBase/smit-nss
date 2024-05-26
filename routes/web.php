@@ -92,14 +92,17 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::post('drive/add', [DriveController::class, 'addDrive'])->name('drive.add');
     Route::get('drive/attendance', [DriveController::class, 'showAttendance'])->name('drive.attendance');
     // Route::get('drive/attendance', [DriveController::class, 'showAttendance'])->name('user.drive.show.attendance');
-    Route::get('drive/attendance/add/{regno}', [VolunteerController::class, 'getName']);
-    Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('drive.attendance.add');
+    // Route::get('drive/attendance/add/{regno}', [VolunteerController::class, 'getName']);
+    Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('drive.add-attendance');
     Route::delete('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('drive.attendance.delete');
 
     // drive section end
 
     Route::get('users/manage', [UserController::class, 'index'])->name('users.manage');
     Route::post('users/manage/add', [UserController::class, 'addModerator'])->name('add-moderator');
+    Route::get('users/manage/view/{id}', [UserController::class, 'viewModerator'])->name('moderator-details');
+
+
 
     // batch section start
 

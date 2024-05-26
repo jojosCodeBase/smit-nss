@@ -9,16 +9,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="{{ asset('assets/img/icons/icon-48x48.png') }}" />
 
-    <title>NSS-SMIT Dashboard</title>
+    <title>NSS-SMIT | @yield('title')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-    {{-- <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet"> --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('assets/css/bootstrap-icons.min.css') }}" rel="stylesheet"> --}}
 </head>
 
 <body>
@@ -61,12 +59,12 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item {{ Route::is('drive.attendance') ? 'active' : '' }}">
+                    {{-- <li class="sidebar-item {{ Route::is('drive.attendance') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('drive.attendance') }}">
                             <i class="align-middle" data-feather="calendar"></i> <span
                                 class="align-middle">Attendance</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="sidebar-item {{ Route::is('drive.add') ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{ route('drive.add') }}">
@@ -149,7 +147,7 @@
                         <div class="col-12 text-center">
                             <p class="mb-0">
                                 <a class="text-muted" href="https://coderjojo.tech" target="_blank">&copy;
-                                    <strong>Designed and Developed By Kunsang Moktan</strong></a>
+                                    <strong>Designed and Developed by Kunsang Moktan</strong></a>
                             </p>
                         </div>
                     </div>
