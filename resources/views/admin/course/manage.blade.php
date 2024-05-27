@@ -90,7 +90,7 @@
                         @csrf
                         <div class="col-12 mb-3">
                             <label class="form-label">Course Name</label>
-                            <input type="text" name="course" class="form-control">
+                            <input type="text" name="course" class="form-control" required>
                             <div class="invalid-feedback">
                                 Please enter course
                             </div>

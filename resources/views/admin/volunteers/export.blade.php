@@ -14,7 +14,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-title">Export Volunteer Details</div>
-                <form action="{{ route('volunteer.fetchData') }}" method="POST" id="form">
+                <form action="{{ route('volunteer.fetchData') }}" method="POST" id="form" class="needs-validation"
+                    novalidate>
                     @csrf
                     <div class="row mt-3 p-0 px-0">
                         <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
@@ -25,6 +26,9 @@
                                     <option value="{{ $batches[$index] }}">{{ $batches[$index] }}</option>
                                 @endfor
                             </select>
+                            <div class="invalid-feedback">
+                                Please select a option.
+                            </div>
                         </div>
                         <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                             <select name="course" class="form-select" id="course" required>
@@ -34,6 +38,9 @@
                                     <option value="{{ $c['id'] }}">{{ $c['name'] }}</option>
                                 @endforeach
                             </select>
+                            <div class="invalid-feedback">
+                                Please select a option.
+                            </div>
                         </div>
                         <div class="col-md-2 col-lg-2 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                             <input type="submit" class="btn btn-primary w-100" value="Search">

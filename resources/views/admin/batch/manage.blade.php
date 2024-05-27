@@ -7,17 +7,23 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-title">Create New NSS Batch</div>
-                <form action="{{ route('batch.create') }}" method="POST">
+                <form action="{{ route('batch.create') }}" method="POST" class="needs-validation" novalidate>
                     @csrf
                     <div class="row mt-3 p-0 px-0">
                         <div class="col-md-5 col-lg-4">
                             <input type="text" name="name" class="form-control mb-1" placeholder="Batch Name"
                                 id="batchName" required>
                             <p id="message"></p>
+                            <div class="invalid-feedback">
+                                Please enter a valid input.
+                            </div>
                         </div>
                         <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                             <input type="text" name="studentCoordinator" class="form-control"
                                 placeholder="Student Co-ordinator" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid input.
+                            </div>
                         </div>
                         <div class="col-md-2 col-lg-2 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                             <input type="submit" class="btn btn-primary w-100" value="Create">
@@ -112,7 +118,8 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label">Student Co-ordinator</label>
-                            <input type="text" class="form-control" id="response-batch-student-coordinator" name="studentCoordinator" required>
+                            <input type="text" class="form-control" id="response-batch-student-coordinator"
+                                name="studentCoordinator" required>
                         </div>
                     </div>
                     <div class="modal-footer">

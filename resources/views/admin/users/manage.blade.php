@@ -108,7 +108,7 @@
                 <div id="addModeratorModal" class="modal fade">
                     <div class="modal-dialog delete-modal-diaglog">
                         <div class="modal-content">
-                            <form action="{{ route('add-moderator') }}" method="POST">
+                            <form action="{{ route('add-moderator') }}" method="POST" class="needs-validation" novalidate>
                                 @csrf
                                 <div class="modal-header">
                                     <h4 class="modal-title">Add Moderator</h4>
@@ -122,6 +122,9 @@
                                             <div class="col-9">
                                                 <input type="text" class="form-control" name="regno" id="regno"
                                                     required>
+                                                    <div class="invalid-feedback">
+                                                        Please enter a valid reg. No.
+                                                    </div>
                                             </div>
                                             <div class="col-3">
                                                 <button type="button" class="btn btn-primary w-100"
