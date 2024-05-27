@@ -1,4 +1,5 @@
 @extends('layouts/admin-content')
+@section('title', 'Add Drives')
 @section('breadcrumb', 'Add Drives')
 @section('content')
     @include('include/alerts')

@@ -1,4 +1,5 @@
 @extends('layouts/admin-content')
+@section('title', 'Manage Batches')
 @section('breadcrumb', 'Manage Batches')
 @section('content')
     @include('include/alerts')

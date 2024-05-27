@@ -1,4 +1,5 @@
 @extends('layouts/admin-content')
+@section('title', 'Manage Users')
 @section('breadcrumb', 'Manage Users')
 @section('content')
     <div class="container-fluid">

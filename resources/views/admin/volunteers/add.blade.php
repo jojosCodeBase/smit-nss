@@ -1,5 +1,6 @@
 @extends('layouts/admin-content')
-@section('breadcrumb', 'Add Volunteer')
+@section('title', 'Add Volunteers')
+@section('breadcrumb', 'Add Volunteers')
 @section('content')
    @include('include/alerts')
     <div class="container-fluid p-0">

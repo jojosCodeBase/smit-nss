@@ -1,5 +1,6 @@
 @extends('layouts/admin-content')
-@section('breadcrumb', 'Add Course')
+@section('title', 'Add Courses')
+@section('breadcrumb', 'Add Courses')
 @section('content')
 
 @section('content')
