@@ -76,13 +76,7 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::get('/drive/manage/list', [DriveController::class, 'listAll'])->name('drive.list');
     Route::post('/drive/manage/list/search', [DriveController::class, 'searchDrive'])->name('drive.search');
 
-
-
     Route::get('/drive/manage/view/{id}', [DriveController::class, 'viewDrive'])->name('drive.view');
-
-
-
-
 
     Route::post('/drive/manage/list/update', [DriveController::class, 'update'])->name('drive.updateDetails');
 
@@ -116,12 +110,12 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     // Route::post('drive/attendance', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
 
     // ajax
-    Route::get('volunteer/getInfo/{id}', [VolunteerController::class, 'getVolunteerInfo']);
     Route::get('drive/getInfo/{id}', [DriveController::class, 'getDriveInfo']);
     Route::get('batch/getInfo/{id}', [BatchController::class, 'getBatchInfo']);
     Route::get('batch/manage/updateStatus', [BatchController::class, 'updateStatus'])->name('batch.manage.updateStatus');
 });
 // });
+
 
 
 
@@ -135,7 +129,7 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
 
     Route::get('drive/add', [DriveController::class, 'addView'])->name('user.drive.add');
     Route::post('drive/add', [DriveController::class, 'addDrive'])->name('user.drive.add');
-    Route::get('drive/attendance/add', [DriveController::class, 'addAttendance'])->name('user.drive.add.attendance');
+    Route::get('drive/attendance/add', [DriveController::class, 'addAttendance'])->name('user.drive.add-attendance');
     Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('user.drive.add.attendance');
 
     // Route::post('drive/attendance/add/getName', [VolunteerController::class, 'getName'])->name('getName');
@@ -145,13 +139,12 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('getname/{regno}', [VolunteerController::class, 'getName']);
+    // Route::get('getname/{regno}', [VolunteerController::class, 'getName']);
+    Route::get('volunteer/getInfo/{id}', [VolunteerController::class, 'getVolunteerInfo']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/password', [ProfileController::class, 'update'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
 });
 
 Route::get('forgot-password', function () {

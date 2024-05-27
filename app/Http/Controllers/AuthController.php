@@ -46,7 +46,7 @@ class AuthController extends Controller
         if (Auth::user() && Auth::user()->role == 1) {
             return '/admin/dashboard';
         } elseif (Auth::user() && Auth::user()->role == 2) {
-            return '/dashboard';
+            return '/user/dashboard';
         }else {
             return '/';
         }

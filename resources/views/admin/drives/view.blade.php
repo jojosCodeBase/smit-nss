@@ -25,6 +25,10 @@
                                     <div>{{ $drive->from }} - {{ $drive['to'] }}</div>
                                 </div>
                                 <div class="col-xl-3 col-lg-1 col-12 mb-3">
+                                    <label class="form-label title">Date</label>
+                                    <div>{{ $drive->date }}</div>
+                                </div>
+                                <div class="col-xl-3 col-lg-1 col-12 mb-3">
                                     <label class="form-label title">Conducted by</label>
                                     <div>{{ $drive['conductedBy'] }}</div>
                                 </div>

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use Carbon\Carbon;
 use App\Models\Drive;
 use Illuminate\Http\Request;
@@ -55,8 +56,8 @@ class DriveController extends Controller
         // 'user' is authenticated to add drive attendance
         if (Auth::user()->role == 2)
             return view('user.drives.attendance', compact('drives'));
-        else{
-            $attend = Attendance::where('driveId', $drives[0]['id'])->get();
+        else {
+            $attend = Attendance::where('drive_id', $drives[0]['id'])->get();
             $volunteerIds = array_column($attend->toArray(), 'regno');
 
             $volunteers = Volunteer::whereIn('id', $volunteerIds)->get();
@@ -68,23 +69,18 @@ class DriveController extends Controller
 
     function addAttendance()
     {
-        $drive = Drive::whereDate('created_at', Carbon::today())->get();
-        // dd($drive);
-        $available = 0;
-        if($drive){
-            $available = 1;
-            $attend = Attendance::where('driveId', $drive[0]['id'])->get();
+        $drives = Drive::whereDate('created_at', Carbon::today())->get();
 
-            $volunteerIds = array_column($attend->toArray(), 'regno');
-
-            $volunteers = Volunteer::whereIn('id', $volunteerIds)->get();
-
-            $attend = $volunteers->toArray();
-
-            return view('user.drives.attendance', compact('available', 'drive', 'attend'));
-        }else{
-            return view('user.drives.attendance', compact('available'));
+        if ($drives->isEmpty()) {
+            return view('user.drives.attendance', compact('drives'));
+        } else {
+            $drive = $drives->first();
+            $attendees = Attendance::with('volunteer.batches', 'volunteer.courses')
+                ->where('drive_id', $drive->id)
+                ->get();
+            return view('user.drives.attendance', compact('drive', 'attendees'));
         }
+
     }
 
     function addDrive(Request $request)
@@ -99,7 +95,7 @@ class DriveController extends Controller
             'area' => 'required|string|max:255',
             'description' => 'required|string|max:300',
         ]);
-        // dd($request->all());
+
         $drive = Drive::create([
             'id' => $request->id,
             'title' => $request->title,
@@ -133,7 +129,7 @@ class DriveController extends Controller
             'driveType' => 'required|string|max:50',
             'present' => 'required|numeric|max:99999999',
             'description' => 'required|string|max:500',
-        ],[
+        ], [
             'from.date_format' => 'Invalid date format at From',
             'to.date_format' => 'Invalid date format at To',
         ]);
@@ -169,8 +165,9 @@ class DriveController extends Controller
     }
 
 
-    function getAttendees($driveId){
-        $attend = Attendance::where('driveId', $driveId)->get(); // fetches all record which matched given driveId
+    function getAttendees($driveId)
+    {
+        $attend = Attendance::where('drive_id', $driveId)->get(); // fetches all record which matched given driveId
 
         $volunteerIds = array_column($attend->toArray(), 'regno');
 
@@ -179,11 +176,13 @@ class DriveController extends Controller
         return response()->json($volunteers);
     }
 
-    function getDriveInfo($id){
+    function getDriveInfo($id)
+    {
         return response()->json(Drive::where('id', $id)->first());
     }
 
-    public function viewDrive($id){
+    public function viewDrive($id)
+    {
         $drive = Drive::where('id', $id)->first();
         $attendees = Attendance::with('volunteer.batches', 'volunteer.courses')->where('drive_id', $id)->get();
         // dd($attendees);

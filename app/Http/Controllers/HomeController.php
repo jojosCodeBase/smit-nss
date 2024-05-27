@@ -24,9 +24,9 @@ class HomeController extends Controller
 
         $drives = Drive::orderBy('date', 'desc')->limit(5)->get();
         if (Auth::user()->role == 1)
-            return view('admin.home', compact('totalDrives', 'totalVolunteers', 'drives', 'batchInfo'));
+            return view('admin.dashboard', compact('totalDrives', 'totalVolunteers', 'drives', 'batchInfo'));
         else
-            return view('user.home', compact('totalDrives', 'totalVolunteers', 'drives', 'batchInfo'));
+            return view('user.dashboard', compact('totalDrives', 'totalVolunteers', 'drives', 'batchInfo'));
     }
 
     public function manageCourses()
