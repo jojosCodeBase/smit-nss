@@ -54,7 +54,6 @@ class AttendanceController extends Controller
         ]);
 
         if($attendance && $drive){
-            // dd('delete successful');
             return back();
         }else{
             return back()->with('error', 'Some error occured in deleting attendance');
