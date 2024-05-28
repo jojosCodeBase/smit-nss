@@ -1,4 +1,5 @@
 @extends('layouts/admin-content')
+@section('title', 'Drive Attendance')
 @section('breadcrumb', 'Drive Attendance')
 @section('content')
     <div class="container-fluid p-0">
@@ -68,9 +69,20 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end">
-                            <input type="search" class="form-control" placeholder="Search by regno or name">
-                            <button type="button" class="btn btn-info" data-toggle="modal"
-                                data-target="#addAttendanceModal">Add <i class="bi bi-person-plus-fill"></i></button>
+                            {{-- <input type="search" class="form-control" placeholder="Search by regno or name"> --}}
+                            <div class="search-container">
+                                <div class="search-wrapper">
+                                    <button id="toggle-button" class="search-button">
+                                        <span class="button-text"><i class="bi bi-search"></i></span>
+                                        <input type="text" id="search-input" class="search-input"
+                                            placeholder="Type to search...">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="ms-3 mt-1">
+                                <button type="button" class="btn btn-info" data-toggle="modal"
+                                    data-target="#addAttendanceModal">Add <i class="bi bi-person-plus-fill"></i></button>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table">
@@ -126,8 +138,8 @@
                                 </div>
                                 <div class="col">
                                     <label class="form-label">From</label>
-                                    <input type="time" class="form-control" id="drive-from" name="from" value=""
-                                        required>
+                                    <input type="time" class="form-control" id="drive-from" name="from"
+                                        value="" required>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">To</label>

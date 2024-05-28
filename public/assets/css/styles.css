@@ -136,3 +136,78 @@
 /* .sidebar-nav .active{
     color: #000;
 } */
+
+
+/* Drive view search bar css start */
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: transparent;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    width: 40px;
+    overflow: hidden;
+}
+
+.search-button.expanded {
+    width: 350px;
+    background-color: transparent;
+}
+
+.search-input {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    margin-left: 10px;
+    flex-grow: 1;
+    display: none;
+    border-bottom: 1px solid black;
+}
+
+.search-button.expanded .search-input {
+    display: inline-block;
+}
+
+
+
+.search-input:active{
+    border: none;
+}
+
+.search-button.expanded .search-input:active{
+    border: none;
+}
+
+:focus-visible {
+    outline: none;
+}
+
+
+
+
+
+/* Drive view search bar css end */

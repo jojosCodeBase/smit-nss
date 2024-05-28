@@ -1,3 +1,19 @@
+// Drive view search bar script start
+
+document.getElementById('toggle-button').addEventListener('click', function() {
+    var button = document.getElementById('toggle-button');
+    button.classList.toggle('expanded');
+    
+    if (button.classList.contains('expanded')) {
+        document.getElementById('search-input').focus();
+    }
+});
+
+
+// Drive view search bar script end
+
+
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {
     'use strict'
