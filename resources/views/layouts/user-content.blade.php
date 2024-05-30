@@ -81,17 +81,19 @@
                         <li class="nav-item dropdown">
                             <a class="nav-icon dropdown-toggle d-inline-block d-sm-none text-decoration-none"
                                 href="#" data-bs-toggle="dropdown">
-                                <i class="align-middle bi-person-circle"></i>
+                                {{-- <i class="align-middle bi-person-circle"></i> --}}
+                                <img src="{{ asset('assets/img/icons/admin-icon.png') }}"
+                                    class="avatar img-fluid rounded" alt="admin_image" />
                             </a>
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                                 data-bs-toggle="dropdown">
                                 <img src="{{ asset('assets/img/icons/admin-icon.png') }}"
-                                    class="avatar img-fluid rounded me-1" alt="admin_image" /> <span
-                                    class="text-dark">{{ Auth::user()->name }}</span>
+                                    class="avatar img-fluid rounded me-1" alt="admin_image" />
+                                    <span class="text-dark">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <span class="dropdown-item text-center d-xl-none d-lg-none d-md-none d-block">{{ Auth::user()->name }}</span>
+                                {{-- <span class="dropdown-item text-center d-xl-none d-lg-none d-md-none d-block">{{ Auth::user()->name }}</span> --}}
                                 <div class="dropdown-divider xl-d-block lg-d-block d-none"></div>
                                 <a class="dropdown-item" href="{{ route('user.profile.edit') }}"><i
                                         class="align-middle me-1" data-feather="user"></i> Profile</a>

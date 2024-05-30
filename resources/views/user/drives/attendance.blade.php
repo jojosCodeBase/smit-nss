@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid p-0">
         @include('include/alerts')
-        @if (!$drive)
+        @if (is_null($drive))
             <div class="alert alert-danger">
                 <p class="fw-bold">No drives found for today</p>
             </div>

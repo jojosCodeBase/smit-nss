@@ -69,18 +69,9 @@ class DriveController extends Controller
 
     function addAttendance()
     {
-        $drives = Drive::whereDate('created_at', Carbon::today())->get();
-
-        if ($drives->isEmpty()) {
-            return view('user.drives.attendance', compact('drives'));
-        } else {
-            $drive = $drives->first();
-            $attendees = Attendance::with('volunteer.batches', 'volunteer.courses')
-                ->where('drive_id', $drive->id)
-                ->get();
-            return view('user.drives.attendance', compact('drive', 'attendees'));
-        }
-
+        $drive = Drive::whereDate('created_at', Carbon::today())->first();
+        $attendees = Attendance::with('volunteer.batches', 'volunteer.courses')->where('drive_id', $drive->id)->get();
+        return view('user.drives.attendance', compact('drive', 'attendees'));
     }
 
     function addDrive(Request $request)

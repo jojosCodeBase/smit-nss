@@ -29,7 +29,7 @@
                                     @endif
                                 </div> --}}
                                     <div id="">
-                                        Since: <span class="current-year"></span>
+                                        Since: <span class="current-year text-success"></span>
                                     </div>
                                 </div>
                             </div>
@@ -44,13 +44,13 @@
 
                                         <div class="col-auto">
                                             <div class="stat text-primary">
-                                                <i class="bi bi-activity fs-3   "></i>
+                                                <i class="bi bi-activity fs-3"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <h1 class="mt-1 mb-3">{{ $totalDrives }}</h1>
                                     <div id="">
-                                        Since: <span class="current-year"></span>
+                                        Since: <span class="current-year text-success"></span>
                                     </div>
                                 </div>
                             </div>
@@ -66,28 +66,30 @@
                     <div class="card-header">
                         <h5 class="card-title mb-0">Recent Activities</h5>
                     </div>
-                    <table class="table table-hover my-0">
-                        <thead>
-                            <tr>
-                                <th style="width: 105px">Date</th>
-                                <th>Title</th>
-                                <th class="d-none d-xl-table-cell">Area</th>
-                                <th class="d-none d-xl-table-cell">Present</th>
-                                <th class="d-none d-md-table-cell">Cordinator</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($drives as $d)
+                    <div class="card-body">
+                        <table class="table table-hover my-0">
+                            <thead>
                                 <tr>
-                                    <td>{{ $d['date'] }}</td>
-                                    <td>{{ $d['title'] }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ $d['area'] }}</td>
-                                    <td class="d-none d-xl-table-cell">{{ $d['present'] }}</td>
-                                    <td class="d-none d-md-table-cell">{{ $d['conductedBy'] }}</td>
+                                    <th style="width: 105px">Date</th>
+                                    <th>Title</th>
+                                    <th class="d-none d-xl-table-cell">Area</th>
+                                    <th class="d-none d-xl-table-cell">Present</th>
+                                    <th class="d-none d-md-table-cell">Cordinator</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($drives as $d)
+                                    <tr>
+                                        <td>{{ $d['date'] }}</td>
+                                        <td>{{ $d['title'] }}</td>
+                                        <td class="d-none d-xl-table-cell">{{ $d['area'] }}</td>
+                                        <td class="d-none d-xl-table-cell">{{ $d['present'] }}</td>
+                                        <td class="d-none d-md-table-cell">{{ $d['conductedBy'] }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
