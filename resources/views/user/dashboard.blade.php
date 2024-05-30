@@ -76,7 +76,7 @@
                                         <td>{{ $d['date'] }}</td>
                                         <td>{{ $d['title'] }}</td>
                                         <td class="d-none d-xl-table-cell">{{ $d['area'] }}</td>
-                                        <td class="d-none d-xl-table-cell">{{ $d['attendedBy'] }}</td>
+                                        <td class="d-none d-xl-table-cell">{{ $d['present'] }}</td>
                                         <td class="d-none d-md-table-cell">{{ $d['conductedBy'] }}</td>
                                     </tr>
                                 @endforeach
