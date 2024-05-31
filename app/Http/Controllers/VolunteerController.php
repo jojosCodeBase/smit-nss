@@ -6,8 +6,10 @@ use App\Models\Batch;
 use App\Models\Courses;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
+use App\Exports\VolunteersExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VolunteerController extends Controller
 {
@@ -199,29 +201,19 @@ class VolunteerController extends Controller
             return response()->json(['name' => 'No results found']);
     }
     public function getVolunteerInfo($regno)
-{
-    $volunteer = Volunteer::where('regno', $regno)->first();
-
-    if ($volunteer) {
-        return response()->json($volunteer, 200); // 200 OK
-    } else {
-        return response()->json(['error' => 'Volunteer not found'], 404); // 404 Not Found
-    }
-}
-
-    public function ajax(Request $upload)
     {
-        $user = Volunteer::where('id', $upload->title)->first();
-        // $desc = $upload->description;
-        if ($user)
-            return response()->json(['message' => $user->name]);
-        else
-            return response()->json(['message' => 'No results found']);
+        $volunteer = Volunteer::where('regno', $regno)->first();
+
+        if ($volunteer) {
+            return response()->json($volunteer, 200); // 200 OK
+        } else {
+            return response()->json(['error' => 'Volunteer not found'], 404); // 404 Not Found
+        }
     }
 
     function courseId_To_courseName($id)
     {
-       return Courses::where('id', $id)->pluck('name')->first();
+        return Courses::where('id', $id)->pluck('name')->first();
     }
 
     public function fetch(Request $r)
@@ -248,7 +240,7 @@ class VolunteerController extends Controller
         }
 
         if ($volunteers->count() > 0) {
-            return back()->with('volunteers', $volunteers);
+            return back()->with(['volunteers' => $volunteers, 'batch' => $r->batch, 'course' => $r->course]);
         } else {
             return back()->with('error', 'No details found for batch specified');
         }
@@ -256,8 +248,24 @@ class VolunteerController extends Controller
 
     public function exportView()
     {
-        $batches = Batch::pluck('name');
+        $batches = Batch::all();
         $courses = Courses::all();
         return view('admin.volunteers.export', compact('batches', 'courses'));
+    }
+
+    public function exportVolunteers(Request $request)
+    {
+        $batch = $request->input('batch');
+        $course = $request->input('course');
+
+        $batchName = Batch::where('id', $batch)->pluck('name')->first();
+        $courseName = Courses::where('id', $course)->pluck('name')->first();
+
+        if($course === '*')
+            $fileName = 'SMIT_NSS_' . $batchName . '_VOLUNTEERS_LIST.xlsx';
+        else
+            $fileName = 'SMIT_NSS_' . $batchName . '_' . $courseName .'_VOLUNTEERS_LIST.xlsx';
+
+        return Excel::download(new VolunteersExport($batch, $course), $fileName);
     }
 }

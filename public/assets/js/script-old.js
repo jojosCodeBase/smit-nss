@@ -1,55 +1,68 @@
-// Form validation script
+// Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {
-    'use strict';
+    'use strict'
 
-    const forms = document.querySelectorAll('.needs-validation');
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
 
+    // Loop over them and prevent submission
     Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
             if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
+                event.preventDefault()
+                event.stopPropagation()
             }
 
-            form.classList.add('was-validated');
-        }, false);
-    });
-})();
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
 
-// DOM Content Loaded
-$(document).ready(function () {
-    console.log('DOM fully loaded and parsed');
 
-    // Toggle button functionality
+document.addEventListener('DOMContentLoaded', function () {
+    // Drive view search bar script start
+
     document.getElementById('toggle-button').addEventListener('click', function () {
-        const button = document.getElementById('toggle-button');
+        var button = document.getElementById('toggle-button');
         button.classList.toggle('expanded');
+
         if (button.classList.contains('expanded')) {
             document.getElementById('search-input').focus();
         }
     });
 
-    // Button click handler for getting volunteer info
-    $('#getNameByRegnoBtn').on('click', function () {
+
+    // Drive view search bar script end
+
+    console.log('DOM fully loaded and parsed');
+    // $(document).ready(function () {
+    $(document).on('click', '#getNameByRegnoBtn', function () {
+        console.log('btn clicked');
         $.ajax({
             url: '/volunteer/getInfo/' + $('#regno').val(),
             type: 'GET',
             dataType: 'json',
             success: function (response) {
+                console.log(response);
                 $('#response-volunteer-name').val(response.name);
                 $('#response-volunteer-email').val(response.email);
             },
             error: function (xhr, status, error) {
+                // Handle error response
                 console.error('AJAX request failed: ', status, error);
-                alert(xhr.status === 404 ? 'Volunteer not found' : 'An error occurred: ' + error);
+                if (xhr.status === 404) {
+                    alert('Volunteer not found');
+                } else {
+                    alert('An error occurred: ' + error);
+                }
             }
         });
     });
 
-    // Batch edit button click handler
+
     $('.batchEditBtn').on('click', function () {
-        const batchId = $(this).data('batch-id');
-        $.ajax({
+        var batchId = $(this).data('batch-id');
+        jQuery.ajax({
             url: '/admin/batch/getInfo/' + batchId,
             type: 'GET',
             dataType: 'json',
@@ -65,11 +78,10 @@ $(document).ready(function () {
         });
     });
 
-    // Batch name validation
     document.getElementById('batchName').addEventListener('keyup', function () {
-        const batchName = document.getElementById('batchName');
-        const message = document.getElementById('message');
-        const regex = /^\d{4}-\d{2}$/;
+        var batchName = document.getElementById('batchName');
+        var message = document.getElementById('message');
+        var regex = /^\d{4}-\d{2}$/;
 
         if (regex.test(batchName.value)) {
             message.className = "text-success";
@@ -82,79 +94,115 @@ $(document).ready(function () {
         }
     });
 
-    // Form submission with AJAX
-    $('#addAttendanceForm').submit(function (event) {
-        event.preventDefault(); // Prevent default form submission
-        const formData = $(this).serialize();
 
+    $('#addAttendanceForm').submit(function (event) {
+        // Serialize form data
+        var formData = $(this).serialize();
+
+        // Send AJAX request
         $.ajax({
             url: $(this).attr('action'),
             type: $(this).attr('method'),
             data: formData,
             success: function (response) {
+                // Handle success response
                 swal("Attendance Recorded", "", "success");
                 $('#fetchRegno').val('');
                 $('#response-volunteer-name').val('');
             },
             error: function (xhr, status, error) {
+                // Handle error response
                 console.error(xhr.responseText);
+                // You can display an error message to the user here
             }
         });
     });
 
-    // Add Moderator button click handler
     $('#addModeratorBtn').on('click', function () {
-        if ($('#response-volunteer-name').val() === 'No results found' || $('#response-volunteer-name').val() === "") {
+        if ($('#response-volunteer-name').val() == 'No results found' || $('#response-volunteer-name').val() == "") {
             event.preventDefault();
             alert('Volunteer not found, enter valid volunteer details');
         }
     });
 
-    // Button style customization
+
     const csv = document.querySelector('.buttons-csv');
     csv.id = "btn-csv";
     csv.classList.remove('btn-secondary');
-    csv.classList.add('btn-warning', 'bi', 'bi-filetype-csv');
+    csv.classList.add('btn-warning');
+    csv.classList.add('bi');
+    csv.classList.add('bi-filetype-csv');
     console.log(csv);
 
     const excel = document.querySelector('.buttons-excel');
     excel.id = "btn-excel";
     excel.classList.remove('btn-secondary');
-    excel.classList.add('btn-success', 'bi', 'bi-file-earmark-spreadsheet');
+    excel.classList.add('btn-success');
+    excel.classList.add('bi');
+    excel.classList.add('bi-file-earmark-spreadsheet');
     console.log(excel);
 
     const pdf = document.querySelector('.buttons-pdf');
     pdf.id = "btn-pdf";
     pdf.classList.remove('btn-secondary');
-    pdf.classList.add('btn-danger', 'bi', 'bi-filetype-pdf');
+    pdf.classList.add('btn-danger');
+    pdf.classList.add('bi');
+    pdf.classList.add('bi-filetype-pdf');
     console.log(pdf);
 
     const print = document.querySelector('.buttons-print');
     print.id = "btn-print";
     print.classList.remove('btn-secondary');
-    print.classList.add('btn-primary', 'bi', 'bi-printer-fill');
+    print.classList.add('btn-primary');
+    print.classList.add('bi');
+    print.classList.add('bi-printer-fill');
     console.log(print);
+
 });
 
-// Show password toggle
 document.getElementById('showPassword').addEventListener('change', function () {
-    const passwordField = document.getElementById('password');
-    passwordField.type = this.checked ? 'text' : 'password';
+    var passwordField = document.getElementById('password');
+    if (this.checked) {
+        passwordField.type = 'text';
+    } else {
+        passwordField.type = 'password';
+    }
 });
 
-// Navigation link activation
-const path = window.location.protocol + "//" + window.location.host + window.location.pathname;
-const links = document.querySelectorAll('.sidebar-nav .sidebar-item a');
+// Get the current URL path
+var path = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+// Find the corresponding navigation link and add the 'active' class
+var links = document.querySelectorAll('.sidebar-nav .sidebar-item a');
+console.log(links);
 links.forEach(function (link) {
     if (link.getAttribute('href') === path) {
         link.closest('li').classList.add('active');
     }
 });
 
-// Toggle visibility functions for mobile and desktop
+// Show password's javascript start
+const passwordInput = document.getElementById('password');
+const showPasswordCheckbox = document.getElementById('showPassword');
+
+showPasswordCheckbox.addEventListener('click', function () {
+    if (showPasswordCheckbox.checked) {
+        // If checkbox is checked, show the password
+        passwordInput.type = 'text';
+    } else {
+        // If checkbox is unchecked, hide the password
+        passwordInput.type = 'password';
+    }
+});
+// Show password's javascript end
+
+// Code for validation End
+
 function changeToggleMobile(id) {
-    const trCollapse = document.getElementById("trCollapse" + id);
-    const toggle = document.getElementById("collapseToggleBtnMobile" + id);
+    var trCollapseId = "trCollapse" + id;
+    var toggleId = "collapseToggleBtnMobile" + id;
+    var trCollapse = document.getElementById(trCollapseId);
+    var toggle = document.getElementById(toggleId);
     if (toggle.innerHTML === "View") {
         trCollapse.style.display = "table-row";
         toggle.innerHTML = "Close";
@@ -165,8 +213,10 @@ function changeToggleMobile(id) {
 }
 
 function changeToggleDesktop(id) {
-    const trCollapse = document.getElementById("trCollapse" + id);
-    const toggle = document.getElementById("collapseToggleBtnDesktop" + id);
+    var trCollapseId = "trCollapse" + id;
+    var toggleId = "collapseToggleBtnDesktop" + id;
+    var trCollapse = document.getElementById(trCollapseId);
+    var toggle = document.getElementById(toggleId);
     if (toggle.innerHTML === "View") {
         trCollapse.style.display = "table-row";
         toggle.innerHTML = "Close";
@@ -176,7 +226,10 @@ function changeToggleDesktop(id) {
     }
 }
 
-// DataTables initialization
+// $(document).ready(function() {
+
+
+// });
 $('#myTable').DataTable({
     dom: 'Bfrtip',
     buttons: [
@@ -200,21 +253,29 @@ $('#myTable').DataTable({
             text: ' Print',
             title: 'NSS Batch ' + document.getElementById('batch-name-export').innerHTML + ' Volunteers List',
             customize: function (win) {
-                $(win.document.body).css('font-size', '16px');
-                $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
+                $(win.document.body)
+                    .css('font-size', '16px')
+                // .prepend(
+                //     // '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                //     // '<div>Data from 10 Jan 2023 to 25th Jan 2024</div>'
+                // );
+
+                $(win.document.body).find('table')
+                    .addClass('compact')
+                    .css('font-size', 'inherit');
             }
         }
     ]
 });
 
-// Volunteer and drive management functions
+
 function viewInfoModalInit(id) {
     $.ajax({
         url: '/admin/volunteer/getInfo/' + id,
         type: 'GET',
         dataType: 'json',
         success: function (response) {
-            const volunteerInfo = response.volunteer[0];
+            var volunteerInfo = response.volunteer[0];
             $('#regno').val(volunteerInfo.id);
             $('#name').val(volunteerInfo.name);
             $('#email').val(volunteerInfo.email);
@@ -235,58 +296,65 @@ function viewInfoModalInit(id) {
 }
 
 function deleteVolunteer() {
-    const regno = $('#regno').val();
+    var regno = ($('#regno').val());
     $('#volunteer-regno').val(regno);
 }
 
+
 function changeStatus(id, status) {
-    const status_btn = document.getElementById('status-btn' + id);
-    const form_status = document.getElementById('form-status' + id);
+    var status_btn = document.getElementById('status-btn' + id);
+    var form_status = document.getElementById('form-status' + id);
 
-    if (form_status === 0 && status_btn.innerHTML === "Open") {
-        form_status = 1;
+    if (status == 0 && status_btn.innerHTML === "Open") {
+        status = 1;
     } else {
-        form_status = 0;
+        status = 0;
     }
-}
-$.ajax({
-    url: '/admin/batch/manage/updateStatus', // Adjust URL as needed
-    type: 'GET',
-    dataType: 'json',
-    data: {
-        id: id,
-        status: status
-    },
-    success: function (response) {
-        console.log(response);
-        if (response.message === "success") {
-            if (status_btn.innerHTML === "Close" && form_status.innerHTML === "Accepting Responses") {
-                status_btn.className = "btn btn-success";
-                status_btn.innerHTML = "Open";
-                form_status.innerHTML = "Not accepting responses";
+
+    jQuery.ajax({
+        url: '/admin/batch/manage/updateStatus', // if your url is using prefix enter url with prefix
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            id: id,
+            status: status
+        },
+        success: function (response) {
+            console.log(response);
+            if (response.message === "success") {
+                if (status_btn.innerHTML === "Close" && form_status.innerHTML ===
+                    "Accepting Responses") {
+                    status_btn.className = "btn btn-success";
+                    status_btn.innerHTML = "Open";
+                    form_status.innerHTML = "Not accepting responses";
+                } else {
+                    status_btn.className = "btn btn-danger";
+                    status_btn.innerHTML = "Close";
+                    form_status.innerHTML = "Accepting Responses";
+                }
             } else {
-                status_btn.className = "btn btn-danger";
-                status_btn.innerHTML = "Close";
-                form_status.innerHTML = "Accepting Responses";
+                alert('Some error occured in opening/closing form !');
             }
-        } else {
-            alert('Some error occurred in opening/closing form!');
+        },
+        error: function (xhr, status, error) {
+            console.error('AJAX request failed: ', status, error);
         }
-    },
-    error: function (xhr, status, error) {
-        console.error('AJAX request failed: ', status, error);
-    }
-});
+    });
+}
+
+// manage batch scripts end
+
+// manage drive scripts start
 
 
-// Manage drive scripts start
 function driveEditModalInit(id) {
     $.ajax({
         url: '/admin/drive/getInfo/' + id,
         type: 'GET',
         dataType: 'json',
         success: function (response) {
-            const driveInfo = response[0];
+            console.log(response[0]);
+            var driveInfo = response[0];
             $('#drive-id').val(driveInfo.id);
             $('#drive-date').val(driveInfo.date);
             $('#drive-from').val(driveInfo.from);
@@ -307,3 +375,4 @@ function driveEditModalInit(id) {
 function driveDeleteModalInit(id) {
     $('#delete-drive-id').val(id);
 }
+

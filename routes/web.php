@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\VolunteerController;
+
 // use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
@@ -23,7 +24,7 @@ use App\Http\Controllers\VolunteerController;
 */
 
 
-Route::get('/', function(){
+Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
@@ -41,44 +42,47 @@ Route::post('batch/regsitrationForm/register', [BatchController::class, 'registe
 
 Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('admin.home');
+
+    Route::get('profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
+
     Route::get('courses/manage', [HomeController::class, 'manageCourses'])->name('courses.manage');
     Route::post('courses/add', [HomeController::class, 'addCourse'])->name('admin.add-course');
     Route::post('courses/update', [HomeController::class, 'updateCourse'])->name('admin.update-course');
 
-    Route::get('profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::prefix('volunteer')->group(function () {
+        Route::get('add', [VolunteerController::class, 'add'])->name('volunteer.add');
+        Route::post('add', [VolunteerController::class, 'insert'])->name('volunteer.add-new');
+        Route::get('search', [VolunteerController::class, 'search'])->name('volunteer.search');
 
-    Route::get('volunteer/add', [VolunteerController::class, 'add'])->name('volunteer.add');
-    Route::post('volunteer/add', [VolunteerController::class, 'insert'])->name('volunteer.add-new');
-    Route::get('volunteer/search', [VolunteerController::class, 'search'])->name('volunteer.search');
+        // volunteer manage start
+        Route::get('manage', [VolunteerController::class, 'manage'])->name('volunteer.manage');
 
-    // volunteer manage start
-    Route::get('/volunteer/manage', [VolunteerController::class, 'manage'])->name('volunteer.manage');
-    Route::get('/volunteer/manage/view-edit', [VolunteerController::class, 'viewEdit'])->name('volunteer.view-edit');
+        Route::get('manage/view-edit', [VolunteerController::class, 'viewEdit'])->name('volunteer.view-edit');
 
-    // Route::get('/volunteer/manage/search-details', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
+        Route::post('manage/search/', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
 
-    // Route::get('/volunteer/manage/view-edit/update{id}', [VolunteerController::class, 'viewUpdate'])->name('volunteer.view-update');
-    Route::post('/volunteer/manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
-    Route::delete('/volunteer/manage/delete', [VolunteerController::class, 'delete'])->name('volunteer.delete');
+        Route::post('manage/view-edit/update', [VolunteerController::class, 'updateDetails'])->name('volunteer.update');
 
-    Route::get('/volunteer/manage/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
+        Route::delete('/manage/delete', [VolunteerController::class, 'delete'])->name('volunteer.delete');
 
-    Route::post('/volunteer/manage/list-all', [VolunteerController::class, 'fetchDetails'])->name('volunteer.list-all');
+        Route::get('manage/list-all', [VolunteerController::class, 'list'])->name('volunteer.list-all');
 
-    Route::get('/volunteer/manage/export', [VolunteerController::class, 'exportView'])->name('volunteer.export');
+        Route::post('manage/list-all', [VolunteerController::class, 'fetchDetails'])->name('volunteer.list-all');
 
-    Route::post('volunteer/manage/export', [VolunteerController::class, 'fetch'])->name('volunteer.fetchData');
-    Route::post('/volunteer/manage/search-details/', [VolunteerController::class, 'searchDetails'])->name('volunteer.search-details');
+        Route::get('manage/export', [VolunteerController::class, 'exportView'])->name('volunteer.export');
+
+        Route::post('manage/export', [VolunteerController::class, 'fetch'])->name('volunteer.fetchData');
+    });
 
     // volunteer manage end
 
     // drive section start
-    Route::get('/drive/manage/list', [DriveController::class, 'listAll'])->name('drive.list');
-    Route::post('/drive/manage/list/search', [DriveController::class, 'searchDrive'])->name('drive.search');
+    Route::get('drive/manage/list', [DriveController::class, 'listAll'])->name('drive.list');
+    Route::post('drive/manage/list/search', [DriveController::class, 'searchDrive'])->name('drive.search');
 
     Route::get('/drive/manage/view/{id}', [DriveController::class, 'viewDrive'])->name('drive.view');
 
-    Route::post('/drive/manage/list/update', [DriveController::class, 'update'])->name('drive.updateDetails');
+    Route::post('drive/manage/list/update', [DriveController::class, 'update'])->name('drive.updateDetails');
 
     Route::delete('/drive/manage/list/delete', [DriveController::class, 'delete'])->name('drive.delete');
 
@@ -96,6 +100,7 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::post('users/manage/add', [UserController::class, 'addModerator'])->name('add-moderator');
     Route::get('users/manage/view/{id}', [UserController::class, 'viewModerator'])->name('moderator-details');
 
+    Route::post('volunteer/export', [VolunteerController::class, 'exportVolunteers'])->name('volunteer.export-post');
 
 
     // batch section start
@@ -157,3 +162,4 @@ Route::get('register', function () {
 Route::get('confirm-password', function () {
     return view('auth.confirm-password');
 })->name('confirm-password');
+

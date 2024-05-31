@@ -122,9 +122,9 @@
                                             <div class="col-9">
                                                 <input type="text" class="form-control" name="regno" id="regno"
                                                     required>
-                                                    <div class="invalid-feedback">
-                                                        Please enter a valid reg. No.
-                                                    </div>
+                                                <div class="invalid-feedback">
+                                                    Please enter a valid reg. No.
+                                                </div>
                                             </div>
                                             <div class="col-3">
                                                 <button type="button" class="btn btn-primary w-100"
@@ -161,4 +161,24 @@
             @endif
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        // Button click handler for getting volunteer info
+        $('#getNameByRegnoBtn').on('click', function() {
+            $.ajax({
+                url: '/volunteer/getInfo/' + $('#regno').val(),
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    $('#response-volunteer-name').val(response.name);
+                    $('#response-volunteer-email').val(response.email);
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX request failed: ', status, error);
+                    alert(xhr.status === 404 ? 'Volunteer not found' : 'An error occurred: ' + error);
+                }
+            });
+        });
+    </script>
 @endsection
