@@ -105,26 +105,38 @@
                     <div class="row mt-3 p-0 px-0">
                         <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                             <select name="batch" class="form-select" id="batch" required>
-                                <option value="" selected>Select batch from list</option>
-                                <option value="*">All</option>
+                                <option value="" disabled {{ old('batch', session('batch')) ? '' : 'selected' }}>
+                                    Select batch from list
+                                </option>
+                                <option value="*" {{ old('batch', session('batch')) == '*' ? 'selected' : '' }}>All
+                                </option>
                                 @foreach ($batches as $batch)
-                                    <option value="{{ $batch->id }}">{{ $batch->name }}</option>
+                                    <option value="{{ $batch->id }}"
+                                        {{ old('batch', session('batch')) == $batch->id ? 'selected' : '' }}>
+                                        {{ $batch->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">
-                                Please select a option.
+                                Please select batch
                             </div>
                         </div>
                         <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
                             <select name="course" class="form-select" id="course" required>
-                                <option value="" selected>Select course from list</option>
-                                <option value="*">All</option>
-                                @foreach ($courses as $c)
-                                    <option value="{{ $c['id'] }}">{{ $c['name'] }}</option>
+                                <option value="" disabled {{ old('course', session('course')) ? '' : 'selected' }}>
+                                    Select batch from list
+                                </option>
+                                <option value="*" {{ old('course', session('course')) == '*' ? 'selected' : '' }}>All
+                                </option>
+                                @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}"
+                                        {{ old('course', session('course')) == $course->id ? 'selected' : '' }}>
+                                        {{ $course->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">
-                                Please select a option.
+                                Please select course
                             </div>
                         </div>
                         <div class="col-md-2 col-lg-2 mt-lg-0 mt-xl-0 mt-md-0 mt-3">

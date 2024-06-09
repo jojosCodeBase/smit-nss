@@ -127,12 +127,10 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-lg-4 mg-md-0 mb-2">
-                            <label class="form-label" id="aadhar-number-input">Aadhar number</label>
-                            <label class="form-label" id="document-number-input" style="display: none;">Other document
-                                number</label>
+                            <label class="form-label">Document number</label>
                             <input type="text" name="document" class="form-control" required>
                             <div class="invalid-feedback">
-                                Please write your Aadhar. No.
+                                Please write your Document number
                             </div>
                         </div>
                     </div>
@@ -143,17 +141,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('scripts')
-    <script>
-        $('#nationality').on('change', function() {
-            if ($('#nationality').val() == 1) {
-                $('#aadhar-number-input').css('display', 'none');
-                $('#document-number-input').css('display', 'block');
-            } else {
-                $('#aadhar-number-input').css('display', 'block');
-                $('#document-number-input').css('display', 'none');
-            }
-        });
-    </script>
 @endsection

@@ -47,11 +47,9 @@ class VolunteerController extends Controller
         }
 
         $courses = Courses::all();
-        // dd($courses);
         $batches = Batch::all();
 
         return view('admin.volunteers.view-edit', compact('volunteers', 'courses', 'batches'));
-
     }
     public function list()
     {
@@ -200,9 +198,9 @@ class VolunteerController extends Controller
         else
             return response()->json(['name' => 'No results found']);
     }
-    public function getVolunteerInfo($regno)
+    public function getVolunteerInfo($id)
     {
-        $volunteer = Volunteer::where('regno', $regno)->first();
+        $volunteer = Volunteer::where('id', $id)->first();
 
         if ($volunteer) {
             return response()->json($volunteer, 200); // 200 OK

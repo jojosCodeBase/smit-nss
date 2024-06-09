@@ -28,7 +28,7 @@
                                     <div class="form-group mt-2">
                                         <label class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email"
-                                            value="{{ Auth::user()->email }}" required>
+                                            value="@if(session('errors')){{ old('email') }} @else{{ Auth::user()->email }}@endif" required>
                                     </div>
                                     <div class="form-group mt-3">
                                         <input type="submit" class="btn btn-primary w-25" value="Save">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -23,15 +24,25 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        // $request->validate([
+        //     'name' => 'required|string',
+        //     'email' => 'required|email',
+        // ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . Auth::user()->id,
+        ], [
+            'email.unique' => 'The email has already been taken',
+        ]);
 
-        $request->user()->save();
+        $user = Auth::user();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 
     /**

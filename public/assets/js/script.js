@@ -210,11 +210,12 @@ $('#myTable').DataTable({
 // Volunteer and drive management functions
 function viewInfoModalInit(id) {
     $.ajax({
-        url: '/admin/volunteer/getInfo/' + id,
+        url: '/volunteer/getInfo/' + id,
         type: 'GET',
         dataType: 'json',
         success: function (response) {
-            const volunteerInfo = response.volunteer[0];
+            console.log(response);
+            const volunteerInfo = response;
             $('#regno').val(volunteerInfo.id);
             $('#name').val(volunteerInfo.name);
             $('#email').val(volunteerInfo.email);

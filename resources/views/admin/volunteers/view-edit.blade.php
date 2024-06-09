@@ -202,7 +202,7 @@
                                         <select name="nationality" id="nationality" class="form-select" required
                                             disabled>
                                             <option value="I">Indian</option>
-                                            <option value="N">Non-Indian</option>
+                                            <option value="NI">Non-Indian</option>
                                         </select>
                                     </div>
                                 </div>
@@ -310,30 +310,6 @@
             document_number.disabled = false;
 
             document.getElementById('updateBtn').style.display = "table-row";
-        }
-
-        function courseMapping(cname) {
-            var courseMapping = {
-                "MCA": 0,
-                "BCA": 1,
-                "MBA": 2,
-                "BBA": 3,
-                "MSc Chemistry": 4,
-                "BSc Chemistry": 5,
-                "MSc Mathematics": 6,
-                "BSc Mathematics": 7,
-                "MSc Physics": 8,
-                "BSc Physics": 9,
-                "BTech CSE": 10,
-                "BTech CE": 11,
-                "BTech ME": 12,
-                "BTech AI&DS": 13,
-                "BTech IT": 14,
-                "BTech EEE": 15,
-                "BTech ECE": 16
-            };
-
-            return courseMapping[cname];
         }
     </script>
 @endsection
