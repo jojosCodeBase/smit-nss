@@ -59,11 +59,10 @@ class BatchController extends Controller
                 'document.unique' => 'The document number already exist.'
             ]
         ]);
-        // dd($r->all());
 
         try {
             $volunteer = Volunteer::create([
-                'id' => $r->regno,
+                'regno' => $r->regno,
                 'name' => $r->name,
                 'email' => $r->email,
                 'phone' => $r->phone,
@@ -77,8 +76,10 @@ class BatchController extends Controller
             ]);
 
             if ($volunteer) {
-                //update volunteer in batch
-                // return redirect()->route('batch.registration-form', $r->batch)->withSuccess('success');
+
+                // also increment the volunteer count in batches
+                Batch::where('id', $r->batch)->increment('volunteers');
+
                 return back()->withSuccess('success');
             } else
                 return redirect()->route('batch.registration-form', $r->batch)->with('error', 'Some error occured while adding volunteer');
@@ -140,6 +141,9 @@ class BatchController extends Controller
     }
     public function updateBatchInfo(Request $r)
     {
+        if(!Batch::where('name', $r->batchName)->where('id', $r->id)->exists())
+            return back()->with('error', 'Batch with this name already exists');
+
         $r->validate([
             'batchName' => ['required', 'max:10', 'regex:/^[0-9\-]+$/'],
             'studentCoordinator' => 'required|string|max:50'

@@ -11,11 +11,20 @@ use Illuminate\Database\QueryException;
 
 class AttendanceController extends Controller
 {
-    public function add(Request $r){
+    public function add(Request $r)
+    {
         $r->validate([
             'regno' => 'required|numeric|max:9999999999',
             'drive_id' => 'required|numeric',
         ]);
+
+        $existingAttendance = Attendance::where('regno', $r->regno)
+            ->where('drive_id', $r->drive_id)
+            ->first();
+
+        if ($existingAttendance) {
+            return back()->with('error', 'Attendance already added for this volunteer');
+        }
 
         $attend = Attendance::create([
             'regno' => $r->regno,
@@ -26,14 +35,14 @@ class AttendanceController extends Controller
 
         $drive = Drive::where('id', $r->drive_id)->update([
             'updatedBy' => Auth::user()->id,
-            'present' => $drive['present']+1,
+            'present' => $drive['present'] + 1,
         ]);
 
         // update volunteer's drives_participated also
 
         $volunteer = Volunteer::where('regno', $r->regno)->first();
         $participated = Volunteer::where('regno', $r->regno)->update([
-            'drives_participated' => $volunteer['drived_participated']+1,
+            'drives_participated' => $volunteer['drived_participated'] + 1,
         ]);
 
         if ($attend && $drive && $participated) {
@@ -43,32 +52,35 @@ class AttendanceController extends Controller
         }
         // return back()->with('error', 'Duplicate entry. Attendance already added.');
     }
-    public function delete(Request $r){
+    public function delete(Request $r)
+    {
         $attendance = Attendance::where('regno', $r->regno)->delete();
         $drive = Drive::where('id', $r->driveId)->get();
-        $presentCount = $drive[0]['present']-1;
+        $presentCount = $drive[0]['present'] - 1;
 
         $drive = Drive::where('id', $r->driveId)->update([
             'updatedBy' => Auth::user()->id,
             'present' => $presentCount,
         ]);
 
-        if($attendance && $drive){
+        if ($attendance && $drive) {
             return back();
-        }else{
+        } else {
             return back()->with('error', 'Some error occured in deleting attendance');
         }
     }
-    // public function update(Request $r){
 
-    // }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $driveId = $request->input('drive_id');
 
-    // public function delete(Request $r){
-    //     $delete = Attendance::where('regno', $r->regno)->delete();
-    //     if($delete){
-    //         return back()->with('success', 'Attendance deleted successfully !');
-    //     }else{
-    //         return back()->with('error', 'Some error occured in deleting attendance !');
-    //     }
-    // }
+        $attendees = Attendance::where('drive_id', $driveId)
+            ->whereHas('volunteer', function ($q) use ($query) {
+                $q->where('regno', 'LIKE', "%{$query}%")
+                    ->orWhere('name', 'LIKE', "%{$query}%");
+            })->get();
+
+        return view('include.attendees_table', compact('attendees'))->render();
+    }
 }

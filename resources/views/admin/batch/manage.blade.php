@@ -11,9 +11,9 @@
                     @csrf
                     <div class="row mt-3 p-0 px-0">
                         <div class="col-md-5 col-lg-4">
-                            <input type="text" name="name" class="form-control mb-1" placeholder="Batch Name"
-                                id="batchName" required>
-                            <p id="message"></p>
+                            <input type="text" name="name" class="form-control mb-1 batchName" placeholder="Batch Name"
+                                required>
+                            <p class="message"></p>
                             <div class="invalid-feedback">
                                 Please enter a valid input.
                             </div>
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="col-md-2 col-lg-2 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
-                            <input type="submit" class="btn btn-primary w-100" value="Create">
+                            <input type="submit" class="btn btn-primary w-100" id="create-btn" value="Create" disabled>
                         </div>
                     </div>
                 </form>
@@ -68,11 +68,12 @@
                                     @endphp
                                 @endif
                                 <td>
-                                    <button type="button" class="btn {{ $buttonClass }}"
-                                        id="status-btn{{ $b['id'] }}"
-                                        onclick="changeStatus({{ $b['id'] }}, {{ $b['status'] }})">{{ $buttonText }}</button>
+                                    <button type="button" class="btn {{ $buttonClass }} changeStatusBtn"
+                                        data-batch-id="{{ $b['id'] }}"
+                                        data-form-status="{{ $b['status'] }}">{{ $buttonText }}</button>
                                 </td>
-                                <td id="form-status{{ $b['id'] }}">{{ $statusText }}</td>
+
+                                <td class="formStatusText">{{ $statusText }}</td>
 
                                 <td>
                                     <div class="more-btn">
@@ -114,7 +115,9 @@
                     <div class="modal-body">
                         <div class="form-group mb-3">
                             <label class="form-label">Batch Name</label>
-                            <input type="text" class="form-control" id="response-batch-name" name="batchName" required>
+                            <input type="text" class="form-control batchName" id="response-batch-name" name="batchName"
+                                required>
+                            <p class="message"></p>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label">Student Co-ordinator</label>
@@ -131,9 +134,95 @@
         </div>
     </div>
 @endsection
-{{-- @section('scripts')
+@section('scripts')
     <script>
-        // ajax function to get batch info
+        $(document).ready(function() {
+            $('.changeStatusBtn').on('click', function() {
+                var button = $(this);
+                var batchId = button.data('batch-id');
+                var formStatus = button.data('form-status');
 
+                // Toggle form_status
+                if (formStatus === 0 && button.text() === "Open") {
+                    formStatus = 1;
+                } else {
+                    formStatus = 0;
+                }
+
+                // AJAX request to update status
+                $.ajax({
+                    url: '/admin/batch/manage/updateStatus', // Adjust URL as needed
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        id: batchId,
+                        status: formStatus
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if (response.message === "success") {
+                            if (button.text() === "Close" && formStatus === 0) {
+                                button.removeClass('btn-danger').addClass('btn-success');
+                                button.text("Open");
+                                button.data('form-status', 0); // Update data attribute
+                                button.closest('tr').find('.formStatusText').text(
+                                    "Not accepting responses");
+                            } else {
+                                button.removeClass('btn-success').addClass('btn-danger');
+                                button.text("Close");
+                                button.data('form-status', 1); // Update data attribute
+                                button.closest('tr').find('.formStatusText').text(
+                                    "Accepting Responses");
+                            }
+                        } else {
+                            alert('Some error occurred in opening/closing form!');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX request failed: ', status, error);
+                    }
+                });
+            });
+
+            // Batch edit button click handler
+            $('.batchEditBtn').on('click', function() {
+                const batchId = $(this).data('batch-id');
+                $.ajax({
+                    url: '/admin/batch/getInfo/' + batchId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#id').val(response.id);
+                        $('#response-batch-name').val(response.name);
+                        $('#response-batch-student-coordinator').val(response
+                            .studentCoordinator);
+                        $('#editBatchModal').show();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX request failed: ', status, error);
+                    }
+                });
+            });
+
+            // Batch name validation
+            $('.batchName').on('keyup', function() {
+                var batchName = $(this).val();
+                var message = $('.message');
+                var regex = /^\d{4}-\d{2}$/;
+
+                if (regex.test(batchName)) {
+                    message.removeClass('text-danger').addClass('text-success').text("Valid batch name");
+                    $(this).removeClass('border-danger').addClass('border-success');
+                    $('#create-btn').prop('disabled', false);
+                    $('#updateBatchInfoBtn').prop('disabled', false);
+                } else {
+                    message.removeClass('text-success').addClass('text-danger').text(
+                        "Invalid batch name. Format should be yyyy-yy");
+                    $(this).removeClass('border-success').addClass('border-danger');
+                    $('#create-btn').prop('disabled', true);
+                    $('#updateBatchInfoBtn').prop('disabled', true);
+                }
+            });
+        });
     </script>
-@endsection --}}
+@endsection

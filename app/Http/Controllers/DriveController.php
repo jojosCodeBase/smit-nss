@@ -176,7 +176,6 @@ class DriveController extends Controller
     {
         $drive = Drive::where('id', $id)->first();
         $attendees = Attendance::with('volunteer.batches', 'volunteer.courses')->where('drive_id', $id)->get();
-        // dd($attendees);
         return view('admin.drives.view', compact('drive', 'attendees'));
     }
 }

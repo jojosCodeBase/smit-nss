@@ -38,10 +38,10 @@
                                             class="img-fluid rounded-circle" width="132" height="132" />
                                     </div>
                                     @if ($errors->has('invalid'))
-                                            <div class="alert alert-danger">
-                                                {{ $errors->first('invalid') }}
-                                            </div>
-                                        @endif
+                                        <div class="alert alert-danger">
+                                            {{ $errors->first('invalid') }}
+                                        </div>
+                                    @endif
                                     <form action="{{ route('login') }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
@@ -64,7 +64,8 @@
                                         </div>
                                         <div>
                                             <input type="checkbox" id="showPassword" class="form-check-input me-2">
-                                            <label for="showPassword" class="form-label user-select-none">Show password</label>
+                                            <label for="showPassword" class="form-label user-select-none">Show
+                                                password</label>
                                         </div>
                                         <div class="text-center mt-3">
                                             <input type="submit" class="btn btn-lg btn-primary w-100 fw-bold fs-4"
@@ -74,9 +75,6 @@
                                             <a href="{{ route('forgot-password') }}">Forgot password?</a>
                                         </div>
                                     </form>
-                                    {{-- <div class="mt-2 text-center">
-                                        <a href="{{ route('password.request') }}">Forgot password?</a>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -85,8 +83,12 @@
             </div>
         </div>
     </main>
-    <script src="{{ asset('assets/js/script.js') }}"></script>
-
+    <script>
+        document.getElementById('showPassword').addEventListener('change', function() {
+            const passwordField = document.getElementById('password');
+            passwordField.type = this.checked ? 'text' : 'password';
+        });
+    </script>
 </body>
 
 </html>

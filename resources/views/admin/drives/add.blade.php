@@ -40,14 +40,9 @@
                     </div>
                     <div class="row mt-lg-3">
                         <div class="col-md-3 col-lg-4 mb-md-0 mb-2">
-                            <select name="driveType" class="form-select invalid" id="validationServerUsername"
-                                aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" required>
-                                <option value=""disabled selected>Select drive type from list</option>
-                                <option value="regular">Regular NSS Activities</option>
-                                <option value="cleanliness">Cleanliness Drive</option>
-                            </select>
+                            <input type="text" name="driveType" class="form-control invalid" id="validationServerUsername" placeholder="Drive type" required>
                             <div class="invalid-feedback">
-                                Please select a option.
+                                Please enter a valid input.
                             </div>
                         </div>
                         <div class="col-md-3 col-lg-4 mb-md-0 mb-2">

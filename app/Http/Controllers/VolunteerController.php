@@ -42,7 +42,6 @@ class VolunteerController extends Controller
         $volunteers = Volunteer::orderBy('created_at', 'desc')->paginate(10);
         foreach ($volunteers as $v) {
             $v['course'] = $this->courseId_To_courseName($v['course']);
-            // $v['course'] = ;
             $v['batch'] = Batch::where('id', $v['batch'])->pluck('name')->first();
         }
 
@@ -157,7 +156,8 @@ class VolunteerController extends Controller
             'document_number' => 'required|numeric',
             'category' => 'required|string',
         ]);
-        $updateVolunteer = Volunteer::where('id', $r->regno)->update([
+
+        $updateVolunteer = Volunteer::where('regno', $r->regno)->update([
             'name' => $r->name,
             'phone' => $r->phone,
             'email' => $r->email,
@@ -189,18 +189,9 @@ class VolunteerController extends Controller
         }
     }
 
-    public function getName($regno)
+    public function getVolunteerInfo($regno)
     {
-        // this is used to fetch the first occurence of the given id and no need to use volunteer[0] to access array elements
-        $volunteer = Volunteer::where('id', $regno)->first();
-        if ($volunteer)
-            return response()->json(['name' => $volunteer->name]);
-        else
-            return response()->json(['name' => 'No results found']);
-    }
-    public function getVolunteerInfo($id)
-    {
-        $volunteer = Volunteer::where('id', $id)->first();
+        $volunteer = Volunteer::where('regno', $regno)->first();
 
         if ($volunteer) {
             return response()->json($volunteer, 200); // 200 OK
@@ -240,7 +231,7 @@ class VolunteerController extends Controller
         if ($volunteers->count() > 0) {
             return back()->with(['volunteers' => $volunteers, 'batch' => $r->batch, 'course' => $r->course]);
         } else {
-            return back()->with('error', 'No details found for batch specified');
+            return back()->with('error', 'No details found');
         }
     }
 
@@ -259,10 +250,15 @@ class VolunteerController extends Controller
         $batchName = Batch::where('id', $batch)->pluck('name')->first();
         $courseName = Courses::where('id', $course)->pluck('name')->first();
 
-        if($course === '*')
+        if($batch === '*' && $course === '*') {
+            $fileName = 'SMIT_NSS_VOLUNTEERS_LIST.xlsx';
+        } elseif($course === '*') {
             $fileName = 'SMIT_NSS_' . $batchName . '_VOLUNTEERS_LIST.xlsx';
-        else
-            $fileName = 'SMIT_NSS_' . $batchName . '_' . $courseName .'_VOLUNTEERS_LIST.xlsx';
+        } elseif($batch === '*') {
+            $fileName = 'SMIT_NSS_' . $courseName . '_VOLUNTEERS_LIST.xlsx';
+        } else {
+            $fileName = 'SMIT_NSS_' . $batchName . '_' . $courseName . '_VOLUNTEERS_LIST.xlsx';
+        }
 
         return Excel::download(new VolunteersExport($batch, $course), $fileName);
     }

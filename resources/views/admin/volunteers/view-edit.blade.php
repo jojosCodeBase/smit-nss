@@ -45,40 +45,41 @@
                     <div class="card-header">
                         <h5 class="mb-0 h4 text-center fw-bold">Available Records</h5>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Reg.no</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Course</th>
-                                    <th>Batch</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @dump($volunteers) --}}
-                                @foreach ($volunteers as $v)
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-responsive">
+                                <thead>
                                     <tr>
-                                        <td>{{ $v['id'] }}</td>
-                                        <td>{{ $v['name'] }}</td>
-                                        <td>{{ $v['email'] }}</td>
-                                        <td>{{ $v['phone'] }}</td>
-                                        <td>{{ $v['course'] }}</td>
-                                        <td>{{ $v['batch'] }}</td>
-                                        <td>
-                                            <a data-toggle="modal" data-target="#viewDetailsModal" class="collapse-a"
-                                                onclick="viewInfoModalInit({{ $v['id'] }})">View</a>
-                                        </td>
+                                        <th>Reg.no</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Course</th>
+                                        <th>Batch</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="p-2">
-                        {{ $volunteers->links() }}
+                                </thead>
+                                <tbody>
+                                    @foreach ($volunteers as $v)
+                                        <tr>
+                                            <td>{{ $v['regno'] }}</td>
+                                            <td>{{ $v['name'] }}</td>
+                                            <td>{{ $v['email'] }}</td>
+                                            <td>{{ $v['phone'] }}</td>
+                                            <td>{{ $v['course'] }}</td>
+                                            <td>{{ $v['batch'] }}</td>
+                                            <td>
+                                                <a data-toggle="modal" data-target="#viewDetailsModal" class="collapse-a"
+                                                    onclick="viewInfoModalInit({{ $v['id'] }})">View</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="p-2">
+                            {{ $volunteers->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -158,8 +159,7 @@
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <input class="form-control" type="number" name="attended" id="attended"
-                                            readonly>
+                                        <input class="form-control" type="number" name="attended" id="attended" readonly>
                                     </div>
                                 </div>
 
@@ -282,20 +282,6 @@
         var category = document.getElementById('category');
         var document_number = document.getElementById('document_number');
 
-        // function showDetails(id, nameVal, emailVal, phoneVal, courseVal, batchVal, attendedVal) {
-        //     var x = document.getElementById('volunteerDetails');
-        //     x.style.display = "table-row";
-        //     regno.value = id;
-        //     volName.value = nameVal;
-        //     email.value = emailVal;
-        //     phone.value = phoneVal;
-
-        //     course.value = courseMapping(courseVal);
-
-        //     batch.value = batchVal;
-        //     attended.value = attendedVal;
-        // }
-
         function editDetails() {
             volName.readOnly = false;
             email.readOnly = false;
@@ -323,9 +309,7 @@
                 dataType: 'json',
                 success: function(response) {
                     $('#tableFilter').html(response);
-                    // alert('sd');
                     console.log(response);
-                    // console.log('success');
                 },
                 error: function(xhr, status, error) {
                     console.error('AJAX request failed: ', status, error);

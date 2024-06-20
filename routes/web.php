@@ -78,6 +78,7 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
 
     // drive section start
     Route::get('drive/manage/list', [DriveController::class, 'listAll'])->name('drive.list');
+
     Route::post('drive/manage/list/search', [DriveController::class, 'searchDrive'])->name('drive.search');
 
     Route::get('/drive/manage/view/{id}', [DriveController::class, 'viewDrive'])->name('drive.view');
@@ -87,11 +88,13 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::delete('/drive/manage/list/delete', [DriveController::class, 'delete'])->name('drive.delete');
 
     Route::get('drive/add', [DriveController::class, 'addView'])->name('drive.add');
+
     Route::post('drive/add', [DriveController::class, 'addDrive'])->name('drive.add');
+
     Route::get('drive/attendance', [DriveController::class, 'showAttendance'])->name('drive.attendance');
-    // Route::get('drive/attendance', [DriveController::class, 'showAttendance'])->name('user.drive.show.attendance');
-    // Route::get('drive/attendance/add/{regno}', [VolunteerController::class, 'getName']);
+
     Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('drive.add-attendance');
+
     Route::delete('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('drive.attendance.delete');
 
     // drive section end
@@ -144,12 +147,13 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    // Route::get('getname/{regno}', [VolunteerController::class, 'getName']);
-    Route::get('volunteer/getInfo/{id}', [VolunteerController::class, 'getVolunteerInfo']);
+    Route::get('volunteer/getInfo/{regno}', [VolunteerController::class, 'getVolunteerInfo'])->name('getVolunteerById');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/password', [ProfileController::class, 'update'])->name('password.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/search-attendees', [AttendanceController::class, 'search'])->name('search.attendees');
 });
 
 Route::get('forgot-password', function () {

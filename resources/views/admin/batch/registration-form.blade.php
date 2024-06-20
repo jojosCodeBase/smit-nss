@@ -37,10 +37,6 @@
         }
 
         .form-group-text {
-            /* border-top: none;
-            border-right: none;
-            border-left: none;
-            border-radius: 0px; */
             background-color: transparent;
         }
 
@@ -57,30 +53,30 @@
     <div class="container mt-4">
         <div class="row d-flex justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-10 col">
+                @if (session('error'))
+                    <div class="row d-flex justify-content-center">
+                        <div class="col">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close " data-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                        <button type="button" class="btn-close " data-dismiss="alert"
+                            aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="card p-xl-3">
                     <div class="card-body">
                         <h4 class="fw-bold text-center">NSS Batch {{ $batchName }} Registration Form</h4>
                         <hr class="underline mb-2">
-                        @if (session('error'))
-                            <div class="row d-flex justify-content-center">
-                                <div class="col">
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {{ session('error') }}
-                                        <button type="button" class="btn-close " data-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                        @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                @foreach ($errors->all() as $error)
-                                    <p>{{ $error }}</p>
-                                @endforeach
-                                <button type="button" class="btn-close " data-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        @endif
                         @if ($status)
                             @if (session('success'))
                                 <h5 class="text-center">Your Response has been recorded. Thank you</h5>
@@ -173,8 +169,8 @@
                                         <input type="text" name="document" class="form-control" required>
                                     </div>
 
-                                    <div class="form-group mb-2 d-flex justify-content-center">
-                                        <div class="col-xl-6 col-lg-10 col-md-12 col">
+                                    <div class="form-group mb-2 d-flex justify-content-center mt-3">
+                                        <div class="col-xl-12 col-lg-10 col-md-12 col">
                                             <input type="submit" class="btn btn-primary w-100" value="Submit">
                                         </div>
                                     </div>

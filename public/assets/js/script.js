@@ -29,59 +29,6 @@ $(document).ready(function () {
         }
     });
 
-    // Button click handler for getting volunteer info
-    $('#getNameByRegnoBtn').on('click', function () {
-        $.ajax({
-            url: '/volunteer/getInfo/' + $('#regno').val(),
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                $('#response-volunteer-name').val(response.name);
-                $('#response-volunteer-email').val(response.email);
-            },
-            error: function (xhr, status, error) {
-                console.error('AJAX request failed: ', status, error);
-                alert(xhr.status === 404 ? 'Volunteer not found' : 'An error occurred: ' + error);
-            }
-        });
-    });
-
-    // Batch edit button click handler
-    $('.batchEditBtn').on('click', function () {
-        const batchId = $(this).data('batch-id');
-        $.ajax({
-            url: '/admin/batch/getInfo/' + batchId,
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                $('#id').val(response.id);
-                $('#response-batch-name').val(response.name);
-                $('#response-batch-student-coordinator').val(response.studentCoordinator);
-                $('#editBatchModal').show();
-            },
-            error: function (xhr, status, error) {
-                console.error('AJAX request failed: ', status, error);
-            }
-        });
-    });
-
-    // Batch name validation
-    document.getElementById('batchName').addEventListener('keyup', function () {
-        const batchName = document.getElementById('batchName');
-        const message = document.getElementById('message');
-        const regex = /^\d{4}-\d{2}$/;
-
-        if (regex.test(batchName.value)) {
-            message.className = "text-success";
-            batchName.className = "form-control mb-1 border-success";
-            message.innerHTML = "Valid batch name";
-        } else {
-            message.className = "text-danger";
-            batchName.className = "form-control mb-1 border-danger";
-            message.innerHTML = "Invalid batch name. Format should be yyyy-yy";
-        }
-    });
-
     // Form submission with AJAX
     $('#addAttendanceForm').submit(function (event) {
         event.preventDefault(); // Prevent default form submission
@@ -109,38 +56,8 @@ $(document).ready(function () {
             alert('Volunteer not found, enter valid volunteer details');
         }
     });
-
-    // Button style customization
-    const csv = document.querySelector('.buttons-csv');
-    csv.id = "btn-csv";
-    csv.classList.remove('btn-secondary');
-    csv.classList.add('btn-warning', 'bi', 'bi-filetype-csv');
-    console.log(csv);
-
-    const excel = document.querySelector('.buttons-excel');
-    excel.id = "btn-excel";
-    excel.classList.remove('btn-secondary');
-    excel.classList.add('btn-success', 'bi', 'bi-file-earmark-spreadsheet');
-    console.log(excel);
-
-    const pdf = document.querySelector('.buttons-pdf');
-    pdf.id = "btn-pdf";
-    pdf.classList.remove('btn-secondary');
-    pdf.classList.add('btn-danger', 'bi', 'bi-filetype-pdf');
-    console.log(pdf);
-
-    const print = document.querySelector('.buttons-print');
-    print.id = "btn-print";
-    print.classList.remove('btn-secondary');
-    print.classList.add('btn-primary', 'bi', 'bi-printer-fill');
-    console.log(print);
 });
 
-// Show password toggle
-document.getElementById('showPassword').addEventListener('change', function () {
-    const passwordField = document.getElementById('password');
-    passwordField.type = this.checked ? 'text' : 'password';
-});
 
 // Navigation link activation
 const path = window.location.protocol + "//" + window.location.host + window.location.pathname;
@@ -216,7 +133,7 @@ function viewInfoModalInit(id) {
         success: function (response) {
             console.log(response);
             const volunteerInfo = response;
-            $('#regno').val(volunteerInfo.id);
+            $('#regno').val(volunteerInfo.regno);
             $('#name').val(volunteerInfo.name);
             $('#email').val(volunteerInfo.email);
             $('#phone').val(volunteerInfo.phone);
@@ -239,45 +156,6 @@ function deleteVolunteer() {
     const regno = $('#regno').val();
     $('#volunteer-regno').val(regno);
 }
-
-function changeStatus(id, status) {
-    const status_btn = document.getElementById('status-btn' + id);
-    const form_status = document.getElementById('form-status' + id);
-
-    if (form_status === 0 && status_btn.innerHTML === "Open") {
-        form_status = 1;
-    } else {
-        form_status = 0;
-    }
-}
-$.ajax({
-    url: '/admin/batch/manage/updateStatus', // Adjust URL as needed
-    type: 'GET',
-    dataType: 'json',
-    data: {
-        id: id,
-        status: status
-    },
-    success: function (response) {
-        console.log(response);
-        if (response.message === "success") {
-            if (status_btn.innerHTML === "Close" && form_status.innerHTML === "Accepting Responses") {
-                status_btn.className = "btn btn-success";
-                status_btn.innerHTML = "Open";
-                form_status.innerHTML = "Not accepting responses";
-            } else {
-                status_btn.className = "btn btn-danger";
-                status_btn.innerHTML = "Close";
-                form_status.innerHTML = "Accepting Responses";
-            }
-        } else {
-            alert('Some error occurred in opening/closing form!');
-        }
-    },
-    error: function (xhr, status, error) {
-        console.error('AJAX request failed: ', status, error);
-    }
-});
 
 
 // Manage drive scripts start

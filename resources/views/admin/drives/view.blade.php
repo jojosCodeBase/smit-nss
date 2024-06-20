@@ -72,18 +72,13 @@
                         <h5 class="mb-0 h4 text-center fw-bold">Volunteers Present</h5>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex justify-content-end">
-                            {{-- <input type="search" class="form-control" placeholder="Search by regno or name"> --}}
-                            <div class="search-container">
-                                <div class="search-wrapper">
-                                    <button id="toggle-button" class="search-button">
-                                        <span class="button-text"><i class="bi bi-search"></i></span>
-                                        <input type="text" id="search-input" class="search-input"
-                                            placeholder="Type to search...">
-                                    </button>
-                                </div>
+                        <input type="hidden" -modal value="{{ $drive->id }}">
+                        <div class="d-flex justify-content-between mb-2">
+                            <div class="col">
+                                <input type="search" id="search-input" class="form-control"
+                                    placeholder="Search by regno or name">
                             </div>
-                            <div class="ms-3 mt-1">
+                            <div class="ms-3">
                                 <button type="button" class="btn btn-info" data-toggle="modal"
                                     data-target="#addAttendanceModal">Add <i class="bi bi-person-plus-fill"></i></button>
                             </div>
@@ -97,16 +92,8 @@
                                     <th>Course</th>
                                     <th>Batch</th>
                                 </thead>
-                                <tbody>
-                                    @foreach ($attendees as $attendee)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $attendee->volunteer->regno }}</td>
-                                            <td>{{ $attendee->volunteer->name }}</td>
-                                            <td>{{ $attendee->volunteer->courses->name }}</td>
-                                            <td>{{ $attendee->volunteer->batches->name }}</td>
-                                        </tr>
-                                    @endforeach
+                                <tbody id="attendees-table-body">
+                                    @include('include.attendees_table')
                                 </tbody>
                             </table>
                         </div>
@@ -132,7 +119,7 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label class="form-label">Drive Id</label>
-                                    <input type="number" name="id" id="drive-id" class="form-control" value=""
+                                    <input type="number" name="id" id="drive-id-modal" class="form-control" value=""
                                         readonly>
                                 </div>
                                 <div class="col">
@@ -177,7 +164,7 @@
                                 <div class="col-4">
                                     <label class="form-label">Total Volunteers</label>
                                     <input type="text" class="form-control" name="present" id="drive-attended-by"
-                                        value="" required>
+                                        value="" required readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -229,7 +216,7 @@
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <button type="submit" class="btn btn-success" id="addModeratorBtn">ADD</button>
+                        <button type="submit" class="btn btn-success" id="addBtn" disabled>ADD</button>
                     </div>
                 </form>
             </div>
@@ -237,6 +224,53 @@
     </div>
 @endsection
 @section('scripts')
+
+    <script>
+        $(document).ready(function() {
+            $('#search-input').on('keyup', function() {
+                var query = $(this).val();
+                var driveId = $('#drive-id').val();
+
+                $.ajax({
+                    url: '{{ route('search.attendees') }}',
+                    method: 'GET',
+                    data: {
+                        query: query,
+                        drive_id: driveId
+                    },
+                    success: function(response) {
+                        $('#attendees-table-body').html(response);
+                    }
+                });
+            });
+
+            $('#getNameByRegnoBtn').on('click', function() {
+                var regno = $('#regno').val();
+                $.ajax({
+                    url: `/volunteer/getInfo/${encodeURIComponent(regno)}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#response-volunteer-name').val(response.name);
+                        $('#response-volunteer-email').val(response.email);
+                        $('#addBtn').prop('disabled', false);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX request failed: ', status, error);
+                        if (xhr.status === 404) {
+                            $('#response-volunteer-name').val('');
+                            $('#response-volunteer-email').val('');
+                            alert('Volunteer not found');
+                            $('#addBtn').prop('disabled', true);
+                        } else {
+                            alert('An error occurred: ' + error);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
     <script>
         $('.edit-drive').on('click', function() {
             $.ajax({
@@ -246,7 +280,7 @@
                 success: function(response) {
                     console.log(response);
                     var driveInfo = response;
-                    $('#drive-id').val(driveInfo.id);
+                    $('#drive-id-modal').val(driveInfo.id);
                     $('#drive-date').val(driveInfo.date);
                     $('#drive-from').val(driveInfo.from);
                     $('#drive-to').val(driveInfo.to);
