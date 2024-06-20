@@ -105,17 +105,20 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
 
     Route::post('volunteer/export', [VolunteerController::class, 'exportVolunteers'])->name('volunteer.export-post');
 
+    Route::get('drive/attendance/{driveId}', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
 
     // batch section start
 
     Route::get('batch/manage', [BatchController::class, 'manage'])->name('batch.manage');
+
     Route::post('batch/manage/create', [BatchController::class, 'create'])->name('batch.create');
 
     Route::get('batch/manage/edit', [BatchController::class, 'viewEdit'])->name('batch.view-edit');
+
     Route::post('batch/manage/update', [BatchController::class, 'updateBatchInfo'])->name('batch.update');
 
-    Route::get('drive/attendance/{driveId}', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
-    // Route::post('drive/attendance', [DriveController::class, 'getAttendees'])->name('attendance.getAttendees');
+    Route::delete('batch/manage/delete', [BatchController::class, 'delete'])->name('batch.delete');
+
 
     // ajax
     Route::get('drive/getInfo/{id}', [DriveController::class, 'getDriveInfo']);

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Batch;
-use Illuminate\Http\Request;
 use App\Models\Courses;
-use App\Http\Controllers\Controller;
 use App\Models\Volunteer;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 
 class BatchController extends Controller
@@ -166,5 +167,21 @@ class BatchController extends Controller
             return back()->with('success', 'Batch details updated successfully !');
         else
             return back()->with('error', 'Some error occured in updating batch details !');
+    }
+
+    public function delete(Request $request){
+
+        // delete all volunteers first
+        Volunteer::where('batch', $request->id)->delete();
+
+        $user_id = Batch::where('id', $request->id)->pluck('user_id')->first();
+
+        // delete batch
+        Batch::where('id', $request->id)->delete();
+
+        // block the student coordinator of the particular batch from login and remove access
+
+        User::where('id', $user_id)->update(['status' => 2]); // this means the user is blocked
+
     }
 }

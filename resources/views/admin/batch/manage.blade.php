@@ -87,10 +87,10 @@
                                                         target="_blank">View Form</a></li>
                                                 <button class="dropdown-item batchEditBtn" data-toggle="modal"
                                                     data-target="#editBatchModal"
-                                                    data-batch-Id="{{ $b['id'] }}">Edit</button>
+                                                    data-batch-id="{{ $b['id'] }}">Edit</button>
                                                 <button class="dropdown-item batchDeleteBtn" data-toggle="modal"
                                                     data-target="#deleteModal"
-                                                    data-batch-Id="{{ $b['id'] }}">Delete</button>
+                                                    data-batch-id="{{ $b['id'] }}">Delete</button>
                                             </ul>
                                         </div>
                                     </div>
@@ -102,6 +102,7 @@
             </div>
         </div>
     </div>
+
     <div id="editBatchModal" class="modal fade">
         <div class="modal-dialog edit-modal-diaglog">
             <div class="modal-content">
@@ -128,6 +129,38 @@
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
                         <button type="submit" class="btn btn-success" id="updateBatchInfoBtn">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('batch.delete') }}" method="POST">
+                    <div class="modal-body">
+                        @csrf
+                        @method('delete')
+                        <input type="hidden" name="id" value="id" id="delete-batch-id">
+                        <div class="form-row mb-2">
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    <i class="rounded-circle bi bi-exclamation-triangle-fill text-warning"
+                                        style="font-size: 50px;"></i>
+                                </div>
+                                <h4 class="text-center text-dark">Delete Batch</h6>
+                                    <p class="text-danger text-center">Are you sure you want to delete this batch ?
+                                        This
+                                        action cannot be undone. Export All volunteers before deleting the batch. </p>
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-secondary w-25 me-5"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger w-25">Yes, delete !</button>
+                                    </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -222,6 +255,10 @@
                     $('#create-btn').prop('disabled', true);
                     $('#updateBatchInfoBtn').prop('disabled', true);
                 }
+            });
+
+            $('.batchDeleteBtn').on('click', function() {
+                $('#delete-batch-id').val($(this).data('batch-id'));
             });
         });
     </script>
