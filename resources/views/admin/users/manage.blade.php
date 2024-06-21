@@ -42,6 +42,9 @@
                                                     <span><i class="bi-person-fill-check"></i> In-active</span>
                                                 </div>
                                             @endif
+                                            <div class="role mt-2">
+                                                <span>Batch: 2023-25</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -86,79 +89,78 @@
                     @endif
                 </div>
             @endforeach
-            @if ($moderatorCount < 2)
-                <div class="col-lg-3 col-md-3">
-                    <div class="card">
-                        <button data-target="#addModeratorModal" data-toggle="modal" class="btn">
-                            <div class="card-body">
-                                <div class="row text-center">
-                                    <div class="card-image">
-                                        <img src="https://cdn3.iconfinder.com/data/icons/line/36/add-512.png" width="70"
-                                            height="70" alt="user-image">
-                                    </div>
-                                    <div class="card-text mt-3">
-                                        <h5>Add Moderator</h5>
-                                    </div>
+            {{-- @if ($moderatorCount < 2) --}}
+            <div class="col-lg-3 col-md-3">
+                <div class="card">
+                    <button data-target="#addModeratorModal" data-toggle="modal" class="btn">
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="card-image">
+                                    <img src="https://cdn3.iconfinder.com/data/icons/line/36/add-512.png" width="70"
+                                        height="70" alt="user-image">
+                                </div>
+                                <div class="card-text mt-3">
+                                    <h5>Add Moderator</h5>
                                 </div>
                             </div>
-                        </button>
-                    </div>
+                        </div>
+                    </button>
                 </div>
-                {{-- moderator add modal start --}}
-                <div id="addModeratorModal" class="modal fade">
-                    <div class="modal-dialog delete-modal-diaglog">
-                        <div class="modal-content">
-                            <form action="{{ route('add-moderator') }}" method="POST" class="needs-validation" novalidate>
-                                @csrf
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Add Moderator</h4>
-                                    <button type="button" class="btn-close" data-dismiss="modal"
-                                        aria-hidden="true"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Registration no</label>
-                                        <div class="row">
-                                            <div class="col-9">
-                                                <input type="text" class="form-control" name="regno" id="regno"
-                                                    required>
-                                                <div class="invalid-feedback">
-                                                    Please enter a valid reg. No.
-                                                </div>
-                                            </div>
-                                            <div class="col-3">
-                                                <button type="button" class="btn btn-primary w-100"
-                                                    id="getNameByRegnoBtn">Verify</button>
+            </div>
+            {{-- moderator add modal start --}}
+            <div id="addModeratorModal" class="modal fade">
+                <div class="modal-dialog delete-modal-diaglog">
+                    <div class="modal-content">
+                        <form action="{{ route('add-moderator') }}" method="POST" class="needs-validation" novalidate>
+                            @csrf
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add Moderator</h4>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Registration no</label>
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <input type="text" class="form-control" name="regno" id="regno"
+                                                required>
+                                            <div class="invalid-feedback">
+                                                Please enter a valid reg. No.
                                             </div>
                                         </div>
+                                        <div class="col-3">
+                                            <button type="button" class="btn btn-primary w-100"
+                                                id="getNameByRegnoBtn">Verify</button>
+                                        </div>
                                     </div>
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="response-volunteer-name"
-                                            name="name" readonly required>
-                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="response-volunteer-name" name="name"
+                                        readonly required>
+                                </div>
 
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="response-volunteer-email"
-                                            value="" name="email" readonly required>
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label class="form-label">Password</label>
-                                        <input type="text" class="form-control" value="Smitnss@1234" name="password"
-                                            readonly required>
-                                    </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="response-volunteer-email" value=""
+                                        name="email" readonly required>
                                 </div>
-                                <div class="modal-footer">
-                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                    <button type="submit" class="btn btn-success" id="addModeratorBtn">ADD</button>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="text" class="form-control" value="Smitnss@1234" name="password" readonly
+                                        required>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <button type="submit" class="btn btn-success" id="addModeratorBtn">ADD</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                {{-- moderator add modal end --}}
-            @endif
+            </div>
+            {{-- moderator add modal end --}}
+            {{-- @endif --}}
         </div>
     </div>
 @endsection

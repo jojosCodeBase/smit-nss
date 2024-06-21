@@ -16,7 +16,7 @@ class BatchController extends Controller
     {
         $r->validate([
             'name' => ['required', 'string', 'unique:batches,name', 'max:10', 'regex:/^[0-9\-]+$/'],
-            'studentCoordinator' => 'required|string|max:50'
+            'studentCoordinator' => 'required|numeric'
         ], [
             'name.required' => 'The batch name field is required.',
             'name.string' => 'The batch name field must be a string.',
@@ -98,7 +98,8 @@ class BatchController extends Controller
     public function manage()
     {
         $batches = Batch::orderBy('created_at', 'desc')->get();
-        return view('admin.batch.manage', ['batches' => $batches]);
+        $coordinators = User::where('role', 2)->where('status', 1)->get();
+        return view('admin.batch.manage', compact('batches', 'coordinators'));
     }
 
     public function viewEdit()

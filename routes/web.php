@@ -102,6 +102,7 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::get('users/manage', [UserController::class, 'index'])->name('users.manage');
     Route::post('users/manage/add', [UserController::class, 'addModerator'])->name('add-moderator');
     Route::get('users/manage/view/{id}', [UserController::class, 'viewModerator'])->name('moderator-details');
+    Route::patch('users/manage/block', [UserController::class, 'blockUser'])->name('user.block');
 
     Route::post('volunteer/export', [VolunteerController::class, 'exportVolunteers'])->name('volunteer.export-post');
 
@@ -128,8 +129,6 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
 // });
 
 
-
-
 // for user panel
 Route::middleware(['isUser'])->prefix('user/')->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('user.home');
@@ -146,7 +145,6 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
     // Route::post('drive/attendance/add/getName', [VolunteerController::class, 'getName'])->name('getName');
 
     Route::delete('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('user.attendance.delete');
-
 });
 
 Route::middleware('auth')->group(function () {

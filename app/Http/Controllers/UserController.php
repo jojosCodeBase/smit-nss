@@ -44,4 +44,18 @@ class UserController extends Controller
         $details = User::where('id', $id)->first();
         return view('admin.users.view', compact('details'));
     }
+
+    public function blockUser(Request $request){
+        $request->validate([
+            'user_id' => 'required|numeric'
+        ]);
+
+        $userBlock = User::where('id', $request->user_id)->update(['status' => 2]); // set to 2 means blocked user
+
+        if($userBlock){
+            return redirect()->route('users.manage')->withSuccess('User blocked successfully');
+        }else{
+            return back()->withErrors('Some error occured in blocking user');
+        }
+    }
 }

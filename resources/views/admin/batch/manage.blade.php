@@ -19,10 +19,15 @@
                             </div>
                         </div>
                         <div class="col-md-5 col-lg-4 mt-lg-0 mt-xl-0 mt-md-0 mt-3">
-                            <input type="text" name="studentCoordinator" class="form-control"
-                                placeholder="Student Co-ordinator" required>
+                            <select name="studentCoordinator" class="form-select" required>
+                                <option value="">Select student co-ordinator from list</option>
+                                @foreach ($coordinators as $coordinator)
+                                    <option value="{{ $coordinator->id }}">{{ $coordinator->name }}</option>
+                                @endforeach
+                            </select>
+
                             <div class="invalid-feedback">
-                                Please enter a valid input.
+                                Please select an option.
                             </div>
                         </div>
                         <div class="col-md-2 col-lg-2 mt-lg-0 mt-xl-0 mt-md-0 mt-3">

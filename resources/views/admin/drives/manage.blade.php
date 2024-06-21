@@ -2,7 +2,7 @@
 @section('breadcrumb', 'Manage Drive')
 @section('title', 'Manage Drive')
 @section('content')
-@include('include/alerts')
+    @include('include/alerts')
     <div class="container-fluid p-0">
         <h2 class="text-center fw-bold">All Drives</h2>
         <div class="row">
@@ -37,37 +37,38 @@
                     <div class="card-header">
                         <h5 class="mb-0 h4 text-center fw-bold">Available Records</h5>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Sl.no</th>
-                                    <th>Title</th>
-                                    <th>Conducted by</th>
-                                    <th>Area</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($drives as $d)
-                                    @php
-                                        $slno = $loop->iteration;
-                                    @endphp
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-responsive">
+                                <thead>
                                     <tr>
-                                        <td>{{ $slno }}</td>
-                                        <td>{{ $d['title'] }}</td>
-                                        <td>{{ $d['conductedBy'] }}</td>
-                                        <td>{{ $d['area'] }}</td>
-                                        <td>{{ $d['date'] }}</td>
-                                        <td>
-                                            <a href="{{ route('drive.view', ['id' => $d['id']]) }}">View</a>
-                                            {{-- <button type="button" data-toggle="modal" data-target="#editDriveInfoDesktop">Edit</button> --}}
-                                        </td>
+                                        <th>Sl.no</th>
+                                        <th>Title</th>
+                                        <th>Conducted by</th>
+                                        <th>Area</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($drives as $d)
+                                        @php
+                                            $slno = $loop->iteration;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $slno }}</td>
+                                            <td>{{ $d['title'] }}</td>
+                                            <td>{{ $d['conductedBy'] }}</td>
+                                            <td>{{ $d['area'] }}</td>
+                                            <td>{{ $d['date'] }}</td>
+                                            <td>
+                                                <a href="{{ route('drive.view', ['id' => $d['id']]) }}">View</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,23 +90,23 @@
                             <div class="row mb-3">
                                 <div class="col">
                                     <label class="form-label">Drive Id</label>
-                                    <input type="number" name="id" id="drive-id" class="form-control"
-                                        value="" readonly>
+                                    <input type="number" name="id" id="drive-id" class="form-control" value=""
+                                        readonly>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">Drive Date</label>
-                                    <input type="text" name="date" id="drive-date" class="form-control"
-                                        value="" required>
+                                    <input type="text" name="date" id="drive-date" class="form-control" value=""
+                                        required>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">From</label>
-                                    <input type="time" class="form-control" id="drive-from" name="from"
-                                        value="" required>
+                                    <input type="time" class="form-control" id="drive-from" name="from" value=""
+                                        required>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">To</label>
-                                    <input type="time" class="form-control" name="to" id="drive-to"
-                                        value="" required>
+                                    <input type="time" class="form-control" name="to" id="drive-to" value=""
+                                        required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -116,13 +117,13 @@
                                 </div>
                                 <div class="col">
                                     <label class="form-label">Drive Area</label>
-                                    <input type="text" class="form-control" name="area" value=""
-                                        id="drive-area" required>
+                                    <input type="text" class="form-control" name="area" value="" id="drive-area"
+                                        required>
                                 </div>
                                 <div class="col">
                                     <label class="form-label">Conducted by</label>
-                                    <input type="text" class="form-control" name="conductedBy"
-                                        id="drive-conducted-by" value="" required>
+                                    <input type="text" class="form-control" name="conductedBy" id="drive-conducted-by"
+                                        value="" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -140,8 +141,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label class="form-label">Description</label>
-                                    <textarea name="description" cols="30" rows="5" class="form-control"
-                                        id="drive-description" required></textarea>
+                                    <textarea name="description" cols="30" rows="5" class="form-control" id="drive-description" required></textarea>
                                 </div>
                             </div>
                         </div>

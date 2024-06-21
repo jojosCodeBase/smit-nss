@@ -24,9 +24,16 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+
         if (!$user) {
             return back()->withErrors([
-                'email' => 'Username is not registered.',
+                'email' => 'Email not registered.',
+            ]);
+        }
+
+        if($user->status == 2){
+            return back()->withErrors([
+                'email' => 'Your account has been discontinued. Thank you for your service.'
             ]);
         }
 
