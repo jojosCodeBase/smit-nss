@@ -48,7 +48,7 @@
                                 <p>Ensure your account is using a long, random password to stay secure.</p>
                                 <form method="post" action="{{ route('password.update') }}">
                                     @csrf
-                                    @method('put')
+                                    @method('patch')
                                     <div class="form-group">
                                         <label class="form-label">Current Password</label>
                                         <input type="password" class="form-control" name="current_password">

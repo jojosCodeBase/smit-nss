@@ -24,18 +24,13 @@ use App\Http\Controllers\VolunteerController;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-
-// Route::get('/', [AuthenticatedSessionController::class, 'sessionValidate'])->name('root');
 Route::get('/', [AuthController::class, 'create'])->name('login-page');
 Route::post('login', [AuthController::class, 'store'])->name('login');
 
 Route::post('logout', [AuthController::class, 'destroy'])->name('logout');
 
 Route::get('batch/regsitrationForm/{batch}', [BatchController::class, 'registrationForm'])->name('batch.registration-form');
+
 Route::post('batch/regsitrationForm/register', [BatchController::class, 'register'])->name('volunteer-register-form');
 
 // routes for admin panel
@@ -46,12 +41,16 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::get('profile', [ProfileController::class, 'edit'])->name('admin.profile.edit');
 
     Route::get('courses/manage', [HomeController::class, 'manageCourses'])->name('courses.manage');
+
     Route::post('courses/add', [HomeController::class, 'addCourse'])->name('admin.add-course');
+
     Route::post('courses/update', [HomeController::class, 'updateCourse'])->name('admin.update-course');
 
     Route::prefix('volunteer')->group(function () {
         Route::get('add', [VolunteerController::class, 'add'])->name('volunteer.add');
+
         Route::post('add', [VolunteerController::class, 'insert'])->name('volunteer.add-new');
+
         Route::get('search', [VolunteerController::class, 'search'])->name('volunteer.search');
 
         // volunteer manage start
@@ -100,8 +99,11 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     // drive section end
 
     Route::get('users/manage', [UserController::class, 'index'])->name('users.manage');
+
     Route::post('users/manage/add', [UserController::class, 'addModerator'])->name('add-moderator');
+
     Route::get('users/manage/view/{id}', [UserController::class, 'viewModerator'])->name('moderator-details');
+
     Route::patch('users/manage/block', [UserController::class, 'blockUser'])->name('user.block');
 
     Route::post('volunteer/export', [VolunteerController::class, 'exportVolunteers'])->name('volunteer.export-post');
@@ -123,7 +125,9 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
 
     // ajax
     Route::get('drive/getInfo/{id}', [DriveController::class, 'getDriveInfo']);
+
     Route::get('batch/getInfo/{id}', [BatchController::class, 'getBatchInfo']);
+
     Route::get('batch/manage/updateStatus', [BatchController::class, 'updateStatus'])->name('batch.manage.updateStatus');
 });
 // });
@@ -134,37 +138,49 @@ Route::middleware(['isUser'])->prefix('user/')->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('user.home');
 
     Route::get('profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
+
     Route::get('volunteers/search', [VolunteerController::class, 'search'])->name('user.volunteer.search');
+
     Route::post('volunteers/search', [VolunteerController::class, 'searchDetails'])->name('user.volunteer.view-details');
 
     Route::get('drive/add', [DriveController::class, 'addView'])->name('user.drive.add');
-    Route::post('drive/add', [DriveController::class, 'addDrive'])->name('user.drive.add');
-    Route::get('drive/attendance/add', [DriveController::class, 'addAttendance'])->name('user.drive.add-attendance');
-    Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('user.drive.add.attendance');
 
-    // Route::post('drive/attendance/add/getName', [VolunteerController::class, 'getName'])->name('getName');
+    Route::post('drive/add', [DriveController::class, 'addDrive'])->name('user.drive.add');
+
+    Route::get('drive/attendance/add', [DriveController::class, 'addAttendance'])->name('user.drive.add-attendance');
+
+    Route::post('drive/attendance/add', [AttendanceController::class, 'add'])->name('user.drive.add.attendance');
 
     Route::delete('drive/attendance/delete', [AttendanceController::class, 'delete'])->name('user.attendance.delete');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('volunteer/getInfo/{regno}', [VolunteerController::class, 'getVolunteerInfo'])->name('getVolunteerById');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::patch('/password', [ProfileController::class, 'update'])->name('password.update');
+
+    Route::patch('/password', [ProfileController::class, 'updatePassword'])->name('password.update');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/search-attendees', [AttendanceController::class, 'search'])->name('search.attendees');
 });
 
+Route::get('register', function () {
+    return view('auth.register');
+})->name('register');
+
 Route::get('forgot-password', function () {
     return view('auth.forgot-password');
 })->name('forgot-password');
 
-Route::get('register', function () {
-    return view('auth.register');
-})->name('register');
-Route::get('confirm-password', function () {
-    return view('auth.confirm-password');
-})->name('confirm-password');
+Route::post('forgot-password', [AuthController::class, 'forgotPassword'])
+    ->name('password.email');
 
+Route::get('reset-password/{token}', [AuthController::class, 'resetPasswordView'])
+    ->name('password.reset');
+
+Route::post('reset-password', [AuthController::class, 'resetPassword'])
+    ->name('password.store');

@@ -30,6 +30,12 @@
                             </p>
                         </div>
 
+                        @if (session('success'))
+                            <div id="alertMessage" class="alert alert-warning">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
                         <div class="card">
                             <div class="card-body">
                                 <div class="m-sm-4">
