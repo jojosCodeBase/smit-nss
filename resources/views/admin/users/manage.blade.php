@@ -43,7 +43,9 @@
                                                 </div>
                                             @endif
                                             <div class="role mt-2">
-                                                <span>Batch: 2023-25</span>
+                                                @if (!is_null($u->batch))
+                                                    <span>Batch: {{ $u->batch->name }}</span>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

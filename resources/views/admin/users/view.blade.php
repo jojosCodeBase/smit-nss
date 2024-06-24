@@ -36,10 +36,11 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col d-flex justify-content-between">
+                            <div class="col d-flex justify-content-center">
                                 <button type="button" class="btn btn-info blockUserBtn" data-toggle="modal"
                                     data-target="#blockUserModal" data-user-id="{{ $details['id'] }}"><i
-                                        class="bi bi-ban"></i> Block</button>
+                                        class="bi bi-ban"></i>
+                                    {{ $details['status'] == 1 ? 'Block' : 'Unblock' }}</button>
                             </div>
                         </div>
                     </div>
@@ -53,7 +54,7 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="{{ route('user.block') }}" method="POST">
+                <form action="{{ route($details['status'] == 1 ? 'user.block' : 'user.unblock') }}" method="POST">
                     <div class="modal-body">
                         @csrf
                         @method('patch')
@@ -63,8 +64,8 @@
                                     <i class="rounded-circle bi bi-exclamation-triangle-fill text-warning"
                                         style="font-size: 50px;"></i>
                                 </div>
-                                <h4 class="text-center text-dark">Block User</h6>
-                                    <p class="text-danger text-center">Are you sure you want to block this user ?</p>
+                                <h4 class="text-center text-dark">{{ $details['status'] == 1 ? 'Block' : 'Unblock' }} User</h6>
+                                    <p class="text-danger text-center">Are you sure you want to {{ $details['status'] == 1 ? 'block' : 'unblock' }} this user ?</p>
                                     <input type="number" id="user_id" name="user_id" hidden>
                                     <div class="d-flex justify-content-center">
                                         <button type="button" class="btn btn-secondary w-25 me-5"

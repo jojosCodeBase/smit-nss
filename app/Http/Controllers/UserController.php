@@ -11,8 +11,9 @@ class UserController extends Controller
 {
     public function index(){
         $roles = [1, 2];
-        $users = User::whereIn('role', $roles)->get();
+        $users = User::with('batch')->whereIn('role', $roles)->get();
         $moderatorCount = User::where('role', 2)->count();
+
         return view('admin.users.manage', compact('users', 'moderatorCount'));
     }
 
@@ -56,6 +57,20 @@ class UserController extends Controller
             return redirect()->route('users.manage')->withSuccess('User blocked successfully');
         }else{
             return back()->withErrors('Some error occured in blocking user');
+        }
+    }
+
+    public function unblockUser(Request $request){
+        $request->validate([
+            'user_id' => 'required|numeric'
+        ]);
+
+        $userBlock = User::where('id', $request->user_id)->update(['status' => 1]); // set to 1 means unblocked user
+
+        if($userBlock){
+            return redirect()->route('users.manage')->withSuccess('User unblocked successfully');
+        }else{
+            return back()->withErrors('Some error occured in unblocking user');
         }
     }
 }

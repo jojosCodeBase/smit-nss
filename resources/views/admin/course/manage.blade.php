@@ -1,6 +1,6 @@
 @extends('layouts/admin-content')
-@section('title', 'Add Courses')
-@section('breadcrumb', 'Add Courses')
+@section('title', 'Manage Courses')
+@section('breadcrumb', 'Manage Courses')
 @section('content')
 
 @section('content')
@@ -61,8 +61,7 @@
                                                 <li>
                                                     <button class="dropdown-item deleteBtn" type="button"
                                                         data-bs-toggle="modal" data-bs-target="#deleteSubjectModal"
-                                                        data-course-id="{{ $course->id }}"
-                                                        data-course-name="{{ $course->name }}">Delete</button>
+                                                        data-course-id="{{ $course->id }}">Delete</button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -71,7 +70,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{-- {{ $courses->links() }} --}}
+                    {{ $courses->links() }}
                 </div>
             </div>
         </div>
@@ -150,10 +149,10 @@
 
                     <h4 class="text-center text-custom">Delete Course</h4>
 
-                    <p class="text-danger fs-6 text-center">Are you sure you want to delete this Corse? <br>This
+                    <p class="text-danger fs-6 text-center">Are you sure you want to delete this Course? <br>This
                         action cannot be undone</p>
 
-                    <form action="" method="POST">
+                    <form action="{{ route('admin.delete-course') }}" method="POST">
                         @csrf
                         @method('delete')
                         <input type="text" id="cid" name="cid" hidden>
@@ -176,6 +175,11 @@
         $('.editButton').on('click', function() {
             $('#edit-course').val($(this).data('course-name'));
             $('#edit-course_id').val($(this).data('course-id'));
+        });
+
+
+        $('.deleteBtn').on('click', function() {
+            $('#cid').val($(this).data('course-id'));
         });
     </script>
 @endsection

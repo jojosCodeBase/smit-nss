@@ -43,8 +43,8 @@ class BatchController extends Controller
     {
         $validatedData = $r->validate([
             'name' => 'required|string',
-            'regno' => ['required','numeric','unique:volunteers,id'],
-            'email' => ['required','email','unique:volunteers,email'],
+            'regno' => ['required', 'numeric', 'unique:volunteers,id'],
+            'email' => ['required', 'email', 'unique:volunteers,email'],
             'gender' => 'required|in:M,F,O',
             'phone' => 'required|numeric',
             'dob' => 'required|date',
@@ -52,7 +52,7 @@ class BatchController extends Controller
             'category' => 'required|string',
             'nationality' => 'required|string',
             'batch' => 'required|numeric',
-            'document' => ['required','numeric','unique:volunteers,document_number'],
+            'document' => ['required', 'numeric', 'unique:volunteers,document_number'],
             [
                 'regno.unique' => 'The registration number already exist.',
                 'email.unique' => 'The email already exist.',
@@ -97,8 +97,20 @@ class BatchController extends Controller
 
     public function manage()
     {
-        $batches = Batch::orderBy('created_at', 'desc')->get();
-        $coordinators = User::where('role', 2)->where('status', 1)->get();
+        // $batches = Batch::with('user')->orderBy('created_at', 'desc')->get();
+        // $coordinators = User::where('role', 2)->where('status', 1)->get();
+
+        $batches = Batch::with('user')->orderBy('created_at', 'desc')->get();
+
+        // Collect IDs of all coordinators who are already assigned to a batch
+        $assignedCoordinatorIds = $batches->pluck('user.id')->filter()->unique();
+
+        // Fetch all coordinators who are not assigned to any batch
+        $coordinators = User::where('role', 2)
+            ->where('status', 1)
+            ->whereNotIn('id', $assignedCoordinatorIds)
+            ->get();
+
         return view('admin.batch.manage', compact('batches', 'coordinators'));
     }
 
@@ -143,7 +155,7 @@ class BatchController extends Controller
     }
     public function updateBatchInfo(Request $r)
     {
-        if(!Batch::where('name', $r->batchName)->where('id', $r->id)->exists())
+        if (!Batch::where('name', $r->batchName)->where('id', $r->id)->exists())
             return back()->with('error', 'Batch with this name already exists');
 
         $r->validate([
@@ -170,7 +182,8 @@ class BatchController extends Controller
             return back()->with('error', 'Some error occured in updating batch details !');
     }
 
-    public function delete(Request $request){
+    public function delete(Request $request)
+    {
 
         // delete all volunteers first
         Volunteer::where('batch', $request->id)->delete();

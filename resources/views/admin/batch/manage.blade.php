@@ -57,7 +57,7 @@
                         @foreach ($batches as $b)
                             <tr>
                                 <td>{{ $b['name'] }}</td>
-                                <td>{{ $b['studentCoordinator'] }}</td>
+                                <td>{{ $b->user->name }}</td>
                                 <td>{{ $b['volunteers'] }}</td>
                                 @if ($b['status'] == 0)
                                     @php

@@ -14,4 +14,8 @@ class Batch extends Model
         'volunteers',
         'status',
     ];
+
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'studentCoordinator');
+    }
 }

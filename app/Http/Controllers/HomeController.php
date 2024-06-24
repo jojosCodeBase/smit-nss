@@ -31,7 +31,7 @@ class HomeController extends Controller
 
     public function manageCourses()
     {
-        return view('admin.course.manage', ['courses' => Courses::orderBy('name')->get()]);
+        return view('admin.course.manage', ['courses' => Courses::orderBy('name')->paginate(10)]);
     }
 
     public function updateCourse(Request $request)
@@ -63,5 +63,14 @@ class HomeController extends Controller
             return back()->withSuccess('Course added successfully');
         else
             return back()->withErrors('Some error occured in adding course');
+    }
+
+    public function deleteCourse(Request $request){
+        $course = Courses::where('id', $request->cid)->delete();
+
+        if($course)
+            return back()->withSuccess('Course deleted successfully');
+        else
+            return back()->withErrors('Some error occured in deleting course');
     }
 }

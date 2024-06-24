@@ -46,6 +46,8 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
 
     Route::post('courses/update', [HomeController::class, 'updateCourse'])->name('admin.update-course');
 
+    Route::delete('courses/delete', [HomeController::class, 'deleteCourse'])->name('admin.delete-course');
+
     Route::prefix('volunteer')->group(function () {
         Route::get('add', [VolunteerController::class, 'add'])->name('volunteer.add');
 
@@ -105,6 +107,8 @@ Route::middleware(['isAdmin'])->prefix('admin')->group(function () {
     Route::get('users/manage/view/{id}', [UserController::class, 'viewModerator'])->name('moderator-details');
 
     Route::patch('users/manage/block', [UserController::class, 'blockUser'])->name('user.block');
+
+    Route::patch('users/manage/unblock', [UserController::class, 'unblockUser'])->name('user.unblock');
 
     Route::post('volunteer/export', [VolunteerController::class, 'exportVolunteers'])->name('volunteer.export-post');
 
